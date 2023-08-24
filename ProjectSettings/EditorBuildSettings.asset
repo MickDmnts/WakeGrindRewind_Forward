@@ -6,39 +6,39 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/production/_Core/_GameEntry.unity
+    path: Assets/Scenes_dst/production/_Core/_GameEntry.unity
     guid: 01a28d58c4216aa4581d892d188e452e
   - enabled: 1
-    path: Assets/Scenes/production/Gameplay/MainMenu.unity
+    path: Assets/Scenes_dst/production/Gameplay/MainMenu.unity
     guid: 429439dff5d95c5439105c7daafa1fc8
   - enabled: 1
-    path: Assets/Scenes/production/_Core/UIRender.unity
+    path: Assets/Scenes_dst/production/_Core/UIRender.unity
     guid: ca66674145f091145ad602679ea9dd93
   - enabled: 1
-    path: Assets/Scenes/production/PlayerSpecific/PlayerScene.unity
+    path: Assets/Scenes_dst/production/PlayerSpecific/PlayerScene.unity
     guid: 28300cf047c4f91478c386d62e34de59
   - enabled: 1
-    path: Assets/Scenes/production/Gameplay/_NewGameIntroScene.unity
+    path: Assets/Scenes_dst/production/Gameplay/_NewGameIntroScene.unity
     guid: a16297a8094f3144586212cb5ce9f6da
   - enabled: 1
-    path: Assets/Scenes/production/PlayerSpecific/PLAYER_HUB.unity
+    path: Assets/Scenes_dst/production/PlayerSpecific/PLAYER_HUB.unity
     guid: e824462999d235a4a88fd9ba029f5c7b
   - enabled: 1
-    path: Assets/Scenes/production/PlayerSpecific/AbilitiesTutorial.unity
+    path: Assets/Scenes_dst/production/PlayerSpecific/AbilitiesTutorial.unity
     guid: c101378eb51583344bfcfbc35683e40b
   - enabled: 1
-    path: Assets/Scenes/production/Gameplay/Level01.unity
+    path: Assets/Scenes_dst/production/Gameplay/Level01.unity
     guid: dd473b1a271483f4c97efc0daa666392
   - enabled: 1
-    path: Assets/Scenes/production/Gameplay/Level02.unity
+    path: Assets/Scenes_dst/production/Gameplay/Level02.unity
     guid: 919cf84d63838eb448d80d1f4562a31d
   - enabled: 1
-    path: Assets/Scenes/production/Gameplay/Level03.unity
+    path: Assets/Scenes_dst/production/Gameplay/Level03.unity
     guid: fba9f2267bc37bf44a7e7da67abb7ed4
   - enabled: 1
-    path: Assets/Scenes/production/Gameplay/Level04.unity
+    path: Assets/Scenes_dst/production/Gameplay/Level04.unity
     guid: 7619df10f9072f64baf5a6b5a9e8cb57
   - enabled: 1
-    path: Assets/Scenes/production/Gameplay/Level05.unity
+    path: Assets/Scenes_dst/production/Gameplay/Level05.unity
     guid: 46fc70fbf6fbce746bb2595428e56af4
   m_configObjects: {}
