@@ -1,8 +1,11 @@
 using System.Collections;
 using UnityEngine;
-using WGR.Core;
 
-namespace WGR.Gameplay.AI
+using WGR.AI.Entities;
+using WGR.Core.Managers;
+using WGR.Entities;
+
+namespace WGR.Scripted
 {
     /* [CLASS DOCUMENTATION]
      * 

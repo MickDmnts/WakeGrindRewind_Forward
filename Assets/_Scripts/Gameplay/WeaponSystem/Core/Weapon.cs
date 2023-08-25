@@ -1,7 +1,7 @@
 using UnityEngine;
-using WGR.Core;
+using WGR.Core.Managers;
 
-namespace WGR.Gameplay.BattleSystem
+namespace WGR.BattleSystem
 {
     /// <summary>
     /// Every weapon category in the game

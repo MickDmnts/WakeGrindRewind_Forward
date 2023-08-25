@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using WGR.Core;
+using WGR.Core.Managers;
 
-namespace WGR.Core
+namespace WGR.UI
 {
     /* [CLASS DOCUMENTATION]
      * 

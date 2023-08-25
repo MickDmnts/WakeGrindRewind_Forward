@@ -1,4 +1,4 @@
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Entities
 {
     /* [CLASS DOCUMENTATION]
      * 

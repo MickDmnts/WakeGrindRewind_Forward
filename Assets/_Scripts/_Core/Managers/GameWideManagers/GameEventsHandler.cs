@@ -1,8 +1,7 @@
-﻿
-using System;
+﻿using System;
 using UnityEngine;
 
-namespace WGR.Core
+namespace WGR.Core.Managers
 {
     /* [CLASS DOCUMENTATION]
      * 

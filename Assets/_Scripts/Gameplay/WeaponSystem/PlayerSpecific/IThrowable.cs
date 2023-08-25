@@ -1,4 +1,4 @@
-namespace WGR.Gameplay.BattleSystem
+namespace WGR.Entities.BattleSystem
 {
     /// <summary>
     /// An interface that can be attached to any object we want to be throwable.

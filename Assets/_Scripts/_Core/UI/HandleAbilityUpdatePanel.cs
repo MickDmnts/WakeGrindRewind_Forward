@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using WGR.Core.Managers;
 
-namespace WGR.Core
+namespace WGR.UI
 {
     /* [CLASS DOCUMENTATION]
      * 

@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using WGR.Core;
-using WGR.Gameplay.BattleSystem;
+using WGR.BattleSystem;
+using WGR.Core.Managers;
 
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Entities.Hostile.Boss
 {
     /* [CLASS DOCUMENTATION]
      * 

@@ -1,4 +1,6 @@
-namespace WGR.Gameplay.AI
+using WGR.AI.Nodes;
+
+namespace WGR.AI.Entities.Hostile.Boss
 {
     /*
      * This class file handles the creation and caching of the Boss

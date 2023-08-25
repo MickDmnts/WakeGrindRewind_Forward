@@ -1,7 +1,7 @@
 using UnityEngine;
-using WGR.Gameplay.BattleSystem;
+using WGR.BattleSystem;
 
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Entities.Hostile.Generic
 {
     /* [CLASS DOCUMENTATION]
      * 

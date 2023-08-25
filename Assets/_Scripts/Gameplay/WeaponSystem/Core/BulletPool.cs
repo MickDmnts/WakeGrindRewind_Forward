@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using WGR.BattleSystem;
 
-namespace WGR.Gameplay.BattleSystem
+namespace WGR.Core.Managers
 {
     /// <summary>
     /// Every available bullet type in the game.

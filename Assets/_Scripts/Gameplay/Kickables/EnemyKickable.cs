@@ -1,7 +1,9 @@
 using UnityEngine;
-using WGR.Gameplay.AI;
+using WGR.AI.Entities;
+using WGR.Core.Managers;
+using WGR.Interactions;
 
-namespace WGR.Core
+namespace WGR.Entities
 {
     /* [CLASS DOCUMENTATION] 
      * 
@@ -66,7 +68,7 @@ namespace WGR.Core
             //Call the enemy stun interaction of collided enemies if the enemy got recently kicked.
             if (canStun)
             {
-                IInteractable interaction = collision.gameObject.GetComponent<AIEntity>();
+                IInteractable interaction = (IInteractable)collision.gameObject.GetComponent<AIEntity>();
 
                 if (interaction != null)
                 {

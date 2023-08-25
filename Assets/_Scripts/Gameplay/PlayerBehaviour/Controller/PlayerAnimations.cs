@@ -1,7 +1,8 @@
 using UnityEngine;
-using WGR.Gameplay.BattleSystem;
+using WGR.BattleSystem;
+using WGR.Core.Managers;
 
-namespace WGR.Core
+namespace WGR.Entities.Player
 {
     public class PlayerAnimations : MonoBehaviour
     {
@@ -86,7 +87,7 @@ namespace WGR.Core
         /// <summary>
         /// Call to play the respective player melee animation based on the weaponType passed.
         /// <para>Also disables WeaponHolding stance by calling SetRangedWeaponAnimation(...)</para>
-        /// </summary
+        /// </summary>
         public void PlayMeleeWeaponAnimation(WeaponType weaponType)
         {
             switch (weaponType)

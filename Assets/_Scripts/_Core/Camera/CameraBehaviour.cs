@@ -1,8 +1,9 @@
 using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
+using WGR.Core.Managers;
 
-namespace WGR.Core
+namespace WGR.Entities.Player
 {
     /* CLASS DOCUMENTATION *\
      * [Variable Specifics]

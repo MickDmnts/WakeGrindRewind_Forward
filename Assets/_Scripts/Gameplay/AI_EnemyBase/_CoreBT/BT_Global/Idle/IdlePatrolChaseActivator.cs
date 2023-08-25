@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Nodes
 {
     /* [Node Documentation]
      * 

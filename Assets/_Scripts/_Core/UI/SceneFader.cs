@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WGR.Core
+namespace WGR.UI
 {
     /* 
      * This script handles the fade in and fade out between scene changing.

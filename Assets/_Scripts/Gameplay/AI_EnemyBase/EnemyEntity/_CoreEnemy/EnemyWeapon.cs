@@ -1,9 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using WGR.Gameplay.BattleSystem;
-using WGR.Core;
+using WGR.BattleSystem;
+using WGR.Core.Managers;
+using WGR.Interactions;
 
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Entities.Hostile.Generic
 {
     /* [CLASS DOCUMENTATION]
      * 

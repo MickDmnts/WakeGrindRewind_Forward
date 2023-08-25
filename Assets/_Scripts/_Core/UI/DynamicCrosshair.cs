@@ -1,6 +1,7 @@
 using UnityEngine;
+using WGR.Core.Managers;
 
-namespace WGR.Core
+namespace WGR.UI
 {/* [CLASS DOCUMENTATION]
      * 
      * Inspector Variables: These variables must be asssigned from the inspector.

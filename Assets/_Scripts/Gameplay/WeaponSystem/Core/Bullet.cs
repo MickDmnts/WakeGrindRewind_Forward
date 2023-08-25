@@ -1,9 +1,9 @@
 using UnityEngine;
+using WGR.Core.Managers;
+using WGR.Interactions;
 
-namespace WGR.Gameplay.BattleSystem
+namespace WGR.BattleSystem
 {
-    using WGR.Core;
-
     /// <summary>
     /// The layers every bullet gameObject can exist on.
     /// </summary>

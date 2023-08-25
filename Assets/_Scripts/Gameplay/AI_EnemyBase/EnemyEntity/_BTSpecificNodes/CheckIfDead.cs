@@ -1,4 +1,6 @@
-namespace WGR.Gameplay.AI
+using WGR.AI.Entities.Hostile.Generic;
+
+namespace WGR.AI.Nodes
 {
     /* [Node Documentation]
      * 

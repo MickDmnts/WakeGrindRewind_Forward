@@ -1,4 +1,4 @@
-namespace WGR.Core
+namespace WGR.BattleSystem
 {
     /// <summary>
     /// A static class containing every speed a throwable can use.

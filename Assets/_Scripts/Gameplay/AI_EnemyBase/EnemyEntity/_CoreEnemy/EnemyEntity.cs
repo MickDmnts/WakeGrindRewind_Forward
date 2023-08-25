@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-using WGR.Core;
-using WGR.Gameplay.BattleSystem;
+using WGR.AI.FOV;
+using WGR.AI.Nodes;
+using WGR.BattleSystem;
+using WGR.Core.Managers;
 
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Entities.Hostile.Generic
 {
     /* [CLASS DOCUMENTATION]
      * 

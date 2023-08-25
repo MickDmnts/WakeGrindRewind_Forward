@@ -1,9 +1,10 @@
 using UnityEngine;
+using WGR.AI.Entities.Hostile.Generic;
 
-using WGR.Core;
-using WGR.Gameplay.AI;
+using WGR.Core.Managers;
+using WGR.Interactions;
 
-namespace WGR.Gameplay.BattleSystem
+namespace WGR.Entities.BattleSystem
 {
     /* [CLASS DOCUMENTATION]
      * 
@@ -98,7 +99,7 @@ namespace WGR.Gameplay.BattleSystem
 
             if (Physics.Raycast(forwardRay, out hitInfo, 1f, detectionLayers))
             {
-                IInteractable interaction = hitInfo.collider.GetComponent<EnemyEntity>();
+                IInteractable interaction = (IInteractable)hitInfo.collider.GetComponent<EnemyEntity>();
 
                 if (interaction != null)
                 {

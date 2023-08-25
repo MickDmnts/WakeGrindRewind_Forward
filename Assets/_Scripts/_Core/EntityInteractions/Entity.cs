@@ -1,6 +1,7 @@
 using UnityEngine;
+using WGR.Interactions;
 
-namespace WGR.Core
+namespace WGR.Entities
 {
     /* CLASS DOCUMENTATION *\
      * [Variable Specifics]

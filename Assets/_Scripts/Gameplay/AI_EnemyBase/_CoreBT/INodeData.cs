@@ -1,19 +1,18 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Nodes
 {
-    /*
-     * This interface is used to ensure type safety of the classes passed throughout the 
-     * Behaviour trees.
-     */
+    /// <summary>
+    /// Base interface for AI Node Data classes
+    /// </summary>
     public interface INodeData
     {
-        public void SetTargetIsDead(bool value);
-        public bool GetTargetIsDead();
-
         public void SetNavMeshAgent(NavMeshAgent agent);
         public NavMeshAgent GetNavMeshAgent();
+        
+        public void SetTargetIsDead(bool value);
+        public bool GetTargetIsDead();
 
         public void SetTarget(Transform target);
         public Transform GetTarget();

@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using WGR.Core;
+using WGR.AI.Entities.Hostile.Boss;
+using WGR.Core.Managers;
+using WGR.UI;
 
-namespace WGR.Gameplay.AI
+namespace WGR.Scripted
 {
     /* [CLASS DOCUMENTATION]
      * 

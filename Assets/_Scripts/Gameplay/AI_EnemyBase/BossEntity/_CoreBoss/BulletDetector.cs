@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
+using WGR.BattleSystem;
 
-using WGR.Gameplay.BattleSystem;
-
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Entities.Hostile.Boss
 {
     /* [CLASS DOCUMENTATION]
      * 

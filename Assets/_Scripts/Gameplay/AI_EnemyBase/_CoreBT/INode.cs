@@ -1,9 +1,8 @@
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Nodes
 {
-    /*
-     * This interface is used in behaviour tree node creation.
-     * It also ensures the type-safety of the classes.
-     */
+    /// <summary>
+    /// Interface used for Behaviour Tree traversing
+    /// </summary>
     public interface INode
     {
         /// <summary>

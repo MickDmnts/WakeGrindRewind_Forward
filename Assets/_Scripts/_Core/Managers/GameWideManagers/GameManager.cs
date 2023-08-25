@@ -1,7 +1,9 @@
 using UnityEngine;
-using WGR.Gameplay.BattleSystem;
 
-namespace WGR.Core
+using WGR.Entities.Player;
+using WGR.UI;
+
+namespace WGR.Core.Managers
 {
     /* [CLASS DOCUMENTATION]
      * 

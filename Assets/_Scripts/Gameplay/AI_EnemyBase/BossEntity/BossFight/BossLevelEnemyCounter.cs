@@ -1,7 +1,8 @@
 using UnityEngine;
-using WGR.Core;
 
-namespace WGR.Gameplay.AI
+using WGR.Core.Managers;
+
+namespace WGR.Scripted
 {
     /* [CLASS DOCUMENTATION]
      * 

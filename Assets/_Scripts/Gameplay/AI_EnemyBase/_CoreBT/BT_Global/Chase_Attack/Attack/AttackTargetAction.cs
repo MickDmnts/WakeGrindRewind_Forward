@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Nodes
 {
     /* [Node documentation]
      * 

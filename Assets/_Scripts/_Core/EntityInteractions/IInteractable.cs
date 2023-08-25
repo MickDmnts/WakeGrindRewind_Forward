@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace WGR.Core
+namespace WGR.Interactions
 {
     /*
      * [Must Know]

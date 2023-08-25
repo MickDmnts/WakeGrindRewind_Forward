@@ -1,9 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using WGR.Core;
 
-namespace WGR.Gameplay.AI
+using WGR.AI.FOV;
+using WGR.AI.Nodes;
+using WGR.Core.Managers;
+using WGR.Scripted;
+
+namespace WGR.AI.Entities.Hostile.Boss
 {
     /// <summary>
     /// All the available boss phases.

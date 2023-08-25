@@ -1,9 +1,11 @@
 using System;
 using UnityEngine;
-using WGR.Gameplay.AI;
-using WGR.Gameplay.BattleSystem;
 
-namespace WGR.Core
+using WGR.AI.Entities.Hostile.Generic;
+using WGR.BattleSystem;
+using WGR.Core.Managers;
+
+namespace WGR.Abilities
 {
     /* CLASS DOCUMENTATION *\
      * [Variable Specifics]

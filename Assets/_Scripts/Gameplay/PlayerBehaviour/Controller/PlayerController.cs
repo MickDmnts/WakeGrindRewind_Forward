@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using WGR.Core.Managers;
 
-namespace WGR.Core
+namespace WGR.Entities.Player
 {
     /* [CLASS DOCUMENTATION]
      * 

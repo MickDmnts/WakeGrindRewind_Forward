@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Entities.Hostile.Boss
 {
     /* [CLASS DOCUMENTATION]
      * 

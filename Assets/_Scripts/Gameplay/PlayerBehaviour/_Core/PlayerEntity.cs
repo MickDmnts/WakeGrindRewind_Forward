@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using WGR.Gameplay.BattleSystem;
+using WGR.Abilities;
+using WGR.Core.Managers;
 
-namespace WGR.Core
+namespace WGR.Entities.Player
 {
     /* [CLASS DOCUMENTATION]
      * 

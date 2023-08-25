@@ -1,4 +1,4 @@
-namespace WGR.Core
+namespace WGR.Core.Managers
 {
     /*
      * The purpose of this file is to cache the public field which are externally set,

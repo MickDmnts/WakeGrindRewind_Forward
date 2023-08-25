@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using WGR.Gameplay.BattleSystem;
+using WGR.BattleSystem;
+using WGR.Core.Managers;
 
-namespace WGR.Core
+namespace WGR.Scripted
 {
     /* [CLASS DOCUMENTATION]
      *

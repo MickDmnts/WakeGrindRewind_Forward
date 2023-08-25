@@ -1,6 +1,8 @@
 using UnityEngine;
+using WGR.Core.Managers;
+using WGR.UI;
 
-namespace WGR.Core
+namespace WGR.Scripted
 {
     public class AbilityTVActivator : MonoBehaviour
     {

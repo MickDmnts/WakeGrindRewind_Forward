@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace WGR.Core
+namespace WGR.Core.Managers
 {
     public enum GameAudioClip
     {

@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WGR.Core.Managers;
+using WGR.Entities.Player;
+using WGR.UI;
 
-namespace WGR.Core
+namespace WGR.Scripted
 {
     /// <summary>
     /// This class is used for better sentence-icon handling in the inspector.
     /// </summary>
     [System.Serializable]
-    public class ScriptedSequence
+    public class ScriptedSequence //CHANGE TO STRUCT
     {
         public List<string> sentences;
         public List<Sprite> imagePerSentence;

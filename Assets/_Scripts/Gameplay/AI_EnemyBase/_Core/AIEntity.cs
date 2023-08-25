@@ -1,9 +1,12 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-using WGR.Core;
+using WGR.AI.Entities.Hostile;
+using WGR.AI.FOV;
+using WGR.AI.Nodes;
+using WGR.Entities;
 
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Entities
 {
     /// <summary>
     /// All the available gameObject layers the enemy AI can exist on.

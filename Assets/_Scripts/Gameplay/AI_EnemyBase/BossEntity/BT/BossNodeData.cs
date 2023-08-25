@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
+using WGR.AI.Entities.Hostile.Boss;
 
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Nodes
 {
     /*
      * This class file is purely used as a data container for the necessary
@@ -10,7 +11,7 @@ namespace WGR.Gameplay.AI
     [System.Serializable]
     public class BossNodeData : INodeData
     {
-        #region GENERAL_USAE
+        #region GENERAL_USE
         BossEntity enemyEntity; //Cached through the BossNodeData creation.
         BossAnimations enemyAnimations; //Cached through the BossNodeData creation.
         NavMeshAgent agent; //Cached through the BossNodeData creation.
@@ -29,7 +30,7 @@ namespace WGR.Gameplay.AI
         bool isStunned; //BossEntity controlled value.
         #endregion
 
-        #region Attack behavour flow
+        #region Attack behaviour flow
         Transform target; //Assigned through the AIEntity manager.
         bool canShoot;//BossEntity controlled value.
 

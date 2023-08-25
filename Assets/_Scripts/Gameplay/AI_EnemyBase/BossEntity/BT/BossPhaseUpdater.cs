@@ -1,4 +1,4 @@
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Nodes
 {
     /* [Node Documentation]
      * Universal node that just runs and returns the phaseBehaviour INode value.

@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using WGR.Core.Managers;
 
-namespace WGR.Core
+namespace WGR.UI
 {
     /* [CLASS DOCUMENTATION]
      * 

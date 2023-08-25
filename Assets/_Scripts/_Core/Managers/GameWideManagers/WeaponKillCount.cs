@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-
 using UnityEngine;
-using WGR.Core;
 
-namespace WGR.Gameplay.BattleSystem
+using WGR.BattleSystem;
+
+namespace WGR.Core.Managers
 {
     /// <summary>
     /// This struct is used to store weapon kill counts and weapon types tied together.

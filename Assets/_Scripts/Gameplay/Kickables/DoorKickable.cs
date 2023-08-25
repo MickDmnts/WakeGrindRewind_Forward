@@ -1,7 +1,9 @@
 using UnityEngine;
-using WGR.Gameplay.AI;
+using WGR.AI.Entities;
+using WGR.Core.Managers;
+using WGR.Interactions;
 
-namespace WGR.Core
+namespace WGR.Entities
 {
     /* [CLASS DOCUMENTATION] 
      * 
@@ -115,7 +117,7 @@ namespace WGR.Core
                     kickable.SimulateKnockback(transform.position);
                 }
 
-                IInteractable interaction = collision.gameObject.GetComponent<EnemyEntity>();
+                IInteractable interaction = (IInteractable)collision.gameObject.GetComponent<AIEntity>();
                 if (interaction != null)
                 {
                     interaction.StunInteraction();

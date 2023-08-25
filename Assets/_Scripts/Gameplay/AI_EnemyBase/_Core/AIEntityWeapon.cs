@@ -1,7 +1,8 @@
 using UnityEngine;
-using WGR.Gameplay.BattleSystem;
+using WGR.BattleSystem;
+using WGR.Entities.BattleSystem;
 
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Entities.Hostile
 {
     /* [CLASS DOCUMENTATION]
      * 
@@ -28,7 +29,9 @@ namespace WGR.Gameplay.AI
         #endregion
 
         #region PROTECTED_METHODS
-        //Called in start to set weapon management defaults.
+        /// <summary>
+        /// Called in start to set weapon management defaults.
+        /// </summary>
         protected abstract void SetStartDefaults();
 
         /// <summary>

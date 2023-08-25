@@ -1,8 +1,12 @@
 using System.Collections;
 using UnityEngine;
-using WGR.Core;
 
-namespace WGR.Gameplay.BattleSystem
+using WGR.BattleSystem;
+using WGR.Core.Managers;
+using WGR.Entities.BattleSystem;
+using WGR.Interactions;
+
+namespace WGR.Entities.Player
 {
     /* [CLASS DOCUMENTATION]
      * 

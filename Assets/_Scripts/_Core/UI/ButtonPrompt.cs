@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WGR.Core
+namespace WGR.UI
 {
     /* [CLASS DOCUMENTATION]
      * 

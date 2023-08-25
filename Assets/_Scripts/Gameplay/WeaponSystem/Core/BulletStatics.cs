@@ -1,6 +1,6 @@
-using WGR.Core;
+using WGR.Core.Managers;
 
-namespace WGR.Gameplay.BattleSystem
+namespace WGR.BattleSystem
 {
     /* 
      * The purpose of this static class is to cache the bullet speeds of the game.

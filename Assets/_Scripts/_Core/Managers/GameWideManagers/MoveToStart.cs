@@ -1,6 +1,7 @@
 using UnityEngine;
+using WGR.Core.Managers;
 
-namespace WGR.Core
+namespace WGR.Scripted
 {
     /* [CLASS DOCUMENTATION]
      * 

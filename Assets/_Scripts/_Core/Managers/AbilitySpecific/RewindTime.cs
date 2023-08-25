@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
 
-using WGR.Gameplay.AI;
-using WGR.Gameplay.BattleSystem;
+using WGR.AI.Entities.Hostile.Generic;
+using WGR.BattleSystem;
+using WGR.Core.Managers;
 
-namespace WGR.Core
+namespace WGR.Abilities
 {
     /* CLASS DOCUMENTATION *\
      * [Variable Specifics]
@@ -28,7 +29,7 @@ namespace WGR.Core
 
     public class RewindTime : Ability
     {
-        //The Rewinder is created so we have access to runtime MonoBehvaiour.
+        //The Rewinder is created so we have access to runtime MonoBehaviour.
         Rewinder Rewinder { get; set; }
         Action externalCallback;
 

@@ -2,8 +2,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
-using WGR.Gameplay.BattleSystem;
+using WGR.BattleSystem;
 
 /* [CLASS DOCUMENTATION]
 * 
@@ -13,7 +12,7 @@ using WGR.Gameplay.BattleSystem;
 *  1. This class runs exactly before the main menu scene loads and checks for a present save data file in the users Documents folder.
 */
 
-namespace WGR.Core
+namespace WGR.Core.Managers
 {
     [DefaultExecutionOrder(10)]
     public class SaveDataHandler : MonoBehaviour

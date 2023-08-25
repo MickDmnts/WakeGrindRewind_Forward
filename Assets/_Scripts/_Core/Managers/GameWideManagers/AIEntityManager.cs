@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using WGR.Gameplay.AI;
+using WGR.AI.Entities;
+using WGR.AI.FOV;
 
-namespace WGR.Core
+namespace WGR.Core.Managers
 {
     /* CLASS DOCUMENTATION *\
      * 

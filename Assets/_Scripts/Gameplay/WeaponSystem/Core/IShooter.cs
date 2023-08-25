@@ -1,4 +1,4 @@
-namespace WGR.Gameplay.BattleSystem
+namespace WGR.BattleSystem
 {
     /* 
      * Interface containing the necessary shooting mechanism methods. 

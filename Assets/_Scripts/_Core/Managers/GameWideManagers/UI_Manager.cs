@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using WGR.UI;
 
-namespace WGR.Core
+namespace WGR.Core.Managers
 {
     /// <summary>
     /// All the available in-game UI panels that can be activated.

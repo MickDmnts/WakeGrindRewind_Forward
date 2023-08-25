@@ -1,9 +1,8 @@
 using UnityEngine;
+using WGR.Core.Managers;
 
-namespace WGR.Gameplay.BattleSystem
+namespace WGR.BattleSystem
 {
-    using WGR.Core;
-
     /* [CLASS DOCUMENTATION]
     * 
     * Inspector variable : Must be set from the inspector

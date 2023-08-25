@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace WGR.Gameplay.AI
+using WGR.AI.Entities.Hostile.Generic;
+
+namespace WGR.AI.Nodes
 {
     /*
      * This class file is purely used as a data container for the necessary

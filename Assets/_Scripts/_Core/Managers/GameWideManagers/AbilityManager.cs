@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using WGR.Abilities;
 
-namespace WGR.Core
+namespace WGR.Core.Managers
 {
     /// <summary>
     /// All the available abilities the player has.

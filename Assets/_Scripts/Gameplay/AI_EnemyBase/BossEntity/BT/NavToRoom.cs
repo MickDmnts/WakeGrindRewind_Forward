@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 using WGR.Core;
+using WGR.Core.Managers;
 
-namespace WGR.Gameplay.AI
+namespace WGR.AI.Nodes
 {
     /* [Node documentation]
      * 

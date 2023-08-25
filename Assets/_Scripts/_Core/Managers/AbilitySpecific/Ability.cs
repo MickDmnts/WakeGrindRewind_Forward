@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
+using WGR.Core.Managers;
 
-namespace WGR.Core
+namespace WGR.Abilities
 {
     /* CLASS DOCUMENTATION *\
      * [Variable Specifics]

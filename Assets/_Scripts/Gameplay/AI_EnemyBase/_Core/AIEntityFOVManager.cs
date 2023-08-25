@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-using WGR.Core;
+using WGR.AI.Entities;
+using WGR.Core.Managers;
 
-namespace WGR.Gameplay.AI
+namespace WGR.AI.FOV
 {
     /// <summary>
     /// A class used to transfer inpector given data to the FOV manager in runtime.

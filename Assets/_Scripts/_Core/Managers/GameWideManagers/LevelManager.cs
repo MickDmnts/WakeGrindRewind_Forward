@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-namespace WGR.Core
+using WGR.UI;
+
+namespace WGR.Core.Managers
 {
     /// <summary>
     /// All the game scenes enumerated for ease of access, the index MUST be the same as 

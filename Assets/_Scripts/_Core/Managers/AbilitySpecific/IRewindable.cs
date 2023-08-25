@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WGR.Core
+namespace WGR.Abilities
 {
     /// <summary>
     /// This interface can be attached to any gameObject to 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace WGR.Gameplay.AI
+namespace WGR.AI.FOV
 {
     /* [CLASS DOCUMENTATION]
      * 

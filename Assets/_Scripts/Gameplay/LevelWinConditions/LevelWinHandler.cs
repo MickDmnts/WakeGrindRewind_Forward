@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using WGR.Scripted;
 
-using WGR.Core;
-
-namespace WGR.Gameplay
+namespace WGR.Core.Managers
 {
     /* CLASS DOCUMENTATION *\
      * [Variable Specifics]

@@ -1,6 +1,8 @@
 using UnityEngine;
 
-namespace WGR.Gameplay.BattleSystem
+using WGR.BattleSystem;
+
+namespace WGR.Entities.BattleSystem
 {
 
     /* [CLASS DOCUMENTATIONS]
