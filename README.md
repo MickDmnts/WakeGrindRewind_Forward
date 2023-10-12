@@ -1,4 +1,4 @@
-# Wake Grind Rewind: Redefined
+# Wake Grind Rewind: Redux
 
 ## Topics
 
