@@ -1,4 +1,4 @@
-# Wake Grind Rewind: Redux
+# Wake Grind Rewind: Forward
 
 ## Topics
 
@@ -7,7 +7,7 @@
 
 ## Introduction
 
-This is the official WGR: Redux repository of Pixel Perfect.
+This is the official WGR: Forward repository of Pixel Perfect.
 
 ## References
 
