@@ -7,7 +7,7 @@
 
 ## Introduction
 
-This is the official WGR:Redefined repository of Pixel Perfect.
+This is the official WGR: Redux repository of Pixel Perfect.
 
 ## References
 
