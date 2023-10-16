@@ -10,7 +10,7 @@ namespace WGRF.Core
 
         #region MANAGERS
         public GameEventsHandler GameEventHandler { get; private set; }
-        //public LevelManager LevelManager { get; private set; }
+        public LevelManager LevelManager { get; private set; }
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
         public BulletPool BulletPool { get; private set; }
