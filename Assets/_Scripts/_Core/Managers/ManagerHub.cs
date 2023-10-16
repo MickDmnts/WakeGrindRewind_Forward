@@ -5,6 +5,7 @@ namespace WGRF.Core
     [DefaultExecutionOrder(25)]
     public class ManagerHub : MonoBehaviour
     {
+        ///<summary>Manager Hub reference</summary>
         public static ManagerHub S;
 
         #region MANAGERS

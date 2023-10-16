@@ -14,7 +14,6 @@ namespace WGRF.Core
             }
         }
 
-
         /// <summary>
         /// Called whenever the game pauses
         /// </summary>

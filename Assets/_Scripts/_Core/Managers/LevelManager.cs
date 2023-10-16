@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using WGRF.Core;
 
 namespace WGRF.Core
 {
@@ -26,21 +25,22 @@ namespace WGRF.Core
     [DefaultExecutionOrder(125)]
     public class LevelManager : MonoBehaviour
     {
+        ///<summary>The essential scenes that will never get unloaded</summary>
         [Header("Set the desired essential game scenes.\n" +
             "These scenes will never get unloaded")]
         [SerializeField] List<GameScenes> essentialScenes;
 
+        ///<summary>Level load packets list</summary>
         [Header("Populate the list with all the level load packets of the game.")]
         [SerializeField] List<LevelLoadPacket> levelsInLoadOrder;
 
+        ///<summary>Packet to dicectly load the player hub.</summary>
         [Header("Set for manual index traveling")]
         [SerializeField] LevelLoadPacket toPlayerHubPacket;
-        [SerializeField] LevelLoadPacket toNewGamePacket;
-        [SerializeField] LevelLoadPacket toLoadGamePacket;
-        [SerializeField] LevelLoadPacket toAbilitiesTests;
 
-        //Dynamically changed
+        ///<summary>The currently loaded scenes</summary>
         List<GameScenes> currentlyLoadedScenes = new List<GameScenes>();
+        ///<summary>The index of the last loaded scene packet</summary>
         int lastLoadedPacketIndex = 0;
 
         /// <summary>
@@ -48,6 +48,7 @@ namespace WGRF.Core
         /// calls the OnSceneChanged() event;
         /// </summary>
         private GameScenes[] _activeScenes;
+        ///<summary>Returns the active scenes array</summary>
         public GameScenes[] ActiveScene
         {
             get { return _activeScenes; }
@@ -57,7 +58,9 @@ namespace WGRF.Core
             }
         }
 
+        ///<summary>The currently focused scene</summary>
         private GameScenes _focusedScene;
+        ///<summary>The currently focused scene</summary>
         public GameScenes FocusedScene
         {
             get { return _focusedScene; }
@@ -73,24 +76,10 @@ namespace WGRF.Core
             LoadNext(false);
         }
 
+        ///<summary>Forcefully loads the player hub.</summary>
         public void TransitToPlayerHub()
         {
             ForceLoad(toPlayerHubPacket.PacketIndex);
-        }
-
-        public void StartNewGameScene()
-        {
-            ForceLoad(toNewGamePacket.PacketIndex);
-        }
-
-        public void LoadGameScene()
-        {
-            ForceLoad(toLoadGamePacket.PacketIndex);
-        }
-
-        public void TransitToAbilitiesTests()
-        {
-            ForceLoad(toAbilitiesTests.PacketIndex);
         }
 
         #region NORMAL_PACKET_HANDLING
@@ -106,6 +95,11 @@ namespace WGRF.Core
             StartCoroutine(InitiateUnloadLoadSequence(fromForceLoad, packetIndex));
         }
 
+        /// <summary>
+        /// Unloads then loads the next level packet in the manager
+        /// </summary>
+        /// <param name="fromForceLoad">If true, directly loads the passed packet index.</param>
+        /// <param name="packetIndex">The packet index to load</param>
         IEnumerator InitiateUnloadLoadSequence(bool fromForceLoad, int packetIndex = 0)
         {
             foreach (GameScenes scene in levelsInLoadOrder[lastLoadedPacketIndex].ScenesToUnload)
@@ -148,7 +142,6 @@ namespace WGRF.Core
 
         /// <summary>
         /// Call to load every CURRENT packet scene with LoadSceneMode.Additive.
-        /// Also adds every loaded scene to the currentlyLoadedScenes list.
         /// </summary>
         IEnumerator _LoadPacketScenes(bool fromForceLoad, int packetIndex = 0)
         {
