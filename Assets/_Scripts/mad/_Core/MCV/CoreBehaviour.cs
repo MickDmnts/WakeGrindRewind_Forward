@@ -5,12 +5,13 @@ namespace WGRF.Core
 {
     public abstract class CoreBehaviour : MonoBehaviour
     {
-        /// <summary>The Controller that this component will register into.</summary>
-        [SerializeField, Tooltip("The Controller that this component will register into. Depreciated: Do not use direct assignment of controllers to this field by script, instead use the SetController method.")]
-        Controller _controller;
+        [Header("Set controller component unique ID")]
         /// <summary>The ID of the specific Component registered into the assigned Controller.</summary>
         [SerializeField, Tooltip("The ID of the specific Component registered into the assigned Controller.")]
         string _id = "";
+
+        /// <summary>The Controller that this component will register into.</summary>
+        Controller _controller;
 
         /// <summary>Gives access to the assigned controller.</summary>
         public Controller Controller => _controller;
