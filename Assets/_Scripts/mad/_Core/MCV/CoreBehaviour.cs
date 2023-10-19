@@ -13,6 +13,8 @@ namespace WGRF.Core
         /// <summary>The Controller that this component will register into.</summary>
         Controller _controller;
 
+        /// <summary>Gives access to the Hub.</summary>
+        public Hub Hub => Hub.Instance;
         /// <summary>Gives access to the assigned controller.</summary>
         public Controller Controller => _controller;
         /// <summary>Returns the assigned component ID to the Controller.</summary>
