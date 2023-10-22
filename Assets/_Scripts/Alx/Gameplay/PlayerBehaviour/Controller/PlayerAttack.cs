@@ -129,7 +129,7 @@ namespace WGRF.Entities.Player
                     GameManager.S.PlayerEntity.PlayerAnimations.SetRangedWeaponAnimation(false);
                 }
             }
-
+            
             //Show the equiped weapon on the UI.
             UpdateWeaponsUI(weapon, weapon.weaponAmmoSprite);
 
@@ -165,12 +165,25 @@ namespace WGRF.Entities.Player
             UpdateWeaponsUI(weapon, weapon.weaponAmmoSprite);
         }
 
+        //ALEX COMMENTS
+        /*
+         * Since player no longer can switch between weapons, because he keeps the "lastly upgraded weapon", maybe change the following method
+         * to host the "throw picked up stuff" ?
+         * 
+         */
+
+
         /// <summary>
         /// Call to transfer a weapon gameObject instance from the WeaponManager.GetWeaponByType(...) 
         /// based on the equiped player weapon and place it in front of the player.
         /// <para>Early exits if the equiped weapon is null OR is of Unarmed weaponCategory.</para>
         /// <para>Calls ClearWeaponsUI()</para>
         /// </summary>
+        /// 
+
+        /*
+         * ALEX COMMENTS: Commented out the method as we no longer drop equipped weapons.
+         * 
         public void DropEquipedWeapon()
         {
             if (equipedWeapon == null) return;
@@ -187,6 +200,8 @@ namespace WGRF.Entities.Player
                 ClearWeaponsUI();
             }
         }
+       */
+
 
         /// <summary>
         /// Call to set the bullet and bulletsLeft UI elements to null and String.Empty respectivaly.
@@ -242,11 +257,16 @@ namespace WGRF.Entities.Player
                 SetIsShooting(false);
             }
 
-            if (Input.GetButtonDown("Fire2") && equipedWeapon.WeaponType != WeaponType.Punch)
+            //ALEX COMMENTS
+            /*
+             * Following is commented out cause no longer needed.
+             * 
+             */
+           /* if (Input.GetButtonDown("Fire2") && equipedWeapon.WeaponType != WeaponType.Punch)
             {
                 ThrowWeapon();
                 SetWeaponInfo(defaultWeapon);
-            }
+            }*/
         }
 
         /// <summary>
@@ -286,6 +306,15 @@ namespace WGRF.Entities.Player
 
                 case WeaponCategory.Ranged:
                     Shoot();
+
+                    OnAttackReset();
+                    break;
+         /*
+          * ALEX COMMENTS: Made sure there is a throwable item case
+          */
+          
+                case WeaponCategory.Throwable:
+                    Throw();
 
                     OnAttackReset();
                     break;
@@ -513,14 +542,52 @@ namespace WGRF.Entities.Player
         /// <para>Then play the player throw animation and a weapon throw SFX.</para>
         /// <para>Calls ClearWeaponsUI() at the end.</para>
         /// </summary>
-        void ThrowWeapon()
+        /// 
+
+        //ALEX COMMENT: Commented out this section since we do not really need throwable weapons
+
+        /*  void ThrowWeapon()
+          {
+              if (GameManager.S != null)
+              {
+                  GameManager.S.PlayerEntity.PlayerAnimations.SetRangedWeaponAnimation(false);
+              }
+
+              GameObject toBeThrown = GameManager.S.WeaponManager.GetWeaponByType(equipedWeapon.WeaponType, bulletsLeft);
+
+              if (toBeThrown != null)
+              {
+                  toBeThrown.transform.position = firePoint.position;
+                  toBeThrown.transform.rotation = firePoint.rotation;
+
+                  toBeThrown.SetActive(true);
+
+                  IThrowable throwable = toBeThrown.GetComponent<IThrowable>();
+
+                  if (throwable != null)
+                  {
+                      throwable.InitiateThrow();
+
+                      if (GameManager.S != null)
+                      {
+                          GameManager.S.PlayerEntity.PlayerAnimations.PlayThrowAnimation();
+                          GameManager.S.GameSoundsHandler.PlayOneShot(GameAudioClip.WeaponThrow);
+                      }
+
+                      ClearWeaponsUI();
+                  }
+              }
+          }*/
+
+        //ALEX COMMENT: Created this section identical to throwing a weapon, need to implement GameManager.S.WeaponManager.GetHeldItem()
+        void Throw ()
         {
             if (GameManager.S != null)
             {
                 GameManager.S.PlayerEntity.PlayerAnimations.SetRangedWeaponAnimation(false);
             }
-
-            GameObject toBeThrown = GameManager.S.WeaponManager.GetWeaponByType(equipedWeapon.WeaponType, bulletsLeft);
+          
+            GameObject toBeThrown = GameManager.S.WeaponManager.GetHeldItem();
 
             if (toBeThrown != null)
             {
@@ -541,7 +608,6 @@ namespace WGRF.Entities.Player
                         GameManager.S.GameSoundsHandler.PlayOneShot(GameAudioClip.WeaponThrow);
                     }
 
-                    ClearWeaponsUI();
                 }
             }
         }
