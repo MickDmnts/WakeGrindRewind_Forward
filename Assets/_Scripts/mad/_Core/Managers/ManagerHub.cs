@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace WGRF.Core
 {
-    [DefaultExecutionOrder(25)]
+    [DefaultExecutionOrder(-500)]
     public class ManagerHub : MonoBehaviour
     {
         ///<summary>Manager Hub reference</summary>
