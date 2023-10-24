@@ -41,12 +41,20 @@ namespace WGRF.Core
                 S = this;
             }
 
+            CreateManagers();
+
             //============================================
             //To be moved to cursor handler class
             /*QualitySettings.vSyncCount = 1;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Confined;*/
             //============================================
+        }
+
+        void CreateManagers()
+        {
+            _gameEventsHandler = new GameEventsHandler();
+            _database = new Database();
         }
 
         /// <summary>
