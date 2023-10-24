@@ -12,11 +12,15 @@ namespace WGRF.Core
         GameEventsHandler _gameEventsHandler;
         ///<summary>LevelManager reference</summary>
         LevelManager _levelManager;
+        ///<summary>Database handler reference</summary>
+        Database _database;
 
         ///<summary>Returns the GameEventsHandler reference</summary>
         public GameEventsHandler GameEventHandler => _gameEventsHandler;
         ///<summary>Returns the LevelManager reference</summary>
         public LevelManager LevelManager => _levelManager;
+        ///<summary>Returns the Database handler reference</summary>
+        public Database Database => _database;
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
         public BulletPool BulletPool { get; private set; }
