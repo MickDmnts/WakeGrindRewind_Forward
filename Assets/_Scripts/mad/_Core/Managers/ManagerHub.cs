@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using WGRF.Bus;
+
 namespace WGRF.Core
 {
     [DefaultExecutionOrder(-500)]
