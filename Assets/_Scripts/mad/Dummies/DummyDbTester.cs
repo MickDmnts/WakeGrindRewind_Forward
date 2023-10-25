@@ -12,8 +12,32 @@ public class DummyDbTester : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if(ManagerHub.S.Database.AddPlayerRecord(new WGRF.Bus.PlayerRecord(rank, plName, score)))
+            if (ManagerHub.S.Database.AddPlayerRecord(new WGRF.Bus.PlayerRecord(rank, plName, score)).Result)
             { Debug.Log("record successfully inserted"); }
+        }
+
+        /*if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (ManagerHub.S.Database.UpdatePlayerRecord(plName, new WGRF.Bus.PlayerRecord(rank, plName, score)).Result)
+            { Debug.Log("record successfully updated"); }
+        }*/
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (ManagerHub.S.Database.UpdatePlayerRecord(rank, new WGRF.Bus.PlayerRecord(rank, plName, score)).Result)
+            { Debug.Log("record successfully updated"); }
+        }
+
+        /*if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            if (ManagerHub.S.Database.DeletePlayerRecord(plName).Result)
+            { Debug.Log("record successfully deleted"); }
+        }*/
+        
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            if (ManagerHub.S.Database.DeletePlayerRecord(rank).Result)
+            { Debug.Log("record successfully deleted"); }
         }
     }
 }
