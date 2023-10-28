@@ -16,6 +16,8 @@ namespace WGRF.Core
         LevelManager _levelManager;
         ///<summary>Database handler reference</summary>
         Database _database;
+        ///<summary>The cursor handler reference</summary>
+        CursorHandler _cursorHandler;
 
         ///<summary>Returns the GameEventsHandler reference</summary>
         public GameEventsHandler GameEventHandler => _gameEventsHandler;
@@ -23,6 +25,10 @@ namespace WGRF.Core
         public LevelManager LevelManager => _levelManager;
         ///<summary>Returns the Database handler reference</summary>
         public Database Database => _database;
+        ///<summary>Returns the cursor handler reference</summary>
+        public CursorHandler CursorHandler => _cursorHandler;
+
+
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
         public BulletPool BulletPool { get; private set; }
@@ -43,13 +49,9 @@ namespace WGRF.Core
                 S = this;
             }
 
-            CreateManagers();
-
             //============================================
             //To be moved to cursor handler class
-            /*QualitySettings.vSyncCount = 1;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Confined;*/
+            /*QualitySettings.vSyncCount = 1;*/
             //============================================
         }
 
@@ -57,6 +59,7 @@ namespace WGRF.Core
         {
             _gameEventsHandler = new GameEventsHandler();
             _database = new Database();
+            _cursorHandler = new CursorHandler();
         }
 
         /// <summary>
