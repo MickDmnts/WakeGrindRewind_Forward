@@ -23,10 +23,8 @@ namespace WGRF.Bus
             Task.Run(() =>
             {
                 string path = ManagerHub.S.Globals.AppDataPath;
-
+                
                 //Setup
-                HandleAppDataDirectory(path);
-
                 dbPath = GenerateDatabasePath(path);
 
                 ConstructDatabase(dbPath);
@@ -36,13 +34,6 @@ namespace WGRF.Bus
                 //After setup
                 OnCreation();
             });
-        }
-
-        ///<summary>Call to create the application folder inside the sourcePath path.</summary>
-        void HandleAppDataDirectory(string sourcePath)
-        {
-            if (!Directory.Exists(sourcePath))
-            { Directory.CreateDirectory(sourcePath); }
         }
 
         /// <summary>
