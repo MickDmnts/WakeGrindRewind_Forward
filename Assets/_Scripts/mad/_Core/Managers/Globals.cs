@@ -11,7 +11,7 @@ namespace WGRF.Core
         static string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Application.companyName);
 
         ///<summary>A static string which stores the App Data folder absolute path of the app.</summary>
-        public static string AppDataPath => appDataPath;
+        public string AppDataPath => appDataPath;
 
         public Globals()
         {

@@ -4,21 +4,17 @@ using System.IO;
 using System.Threading.Tasks;
 using Mono.Data.Sqlite;
 
-using UnityEngine;
+using WGRF.Core;
 
 namespace WGRF.Bus
 {
     public class Database
     {
-        ///<summary>A static string which stores the App Data folder absolute path of the app.</summary>
-        static string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Application.companyName);
         ///<summary>A static string which stores the app database absolute path.</summary>
         static string dbPath = string.Empty;
         ///<summary>A static string which contains the app database formatted connection path.</summary>
         static string dbConnectionPath = string.Empty;
 
-        ///<summary>Returns the App Data folder absolute path of the app</summary>
-        public string AppDataPath => appDataPath;
         ///<summary>Returns the app database absolute path</summary>
         public string DatabasePath => dbPath;
 
@@ -26,10 +22,12 @@ namespace WGRF.Bus
         {
             Task.Run(() =>
             {
-                //Setup
-                HandleAppDataDirectory(appDataPath);
+                string path = ManagerHub.S.Globals.AppDataPath;
 
-                dbPath = GenerateDatabasePath(appDataPath);
+                //Setup
+                HandleAppDataDirectory(path);
+
+                dbPath = GenerateDatabasePath(path);
 
                 ConstructDatabase(dbPath);
 
