@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rank: 0
-  plName: 
+  plName: tester
   score: 0
 --- !u!4 &1822222463
 Transform:
