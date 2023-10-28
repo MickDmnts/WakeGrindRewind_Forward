@@ -12,25 +12,29 @@ namespace WGRF.Core
 
         ///<summary>GameEventsHandler reference</summary>
         GameEventsHandler _gameEventsHandler;
+        ///<summary>The globals reference contains usefull game-wide paths and variables</summary>
+        Globals _globals;
         ///<summary>LevelManager reference</summary>
         LevelManager _levelManager;
         ///<summary>Database handler reference</summary>
         Database _database;
+        ///<summary>The settings handler reference</summary>
+        SettingsHandler _settingsHandler;
         ///<summary>The cursor handler reference</summary>
         CursorHandler _cursorHandler;
-        ///<summary>The globals reference contains usefull game-wide paths and variables</summary>
-        Globals _globals;
 
         ///<summary>Returns the GameEventsHandler reference</summary>
         public GameEventsHandler GameEventHandler => _gameEventsHandler;
+        ///<summary>Returns the globals reference containing game-wide paths and variables</summary>
+        public Globals Globals => _globals;
         ///<summary>Returns the LevelManager reference</summary>
         public LevelManager LevelManager => _levelManager;
         ///<summary>Returns the Database handler reference</summary>
         public Database Database => _database;
+        ///<summary>Returns the settings handler reference</summary>
+        public SettingsHandler SettingsHandler => _settingsHandler;
         ///<summary>Returns the cursor handler reference</summary>
         public CursorHandler CursorHandler => _cursorHandler;
-        ///<summary>Returns the globals reference containing game-wide paths and variables</summary>
-        public Globals Globals => _globals;
 
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
