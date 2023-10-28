@@ -69,6 +69,7 @@ namespace WGRF.Core
             _gameEventsHandler = new GameEventsHandler();
             _globals = new Globals();
             _database = new Database();
+            _settingsHandler = new SettingsHandler();
             _cursorHandler = new CursorHandler();
         }
 
