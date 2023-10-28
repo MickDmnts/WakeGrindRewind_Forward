@@ -18,7 +18,7 @@ namespace WGRF.Core
         Database _database;
         ///<summary>The cursor handler reference</summary>
         CursorHandler _cursorHandler;
-        ///<summary>The globals struct contains usefull game-wide paths and variables</summary>
+        ///<summary>The globals reference contains usefull game-wide paths and variables</summary>
         Globals _globals;
 
         ///<summary>Returns the GameEventsHandler reference</summary>
@@ -29,7 +29,7 @@ namespace WGRF.Core
         public Database Database => _database;
         ///<summary>Returns the cursor handler reference</summary>
         public CursorHandler CursorHandler => _cursorHandler;
-        ///<summary>Returns the globals struct containing game-wide paths and variables</summary>
+        ///<summary>Returns the globals reference containing game-wide paths and variables</summary>
         public Globals Globals => _globals;
 
         /*public UI_Manager UIManager { get; private set; }
@@ -63,9 +63,9 @@ namespace WGRF.Core
         void CreateManagers()
         {
             _gameEventsHandler = new GameEventsHandler();
+            _globals = new Globals();
             _database = new Database();
             _cursorHandler = new CursorHandler();
-            _globals = new Globals();
         }
 
         /// <summary>
