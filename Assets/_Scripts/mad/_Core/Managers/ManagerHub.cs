@@ -18,6 +18,8 @@ namespace WGRF.Core
         Database _database;
         ///<summary>The cursor handler reference</summary>
         CursorHandler _cursorHandler;
+        ///<summary>The globals struct contains usefull game-wide paths and variables</summary>
+        Globals _globals;
 
         ///<summary>Returns the GameEventsHandler reference</summary>
         public GameEventsHandler GameEventHandler => _gameEventsHandler;
@@ -27,7 +29,8 @@ namespace WGRF.Core
         public Database Database => _database;
         ///<summary>Returns the cursor handler reference</summary>
         public CursorHandler CursorHandler => _cursorHandler;
-
+        ///<summary>Returns the globals struct containing game-wide paths and variables</summary>
+        public Globals Globals => _globals;
 
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
@@ -49,6 +52,8 @@ namespace WGRF.Core
                 S = this;
             }
 
+            CreateManagers();
+
             //============================================
             //To be moved to cursor handler class
             /*QualitySettings.vSyncCount = 1;*/
@@ -60,6 +65,7 @@ namespace WGRF.Core
             _gameEventsHandler = new GameEventsHandler();
             _database = new Database();
             _cursorHandler = new CursorHandler();
+            _globals = new Globals();
         }
 
         /// <summary>
