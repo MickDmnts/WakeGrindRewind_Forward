@@ -12,19 +12,19 @@ public class DummyDbTester : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (ManagerHub.S.Database.AddPlayerRecord(new WGRF.Bus.PlayerRecord(rank, plName, score)).Result)
+            if (ManagerHub.S.Database.AddPlayerRecord(new WGRF.Internal.PlayerRecord(rank, plName, score)).Result)
             { Debug.Log("record successfully inserted"); }
         }
 
         /*if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (ManagerHub.S.Database.UpdatePlayerRecord(plName, new WGRF.Bus.PlayerRecord(rank, plName, score)).Result)
+            if (ManagerHub.S.Database.UpdatePlayerRecord(plName, new WGRF.Internal.PlayerRecord(rank, plName, score)).Result)
             { Debug.Log("record successfully updated"); }
         }*/
         
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (ManagerHub.S.Database.UpdatePlayerRecord(rank, new WGRF.Bus.PlayerRecord(rank, plName, score)).Result)
+            if (ManagerHub.S.Database.UpdatePlayerRecord(rank, new WGRF.Internal.PlayerRecord(rank, plName, score)).Result)
             { Debug.Log("record successfully updated"); }
         }
 

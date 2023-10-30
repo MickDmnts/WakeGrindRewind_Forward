@@ -1,4 +1,4 @@
-namespace WGRF.Bus
+namespace WGRF.Internal
 {
     /// <summary>
     /// A struct in a database digestible format for database rows.

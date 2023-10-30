@@ -58,9 +58,9 @@ namespace WGRF.Core
                 defaultSettings = new UserSettings()
                 {
                     goreVFX = true,
-                    masterVolume = 10,
-                    ostVolume = 10,
-                    sfxVolume = 10,
+                    masterVolume = 8,
+                    ostVolume = 7,
+                    sfxVolume = 8,
                 };
 
                 settingsFilePath = await HandleSettingsFileOnConstruction(settingsFolderPath);

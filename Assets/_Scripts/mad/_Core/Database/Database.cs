@@ -6,7 +6,7 @@ using Mono.Data.Sqlite;
 
 using WGRF.Core;
 
-namespace WGRF.Bus
+namespace WGRF.Internal
 {
     public class Database
     {
