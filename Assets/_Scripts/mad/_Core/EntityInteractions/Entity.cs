@@ -1,9 +1,11 @@
 using UnityEngine;
+
+using WGRF.Core;
 using WGRF.Interactions;
 
 namespace WGRF.Entities
 {
-    public abstract class Entity : MonoBehaviour, IInteractable
+    public abstract class Entity : CoreBehaviour, IInteractable
     {
         #region INPECTOR_VALUES
         ///<summary>The entity name</summary>
