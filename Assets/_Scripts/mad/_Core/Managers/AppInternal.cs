@@ -5,7 +5,10 @@ using UnityEngine;
 
 namespace WGRF.Core
 {
-    public class Globals
+    /// <summary>
+    /// The AppInternal class caches app specific variables to be used from other managers.
+    /// </summary>
+    public class AppInternal
     {
         ///<summary>A static string which stores the App Data folder absolute path of the app.</summary>
         static string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Application.companyName);
@@ -13,7 +16,7 @@ namespace WGRF.Core
         ///<summary>A static string which stores the App Data folder absolute path of the app.</summary>
         public string AppDataPath => appDataPath;
 
-        public Globals()
+        public AppInternal()
         {
             HandleAppDataDirectory(appDataPath);
         }
