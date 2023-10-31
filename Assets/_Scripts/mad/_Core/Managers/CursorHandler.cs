@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace WGRF.Core
 {
+    /// <summary>
+    /// This handler is responsible for every cursor specific setting.
+    /// </summary>
     public class CursorHandler
     {
         /// <summary>

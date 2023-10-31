@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace WGRF.Core
 {
+    /// <summary>
+    /// Base abstract class for each game component attached to an Entity.
+    /// </summary>
     public abstract class CoreBehaviour : MonoBehaviour
     {
         [Header("Set controller component unique ID")]

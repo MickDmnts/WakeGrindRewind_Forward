@@ -6,8 +6,11 @@ using Mono.Data.Sqlite;
 
 using WGRF.Core;
 
-namespace WGRF.Bus
+namespace WGRF.Internal
 {
+    /// <summary>
+    /// Database of WGRF containing internal records.
+    /// </summary>
     public class Database
     {
         ///<summary>A static string which stores the app database absolute path.</summary>

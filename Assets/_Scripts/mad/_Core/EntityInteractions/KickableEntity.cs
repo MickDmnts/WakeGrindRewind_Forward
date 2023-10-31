@@ -4,7 +4,7 @@ using WGRF.Interactions;
 namespace WGRF.Entities
 {   
     /// <summary>
-    /// Attack this script to any game object you want to be kickable from the player
+    /// Attach this script to any game object you want to be kickable from the player
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
     public class KickableEntity : MonoBehaviour, IKickable

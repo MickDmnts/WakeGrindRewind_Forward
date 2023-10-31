@@ -5,6 +5,9 @@ using WGRF.Interactions;
 
 namespace WGRF.Entities
 {
+    /// <summary>
+    /// Abstract base class to be inherited from every entity of the game.
+    /// </summary>
     public abstract class Entity : CoreBehaviour, IInteractable
     {
         #region INPECTOR_VALUES

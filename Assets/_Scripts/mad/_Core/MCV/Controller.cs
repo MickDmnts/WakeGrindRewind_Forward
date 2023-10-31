@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace WGRF.Core
 {
+    /// <summary>
+    /// This class is responsible for caching all of the CoreBehaviour deriving components attached to an Entity.
+    /// </summary>
     [DefaultExecutionOrder(-399)]
     public class Controller : CoreBehaviour
     {

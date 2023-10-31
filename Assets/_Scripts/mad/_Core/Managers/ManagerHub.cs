@@ -1,9 +1,12 @@
 using UnityEngine;
 
-using WGRF.Bus;
+using WGRF.Internal;
 
 namespace WGRF.Core
 {
+    /// <summary>
+    /// In the ManagerHub every handler instance is created and cached.
+    /// </summary>
     [DefaultExecutionOrder(-500)]
     public class ManagerHub : MonoBehaviour
     {
@@ -13,7 +16,7 @@ namespace WGRF.Core
         ///<summary>GameEventsHandler reference</summary>
         GameEventsHandler _gameEventsHandler;
         ///<summary>The globals reference contains usefull game-wide paths and variables</summary>
-        Globals _globals;
+        AppInternal _globals;
         ///<summary>LevelManager reference</summary>
         LevelManager _levelManager;
         ///<summary>Database handler reference</summary>
@@ -22,11 +25,13 @@ namespace WGRF.Core
         SettingsHandler _settingsHandler;
         ///<summary>The cursor handler reference</summary>
         CursorHandler _cursorHandler;
+        ///<summary>The WGRF audio handler reference</summary>
+        GameSoundsHandler _gameSoundsHandler;
 
         ///<summary>Returns the GameEventsHandler reference</summary>
         public GameEventsHandler GameEventHandler => _gameEventsHandler;
         ///<summary>Returns the globals reference containing game-wide paths and variables</summary>
-        public Globals Globals => _globals;
+        public AppInternal Globals => _globals;
         ///<summary>Returns the LevelManager reference</summary>
         public LevelManager LevelManager => _levelManager;
         ///<summary>Returns the Database handler reference</summary>
@@ -35,6 +40,8 @@ namespace WGRF.Core
         public SettingsHandler SettingsHandler => _settingsHandler;
         ///<summary>Returns the cursor handler reference</summary>
         public CursorHandler CursorHandler => _cursorHandler;
+        ///<summary>Returns the WGRF audio handler reference</summary>
+        public GameSoundsHandler GameSoundsHandler => _gameSoundsHandler;
 
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
@@ -43,10 +50,8 @@ namespace WGRF.Core
         public WeaponManager WeaponManager { get; private set; }
         public AbilityManager AbilityManager { get; private set; }
         public SkillPointHandle SkillPointHandle { get; private set; }
-        public GameSoundsHandler GameSoundsHandler { get; private set; }
         public WeaponSelectionUI WeaponSelectionUIHandler { get; private set; }*/
 
-        //public SaveDataHandler SaveDataHandler { get; private set; }
         //public PlayerEntity PlayerEntity { get; private set; }
 
         private void Awake()
@@ -57,29 +62,16 @@ namespace WGRF.Core
             }
 
             CreateManagers();
-
-            //============================================
-            //To be moved to cursor handler class
-            /*QualitySettings.vSyncCount = 1;*/
-            //============================================
         }
 
         void CreateManagers()
         {
             _gameEventsHandler = new GameEventsHandler();
-            _globals = new Globals();
+            _globals = new AppInternal();
             _database = new Database();
             _settingsHandler = new SettingsHandler();
             _cursorHandler = new CursorHandler();
+            _gameSoundsHandler = GetComponent<GameSoundsHandler>();
         }
-
-        /// <summary>
-        /// Call to set the PlayerEntity field to the passed reference.
-        /// Called from PlayerEntity in runtime.
-        /// </summary>
-        /* public void SetPlayerEntity(PlayerEntity player)
-        {
-            PlayerEntity = player;
-        } */
     }
 }
