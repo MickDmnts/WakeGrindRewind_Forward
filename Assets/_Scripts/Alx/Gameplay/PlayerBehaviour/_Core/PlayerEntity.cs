@@ -1,135 +1,76 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using WGRF.Abilities;
-using WGRF.Core.Managers;
+//using WGRF.Abilities;
+using WGRF.Core;
 
 namespace WGRF.Entities.Player
 {
-    /* [CLASS DOCUMENTATION]
-     * 
-     * This is the main skeleton script for the player behaviour.
-     * 
-     * Implements: IInteractable, IRewindable
-     * BASE TYPES: Entity, MonoBehaviour
-     * 
-     * [Variables]
-     * Inpesctor variables: These values must be set from the inspector.
-     * Private variables: Mainly behaviour script caching.
-     * 
-     * [Must know]
-     * 1. This script acts as central behaviour manager for the PlayerEntity.
-     * 2. The IsActive boolean calles the OnPlayerDeactivate everytime it gets set with a value.
-     * 3. Player values are reseted every time he enters the player hub.
-     */
+
     [DefaultExecutionOrder(150)]
-    public class PlayerEntity : Entity, IRewindable
+    public class PlayerEntity : Entity //IRewindable
     {
-        #region PUBLIC_VARIABLES
+        ///<summary>The blood decal addressable path of the player</summary>
         [Header("Decal on death")]
-        [SerializeField] GameObject bloodDecal;
+        [SerializeField, Tooltip("The blood decal addressable path of the player")]
+        string bloodDecalPath;
 
+        ///<summary>Is the player dead?</summary>
         bool isDead;
-        /// <summary>
-        /// If true adds +1 to the playe death value in the GameManager.
-        /// </summary>
-        public bool IsDead
-        {
-            get
-            {
-                return isDead;
-            }
-            set
-            {
-                isDead = value;
+        ///<summary>Returns the is dead state of the player</summary>
+        public bool IsDead => isDead;
 
-                if (value)
-                {
-                    if (GameManager.S != null)
-                    {
-                        GameManager.S.PlayerDeaths += 1;
-                    }
-                }
-            }
-        }
-
+        ///<summary>Is the player active?</summary>
         bool isActive = false;
-        /// <summary>
-        /// Everytime the value is set the OnPlayerDeactivate event gets invoked and passes the passed value.
-        /// </summary>
-        public bool IsActive
-        {
-            get { return isActive; }
-            set
-            {
-                isActive = value;
+        ///<summary>Returns the is active state of the player</summary>
+        public bool IsActive => isActive;
 
-                OnPlayerStateChange(IsActive);
-            }
-        }
-        #endregion
-
-        /// <summary>
-        /// *PLAYER SYSTEM USE ONLY*
-        /// <para>Subscribe to this event to get notified with the current player 
-        /// entity active state when it changes.</para>
-        /// </summary>
-        public event Action<bool> onPlayerStateChange;
-        public void OnPlayerStateChange(bool value)
-        {
-            if (onPlayerStateChange != null)
-            {
-                onPlayerStateChange(value);
-            }
-        }
-
+        //REPLACE THIS WITH THE CONTROLLER AND COREBEHAVIOUR SYSTEM -  SEE EXAMPLES FOLDER FOR MCV
         #region BEHAVIOUR_CACHING
-        //Cache player controller script
-        private PlayerController playerController;
-        public PlayerController PlayerController
-        {
-            get { return playerController; }
-            set { playerController = value; }
-        }
+        /*        //Cache player controller script
+                private PlayerController playerController;
+                public PlayerController PlayerController
+                {
+                    get { return playerController; }
+                    set { playerController = value; }
+                }
 
-        //Cache player attacking script
-        private PlayerAttack playerShooting;
-        public PlayerAttack PlayerShooting
-        {
-            get { return playerShooting; }
-            set { playerShooting = value; }
-        }
+                //Cache player attacking script
+                private PlayerAttack playerShooting;
+                public PlayerAttack PlayerShooting
+                {
+                    get { return playerShooting; }
+                    set { playerShooting = value; }
+                }
 
-        //Cache player animations script
-        private PlayerAnimations playerAnimations;
-        public PlayerAnimations PlayerAnimations
-        {
-            get { return playerAnimations; }
-            set { playerAnimations = value; }
-        }
+                //Cache player animations script
+                private PlayerAnimations playerAnimations;
+                public PlayerAnimations PlayerAnimations
+                {
+                    get { return playerAnimations; }
+                    set { playerAnimations = value; }
+                }
 
-        //Cache player kicking script
-        private PlayerKick playerKick;
-        public PlayerKick PlayerKick
-        {
-            get { return playerKick; }
-            set { playerKick = value; }
-        }
+                //Cache player kicking script
+                private PlayerKick playerKick;
+                public PlayerKick PlayerKick
+                {
+                    get { return playerKick; }
+                    set { playerKick = value; }
+                }*/
         #endregion
 
-        private void Awake()
+        protected override void PreAwake()
         {
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                //Set player script reference to the GameManager.
-                GameManager.S.SetPlayerEntity(this);
+                //UNCOMMENT WHEN YOY'VE IMPLEMENTED THE CORE BEHAVIOUR AND CONTROLLER SYSTEM ON THE PLAYER,
+                //THEN PASS THE CONTROLLER AS AN ARGUMENT
+                //ManagerHub.S.AttachPlayerController(this);
 
                 //Subscribe to the needed events.
-                GameManager.S.GameEventHandler.onSceneChanged += PlayerHubEntry;
-                GameManager.S.GameEventHandler.onPlayerSpawn += MoveToSpawnPoint;
-
-                //Cache the necessary player scripts.
-                CacheComponents();
+                ManagerHub.S.GameEventHandler.onSceneChanged += PlayerHubEntry;
+                ManagerHub.S.GameEventHandler.onPlayerSpawn += MoveToSpawnPoint;
             }
         }
 
@@ -141,32 +82,19 @@ namespace WGRF.Entities.Player
         /// <param name="scenes"></param>
         void PlayerHubEntry(GameScenes scenes)
         {
-            if (GameManager.S.LevelManager.FocusedScene == GameScenes.PlayerHub)
+            if (ManagerHub.S.LevelManager.FocusedScene == GameScenes.PlayerHub)
             {
-                IsActive = false;
+                isActive = false;
 
-                PlayerAnimations.GetAnimator().speed = 1f;
-                PlayerAnimations.PlayWakeUpAnimation();
+                /*PlayerAnimations.GetAnimator().speed = 1f;
+                PlayerAnimations.PlayWakeUpAnimation();*/
 
-                entityLife.SetValue(1);
+                SetHealth(1);
             }
         }
 
-        /// <summary>
-        /// Call to cache every needed player behaviour script.
-        /// </summary>
-        void CacheComponents()
-        {
-            PlayerController = GetComponent<PlayerController>();
-            PlayerShooting = GetComponentInChildren<PlayerAttack>();
-            PlayerAnimations = GetComponent<PlayerAnimations>();
-            PlayerKick = GetComponentInChildren<PlayerKick>();
-        }
-
         private void Start()
-        {
-            IsActive = true;
-        }
+        { isActive = true; }
 
         /// <summary>
         /// Call to initiate the attack interaction of the player.
@@ -177,30 +105,28 @@ namespace WGRF.Entities.Player
         public override void AttackInteraction()
         {
             //Prevents the player from dying from multiple shots when he's already dead.
-            if (entityLife.GetValue() <= 0) return;
+            if (entityLife <= 0) return;
 
-            float tempLife = entityLife.GetValue();
+            float tempLife = entityLife;
 
             SetHealth(--tempLife);
 
             //Should check for rewind availability here
             if (CheckIfDead())
             {
-                IsActive = false;
+                isActive = false;
 
-                Instantiate(bloodDecal, transform.position, bloodDecal.transform.rotation * Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f)));
+                //This should use the still WIP addressables system.
+                //Instantiate(bloodDecalPath, transform.position, bloodDecalPath.transform.rotation * Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f)));
 
-                if (GameManager.S != null)
+                //Ability system still WIP
+                /*if (ManagerHub.S.AbilityManager.CanRewind(true))
                 {
-                    if (GameManager.S.AbilityManager.CanRewind(true))
-                    {
-                        StartCoroutine(RewindOnDeath());
-                        return;
-                    }
-                }
-                else Utils.MissingComponent("GameManager", this);
+                    StartCoroutine(RewindOnDeath());
+                    return;
+                }*/
 
-                IsDead = true;
+                isDead = true;
                 StartCoroutine(DeathSequence());
             }
         }
@@ -213,29 +139,20 @@ namespace WGRF.Entities.Player
         /// </summary>
         IEnumerator RewindOnDeath()
         {
-            playerAnimations.GetAnimator().speed = 1f;
-            playerAnimations.PlayDeathAnimation();
+            //playerAnimations.GetAnimator().speed = 1f;
+            //playerAnimations.PlayDeathAnimation();
             yield return new WaitForSecondsRealtime(1f);
 
-            playerAnimations.PlayWakeUpAnimation();
+            //playerAnimations.PlayWakeUpAnimation();
 
             yield return new WaitForSecondsRealtime(1f);
 
-            playerAnimations.SetWalkAnimationState(true);
+            //playerAnimations.SetWalkAnimationState(true);
 
-            if (GameManager.S != null)
-            {
-                GameManager.S.AIEntityManager.ActivateDetectors();
+            //AI Manager is WIP
+            //ManagerHub.S.AIEntityManager.ActivateDetectors();
 
-                if (GameManager.S.LevelManager.FocusedScene.Equals(GameScenes.Level5))
-                {
-
-                    GameManager.S.AIEntityManager.ActivateBossPlayerDetectors();
-                }
-            }
-            else Utils.MissingComponent("GameManager", this);
-
-            IsActive = true;
+            isActive = true;
             SetHealth(1);
         }
 
@@ -245,21 +162,15 @@ namespace WGRF.Entities.Player
         /// <returns></returns>
         IEnumerator DeathSequence()
         {
-            PlayerAnimations.PlayDeathAnimation();
+            //PlayerAnimations.PlayDeathAnimation();
 
-            if (GameManager.S != null)
-            {
-                GameManager.S.HUDHandler.ChangeWeaponInfo(null);
-            }
-            else Utils.MissingComponent("GameManager", this);
+            //UI System stil WIP
+            //ManagerHub.S.HUDHandler.ChangeWeaponInfo(null);
 
             yield return new WaitForSeconds(2f);
 
-            if (GameManager.S != null)
-            {
-                GameManager.S.LevelManager.TransitToPlayerHub();
-            }
-            else Utils.MissingComponent("GameManager", this);
+            //Level Manager still WIP
+            ManagerHub.S.LevelManager.TransitToPlayerHub();
 
             transform.rotation = Quaternion.Euler(Vector3.up);
 
@@ -271,9 +182,7 @@ namespace WGRF.Entities.Player
         /// </summary>
         /// <param name="value">The life value</param>
         void SetHealth(float value)
-        {
-            entityLife.SetValue(value);
-        }
+        { entityLife = value; }
 
         /// <summary>
         /// Call to check if the entity life value is below zero.
@@ -282,13 +191,9 @@ namespace WGRF.Entities.Player
         /// <returns>True if the value is below zero,false otherwise</returns>
         bool CheckIfDead()
         {
-            if (entityLife.GetValue() <= 0)
+            if (entityLife <= 0)
             {
-                if (GameManager.S != null)
-                {
-                    GameManager.S.GameEventHandler.OnPlayerDeath();
-                }
-                else Utils.MissingComponent("GameManager", this);
+                ManagerHub.S.GameEventHandler.OnPlayerDeath();
                 return true;
             }
 
@@ -300,9 +205,7 @@ namespace WGRF.Entities.Player
         /// </summary>
         /// <param name="hitDirection"></param>
         public override void StunInteraction()
-        {
-            Debug.Log($"{entityName} got stuned");
-        }
+        { Debug.Log($"{entityName} got stuned"); }
 
         #region UTILS
         /// <summary>
@@ -340,20 +243,21 @@ namespace WGRF.Entities.Player
         /// </summary>
         public void EnableUserControlOfPlayer()
         {
-            GameManager.S.PlayerEntity.IsDead = false;
-            GameManager.S.PlayerEntity.IsActive = true;
+            //Change after implemented the CoreBehaviour and Controller
+            /*ManagerHub.S.PlayerEntity.IsDead = false;
+            ManagerHub.S.PlayerEntity.IsActive = true;
 
             playerAnimations.GetAnimator().SetBool("isDead", false);
-            playerAnimations.GetAnimator().SetBool("isWakingUp", false);
+            playerAnimations.GetAnimator().SetBool("isWakingUp", false);*/
         }
         #endregion
 
-        private void OnDestroy()
+        protected override void PreDestroy()
         {
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.GameEventHandler.onSceneChanged -= PlayerHubEntry;
-                GameManager.S.GameEventHandler.onPlayerSpawn -= MoveToSpawnPoint;
+                ManagerHub.S.GameEventHandler.onSceneChanged -= PlayerHubEntry;
+                ManagerHub.S.GameEventHandler.onPlayerSpawn -= MoveToSpawnPoint;
             }
         }
     }

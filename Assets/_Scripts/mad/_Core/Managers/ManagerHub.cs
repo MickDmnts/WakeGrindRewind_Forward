@@ -27,6 +27,8 @@ namespace WGRF.Core
         CursorHandler _cursorHandler;
         ///<summary>The WGRF audio handler reference</summary>
         GameSoundsHandler _gameSoundsHandler;
+        ///<summary>Reference to the player controller</summary>
+        Controller _playerController;
 
         ///<summary>Returns the GameEventsHandler reference</summary>
         public GameEventsHandler GameEventHandler => _gameEventsHandler;
@@ -42,6 +44,8 @@ namespace WGRF.Core
         public CursorHandler CursorHandler => _cursorHandler;
         ///<summary>Returns the WGRF audio handler reference</summary>
         public GameSoundsHandler GameSoundsHandler => _gameSoundsHandler;
+        ///<summary>Returns the reference to the player Controller</summary>
+        public Controller PlayerController => _playerController;
 
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
@@ -51,8 +55,6 @@ namespace WGRF.Core
         public AbilityManager AbilityManager { get; private set; }
         public SkillPointHandle SkillPointHandle { get; private set; }
         public WeaponSelectionUI WeaponSelectionUIHandler { get; private set; }*/
-
-        //public PlayerEntity PlayerEntity { get; private set; }
 
         private void Awake()
         {
@@ -73,5 +75,13 @@ namespace WGRF.Core
             _cursorHandler = new CursorHandler();
             _gameSoundsHandler = GetComponent<GameSoundsHandler>();
         }
+
+        /// <summary>
+        /// * PLAYER USE ONLY *
+        /// Attaches the player's Controller reference to the ManagerHub.
+        /// </summary>
+        /// <param name="controller">The player's controller</param>
+        public void AttachPlayerController(Controller controller)
+        { _playerController = controller; }
     }
 }
