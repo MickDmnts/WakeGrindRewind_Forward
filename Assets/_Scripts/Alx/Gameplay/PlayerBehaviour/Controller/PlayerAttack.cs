@@ -112,6 +112,8 @@ namespace WGRF.Entities.Player
             maxBulletSpread = weapon.MaxBulletSpread;
             canShoot = true;
 
+            
+
             bulletsLeft = cachedBulletCount;
 
             //Enable the weapon holding animation.
