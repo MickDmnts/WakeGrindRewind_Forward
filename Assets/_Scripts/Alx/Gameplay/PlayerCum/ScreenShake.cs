@@ -34,7 +34,9 @@ public class ScreenShake : CoreBehaviour
                 CinemachineBasicMultiChannelPerlin perlin = vcamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
                 perlin.m_AmplitudeGain = Mathf.Lerp(startIntensity, 0f, 1 - shakeTimer / shakeTimerTotal);
+
             }
+            isFiring = false;
         }
     }
 
@@ -42,6 +44,7 @@ public class ScreenShake : CoreBehaviour
     {
         if (timer > 0)
         {
+            if (isFiring) = true;
             CinemachineBasicMultiChannelPerlin perlin = vcamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
             perlin.m_AmplitudeGain = intensity;
@@ -50,6 +53,7 @@ public class ScreenShake : CoreBehaviour
             shakeTimerTotal = timer;
             startIntensity = intensity;
         }
+       
     }
    
     private void PreDestroy()
