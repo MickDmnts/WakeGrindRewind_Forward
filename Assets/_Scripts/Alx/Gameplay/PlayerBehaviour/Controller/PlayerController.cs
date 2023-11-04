@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using WGRF.Core;
 
 namespace WGRF.Entities.Player
@@ -26,9 +27,11 @@ namespace WGRF.Entities.Player
         RigidbodyConstraints defaultConstraints;
         Vector3 mousePos;
 
-        Vector3 moveDir;
-        float horizontalInput;
-        float verticalInput;
+        private PlayerInput input = null;
+        Vector2 movementVector = Vector2.zero;
+        /* Vector3 moveDir;
+         float horizontalInput;
+         float verticalInput;*/
 
         //Dash specific
         bool isDashing;
@@ -43,6 +46,8 @@ namespace WGRF.Entities.Player
             EntrySetup();
 
             SetDashTrailEmision(false);
+
+            input = new PlayerInput();
         }
 
         /// <summary>
@@ -53,7 +58,18 @@ namespace WGRF.Entities.Player
             playerRB = GetComponent<Rigidbody>();
             defaultConstraints = playerRB.constraints;
         }
-
+        private void OnEnable()
+        {
+            input.Enable();
+            input.Player.Movement.performed += OnMovementPerformed;
+            input.Player.Movement.performed += OnMovementCanceled;
+        }
+        private void OnDisable()
+        {
+            input.Disable();
+            input.Player.Movement.performed -= OnMovementPerformed; 
+            input.Player.Movement.performed -= OnMovementCanceled;
+        }
         private void Start()
         {
             if (ManagerHub.S != null)
@@ -94,8 +110,8 @@ namespace WGRF.Entities.Player
             ApplyRotationBasedOnMousePos();
 
             //Get the user input.
-            horizontalInput = Input.GetAxisRaw("Horizontal");
-            verticalInput = Input.GetAxisRaw("Vertical");
+            /* horizontalInput = Input.GetAxisRaw("Horizontal");
+             verticalInput = Input.GetAxisRaw("Vertical");*/
 
             //Get the Dash input
             bool isTryingToDash = Input.GetKeyDown(KeyCode.LeftShift);
@@ -122,7 +138,7 @@ namespace WGRF.Entities.Player
             //Use the user input and move
             if (!isDashing)
             {
-                ApplyMovementVelocity(horizontalInput, verticalInput);
+                ApplyMovementVelocity();
             }
         }
 
@@ -136,7 +152,7 @@ namespace WGRF.Entities.Player
             dashDir = Vector3.zero;
 
             //In case we DON'T move
-            if (horizontalInput == 0f && verticalInput == 0f)
+            if (movementVector.Equals(Vector2.zero))
             {
                 Vector3 dashToMouseDir = (mousePos - transform.position);
                 dashDir.Set(dashToMouseDir.x, 0f, dashToMouseDir.z);
@@ -144,7 +160,7 @@ namespace WGRF.Entities.Player
             }
             else //in case we DO move
             {
-                dashDir.Set(horizontalInput, 0, verticalInput);
+                dashDir.Set(movementVector.x, 0, movementVector.y);
                 lastMoveDir = dashDir;
             }
 
@@ -172,13 +188,19 @@ namespace WGRF.Entities.Player
         /// </summary>
         /// <param name="xInput"></param>
         /// <param name="zInput"></param>
-        void ApplyMovementVelocity(float xInput, float zInput)
+        void ApplyMovementVelocity()
         {
-            moveDir.Set(xInput, 0, zInput);
-
-            playerRB.velocity = moveDir.normalized * speed;
-
+            playerRB.velocity = movementVector * speed;
             ControlIsWalkingAnimation(playerRB.velocity);
+        }
+
+        private void OnMovementPerformed(InputAction.CallbackContext value)
+        {
+            movementVector = value.ReadValue<Vector2>();
+        }
+        private void OnMovementCanceled(InputAction.CallbackContext value)
+        {
+            movementVector = Vector2.zero;
         }
 
         /// <summary>

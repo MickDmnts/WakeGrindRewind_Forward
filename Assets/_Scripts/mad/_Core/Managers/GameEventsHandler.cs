@@ -225,7 +225,7 @@ namespace WGRF.Core
         }
 
         /// <summary>
-        /// Called from PlayerAttack to notify every subbed method that the player started kicking.
+        /// Called from PlayerAttack to notify every subbed method that the player stopped kicking.
         /// </summary>
         public event Action onPlayerKickStart;
         public void OnPlayerKickStart()
