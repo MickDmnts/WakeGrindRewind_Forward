@@ -11,7 +11,7 @@ namespace WGRF.Entities.Player
         [SerializeField] float speed;
         [SerializeField] float dashSpeed = 30f;
         [SerializeField] TrailRenderer[] dashLines;
-
+        
         #region PRIVATE_VARIABLES
         bool controllerIsActive = false;
 
@@ -20,13 +20,12 @@ namespace WGRF.Entities.Player
         Vector3 mousePos;
 
         private PlayerInput input = null;
+        public PlayerInput Input => input;
         Vector2 movementVector = Vector2.zero;
-        /* Vector3 moveDir;
-         float horizontalInput;
-         float verticalInput;*/
 
         //Dash specific
         bool isDashing;
+        bool isTryingToDash;
         Vector3 dashDir;
         [SerializeField]
         LayerMask layerMask;
@@ -36,6 +35,7 @@ namespace WGRF.Entities.Player
         protected override void PreAwake()
         {
             //SetController here
+            SetController(transform.root.GetComponent<Controller>());
 
             EntrySetup();
 
@@ -43,8 +43,10 @@ namespace WGRF.Entities.Player
 
 
             input = new PlayerInput();
-        }
 
+            
+        }
+        
         /// <summary>
         /// Call to setup the player controller on first load.
         /// </summary>
@@ -59,6 +61,8 @@ namespace WGRF.Entities.Player
             input.Enable();
             input.Player.Movement.performed += OnMovementPerformed;
             input.Player.Movement.performed += OnMovementCanceled;
+            input.Player.LookAt.performed += OnCursorMoved;
+            input.Player.Dash.performed += OnDashPerformed;
         }
 
         private void OnDisable()
@@ -66,6 +70,8 @@ namespace WGRF.Entities.Player
             input.Disable();
             input.Player.Movement.performed -= OnMovementPerformed;
             input.Player.Movement.performed -= OnMovementCanceled;
+            input.Player.LookAt.performed -= OnCursorMoved;
+            input.Player.Dash.performed -= OnDashPerformed;
         }
 
         private void Start()
@@ -100,11 +106,12 @@ namespace WGRF.Entities.Player
             if (!controllerIsActive) return;
 
             //Get the mouse position.
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            
             ApplyRotationBasedOnMousePos();
 
             //Get the Dash input
-            bool isTryingToDash = Input.GetKeyDown(KeyCode.LeftShift);
+            //bool isTryingToDash = Input.GetKeyDown(KeyCode.LeftShift);
 
             //Enables the dash sequence and dash trails once.
             if (isTryingToDash && !isDashing)
@@ -194,6 +201,17 @@ namespace WGRF.Entities.Player
             movementVector = Vector2.zero;
         }
 
+        private void OnCursorMoved(InputAction.CallbackContext value)
+        {
+            mousePos = new Vector3(value.ReadValue<Vector2>().x, 0, value.ReadValue<Vector2>().y) ;
+        }
+
+        private void OnDashPerformed(InputAction.CallbackContext value)
+        {
+            isTryingToDash = value.ReadValue<bool>();
+        }
+        
+
         /// <summary>
         /// Call to set the isWalking animation state value based on the passed value.
         /// <para>If the value is of Vector3 zero then the walking animation is set to false,
@@ -204,14 +222,11 @@ namespace WGRF.Entities.Player
         {
             if (playerVelocity != Vector3.zero)
             {
-                //ManagerHub.S.PlayerEntity.PlayerAnimations.SetWalkAnimationState(true);
-                //Use the Controller to access the above method and animation setting.
-                //Controller.Access<PlayerAnimations>("playerAnimations").SetWalkAnimationState(true)
+                Controller.Access<PlayerAnimations>("playerAnimations").SetWalkAnimationState(true);
             }
             else
             {
-                //ManagerHub.S.PlayerEntity.PlayerAnimations.SetWalkAnimationState(false);
-                //Do the same but with false
+                Controller.Access<PlayerAnimations>("playerAnimations").SetWalkAnimationState(false);
             }
         }
 
@@ -240,7 +255,7 @@ namespace WGRF.Entities.Player
         protected override void PreDestroy()
         {
             //ManagerHub.S.PlayerEntity.onPlayerStateChange -= SetControllerIsActive;
-
+            
             ManagerHub.S.GameEventHandler.onPlayerRewind -= SetControllerIsActive;
         }
     }
