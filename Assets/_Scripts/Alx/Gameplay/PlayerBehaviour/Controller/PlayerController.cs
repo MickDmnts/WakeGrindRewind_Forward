@@ -5,14 +5,6 @@ using WGRF.Core;
 
 namespace WGRF.Entities.Player
 {
-    /* [CLASS DOCUMENTATION]
-     * 
-     * The purpose of this script is to handle the player movement, dashing and rotation to face the mouse.
-     * 
-     * [Must know]
-     * 1. The controller gets activated/deactivated based on the onPlayerStateChange event value.
-     * 
-     */
     public class PlayerController : CoreBehaviour
     {
         [Header("Set in inspector")]
@@ -43,9 +35,12 @@ namespace WGRF.Entities.Player
 
         protected override void PreAwake()
         {
+            //SetController here
+
             EntrySetup();
 
             SetDashTrailEmision(false);
+
 
             input = new PlayerInput();
         }
@@ -58,26 +53,25 @@ namespace WGRF.Entities.Player
             playerRB = GetComponent<Rigidbody>();
             defaultConstraints = playerRB.constraints;
         }
+
         private void OnEnable()
         {
             input.Enable();
             input.Player.Movement.performed += OnMovementPerformed;
             input.Player.Movement.performed += OnMovementCanceled;
         }
+
         private void OnDisable()
         {
             input.Disable();
-            input.Player.Movement.performed -= OnMovementPerformed; 
+            input.Player.Movement.performed -= OnMovementPerformed;
             input.Player.Movement.performed -= OnMovementCanceled;
         }
+
         private void Start()
         {
-            if (ManagerHub.S != null)
-            {
-                ManagerHub.S.PlayerEntity.onPlayerStateChange += SetControllerIsActive;
-
-                ManagerHub.S.GameEventHandler.onPlayerRewind += SetControllerIsActive;
-            }
+            //ManagerHub.S.PlayerEntity.onPlayerStateChange += SetControllerIsActive;
+            ManagerHub.S.GameEventHandler.onPlayerRewind += SetControllerIsActive;
         }
 
         /// <summary>
@@ -108,10 +102,6 @@ namespace WGRF.Entities.Player
             //Get the mouse position.
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             ApplyRotationBasedOnMousePos();
-
-            //Get the user input.
-            /* horizontalInput = Input.GetAxisRaw("Horizontal");
-             verticalInput = Input.GetAxisRaw("Vertical");*/
 
             //Get the Dash input
             bool isTryingToDash = Input.GetKeyDown(KeyCode.LeftShift);
@@ -198,6 +188,7 @@ namespace WGRF.Entities.Player
         {
             movementVector = value.ReadValue<Vector2>();
         }
+
         private void OnMovementCanceled(InputAction.CallbackContext value)
         {
             movementVector = Vector2.zero;
@@ -213,11 +204,14 @@ namespace WGRF.Entities.Player
         {
             if (playerVelocity != Vector3.zero)
             {
-                ManagerHub.S.PlayerEntity.PlayerAnimations.SetWalkAnimationState(true);
+                //ManagerHub.S.PlayerEntity.PlayerAnimations.SetWalkAnimationState(true);
+                //Use the Controller to access the above method and animation setting.
+                //Controller.Access<PlayerAnimations>("playerAnimations").SetWalkAnimationState(true)
             }
             else
             {
-                ManagerHub.S.PlayerEntity.PlayerAnimations.SetWalkAnimationState(false);
+                //ManagerHub.S.PlayerEntity.PlayerAnimations.SetWalkAnimationState(false);
+                //Do the same but with false
             }
         }
 
@@ -245,12 +239,9 @@ namespace WGRF.Entities.Player
 
         protected override void PreDestroy()
         {
-            if (ManagerHub.S != null)
-            {
-                ManagerHub.S.PlayerEntity.onPlayerStateChange -= SetControllerIsActive;
+            //ManagerHub.S.PlayerEntity.onPlayerStateChange -= SetControllerIsActive;
 
-                ManagerHub.S.GameEventHandler.onPlayerRewind -= SetControllerIsActive;
-            }
+            ManagerHub.S.GameEventHandler.onPlayerRewind -= SetControllerIsActive;
         }
     }
 }

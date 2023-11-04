@@ -1,25 +1,22 @@
 using UnityEngine;
-using WGRF.BattleSystem;
-using WGRF.Core.Managers;
+//using WGRF.BattleSystem;
+using WGRF.Core;
 
 namespace WGRF.Entities.Player
 {
-    public class PlayerAnimations : MonoBehaviour
+    public class PlayerAnimations : CoreBehaviour
     {
         //Private variable
         Animator playerAnimator;
 
-        private void Awake()
+        protected override void PreAwake()
         {
             playerAnimator = GetComponent<Animator>();
         }
 
         private void Start()
         {
-            if (GameManager.S != null)
-            {
-                GameManager.S.PlayerEntity.onPlayerStateChange += PlaybackOnStateChange;
-            }
+            //ManagerHub.S.PlayerEntity.onPlayerStateChange += PlaybackOnStateChange;
         }
 
         /// <summary>
@@ -88,7 +85,7 @@ namespace WGRF.Entities.Player
         /// Call to play the respective player melee animation based on the weaponType passed.
         /// <para>Also disables WeaponHolding stance by calling SetRangedWeaponAnimation(...)</para>
         /// </summary>
-        public void PlayMeleeWeaponAnimation(WeaponType weaponType)
+        /*public void PlayMeleeWeaponAnimation(WeaponType weaponType)
         {
             switch (weaponType)
             {
@@ -104,7 +101,7 @@ namespace WGRF.Entities.Player
                     playerAnimator.Play("player_batAttack", 0);
                     break;
             }
-        }
+        }*/
 
         /// <summary>
         /// Call to set the isHoldingGun animator boolean value to the passed value.
@@ -137,10 +134,7 @@ namespace WGRF.Entities.Player
 
         private void OnDestroy()
         {
-            if (GameManager.S != null)
-            {
-                GameManager.S.PlayerEntity.onPlayerStateChange -= PlaybackOnStateChange;
-            }
+            //ManagerHub.S.PlayerEntity.onPlayerStateChange -= PlaybackOnStateChange;
         }
     }
 }

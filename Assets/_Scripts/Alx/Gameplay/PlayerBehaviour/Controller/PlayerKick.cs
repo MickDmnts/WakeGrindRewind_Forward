@@ -18,13 +18,15 @@ namespace WGRF.Entities.Player
         float kickCooldown;
         #endregion
 
+        protected override void PreAwake()
+        {
+            SetController(transform.root.GetComponent<Controller>());
+        }
+
         void Start()
         {
-            if (ManagerHub.S != null)
-            {
-                ManagerHub.S.GameEventsHandler.onPlayerKickStart += SetIsKickEnabled;
-                kickCooldown = 0;
-            }
+            //ManagerHub.S.GameEventHandler.onPlayerKickStart += SetIsKickEnabled;
+            kickCooldown = 0;
         }
 
         /// <summary>
@@ -82,10 +84,7 @@ namespace WGRF.Entities.Player
             RaycastHit hit;
 
             IsKicking = true;
-            if (ManagerHub.S != null)
-            {
-                ManagerHub.S.PlayerEntity.PlayerAnimations.PlayKickAnimation();
-            }
+            Controller.Access<PlayerAnimations>("playerAnimations").PlayKickAnimation();
 
             if (Physics.Raycast(ray, out hit, maxDistance))
             {
@@ -142,10 +141,7 @@ namespace WGRF.Entities.Player
 
         protected override void PreDestroy()
         {
-            if (ManagerHub.S != null)
-            {
-                ManagerHub.S.GameEventHandler.onPlayerKickStart -= SetIsKickEnabled;
-            }
+            //ManagerHub.S.GameEventHandler.onPlayerKickStart -= SetIsKickEnabled;
         }
     }
 }

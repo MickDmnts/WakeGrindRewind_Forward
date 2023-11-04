@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 using WGRF.Core;
 using Cinemachine;
 
@@ -20,7 +19,7 @@ public class ScreenShake : CoreBehaviour
 
     void Start()
     {
-        ManagerHub.S.GameEventsHandler.onPlayerShootStart += ShakeCamera;
+        //ManagerHub.S.GameEventHandler.onPlayerShootStart += ShakeCamera;
     }
 
     // Update is called once per frame
@@ -40,11 +39,12 @@ public class ScreenShake : CoreBehaviour
             isFiring = false;
         }
     }
-
     
-/*
- Makes the Camera shake, based on intensity of shake and its duration
-*/
+    /// <summary>
+    /// Makes the Camera shake, based on intensity of shake and its duration.
+    /// </summary>
+    /// <param name="intensity">The intensity of the shake</param>
+    /// <param name="timer">The duration of the shake</param>
     private void ShakeCamera(float intensity, float timer)
     {
         if (timer > 0)
@@ -64,9 +64,7 @@ public class ScreenShake : CoreBehaviour
    
     protected override void PreDestroy()
     {
-        ManagerHub.S.GameEventHandler.onPlayerShootStart() -= ShakeCamera;
-
-    
+        //ManagerHub.S.GameEventHandler.onPlayerShootStart() -= ShakeCamera;
     }
 }
 

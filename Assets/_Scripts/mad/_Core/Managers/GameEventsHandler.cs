@@ -203,6 +203,7 @@ namespace WGRF.Core
         /// <summary>
         /// Called from PlayerAttack to notify every subbed method that the player fired a gun.
         /// </summary>
+        [Obsolete("To be deleted")]
         public event Action onPlayerShootStart;
         public void OnPlayerShootStart()
         {
@@ -215,6 +216,7 @@ namespace WGRF.Core
         /// <summary>
         /// Called from PlayerAttack to notify every subbed method that the player stopped firing a gun.
         /// </summary>
+        [Obsolete("To be deleted")]
         public event Action onPlayerShootEnd;
         public void OnPlayerShootEnd()
         {
