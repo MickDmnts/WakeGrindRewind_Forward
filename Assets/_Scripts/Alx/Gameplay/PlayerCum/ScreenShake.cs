@@ -8,18 +8,19 @@ public class ScreenShake : CoreBehaviour
 {
     private float shakeTimer;
     private float shakeTimerTotal;
+    private float startIntensity;
     private bool isFiring;
-
+    
     CinemachineVirtualCamera vcamera;
 
-    void Awake()
+    protected override void  PreAwake()
     {
         vcamera = GetComponent<CinemachineVirtualCamera>();
     }
 
     void Start()
     {
-        ManagerHub.S.GameEventsHandler.onPlayerFire() += ShakeCamera;
+        ManagerHub.S.GameEventsHandler.onPlayerShootStart() += ShakeCamera;
     }
 
     // Update is called once per frame
@@ -40,25 +41,32 @@ public class ScreenShake : CoreBehaviour
         }
     }
 
-    private void ScreenShake(float intensity, float timer)
+    
+/*
+ Makes the Camera shake, based on intensity of shake and its duration
+*/
+    private void ShakeCamera(float intensity, float timer)
     {
         if (timer > 0)
         {
-            if (isFiring) = true;
-            CinemachineBasicMultiChannelPerlin perlin = vcamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-
-            perlin.m_AmplitudeGain = intensity;
-
-            shakeTimer = timer;
-            shakeTimerTotal = timer;
-            startIntensity = intensity;
+            if (isFiring)
+            {
+                CinemachineBasicMultiChannelPerlin perlin = vcamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+                perlin.m_AmplitudeGain = intensity;
+                shakeTimer = timer;
+                shakeTimerTotal = timer;
+                startIntensity = intensity;
+            }
+          
         }
        
     }
    
-    private void PreDestroy()
+    protected override void PreDestroy()
     {
-        ManagerHub.S.GameEventsHandler.onPlayerFire() -= ShakeCamera;
+        ManagerHub.S.GameEventHandler.onPlayerShootStart() -= ShakeCamera;
+
+    
     }
 }
 
