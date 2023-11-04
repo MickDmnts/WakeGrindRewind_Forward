@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using WGRF.Core.Managers;
+using WGRF.Core;
 
 namespace WGRF.Entities.Player
 {
@@ -12,7 +12,7 @@ namespace WGRF.Entities.Player
      * 1. The controller gets activated/deactivated based on the onPlayerStateChange event value.
      * 
      */
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : CoreBehaviour
     {
         [Header("Set in inspector")]
         [SerializeField] float speed;
@@ -38,7 +38,7 @@ namespace WGRF.Entities.Player
         Vector3 lastMoveDir;
         #endregion
 
-        private void Awake()
+        protected override void PreAwake()
         {
             EntrySetup();
 
@@ -56,11 +56,11 @@ namespace WGRF.Entities.Player
 
         private void Start()
         {
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.PlayerEntity.onPlayerStateChange += SetControllerIsActive;
+                ManagerHub.S.PlayerEntity.onPlayerStateChange += SetControllerIsActive;
 
-                GameManager.S.GameEventHandler.onPlayerRewind += SetControllerIsActive;
+                ManagerHub.S.GameEventHandler.onPlayerRewind += SetControllerIsActive;
             }
         }
 
@@ -191,11 +191,11 @@ namespace WGRF.Entities.Player
         {
             if (playerVelocity != Vector3.zero)
             {
-                GameManager.S.PlayerEntity.PlayerAnimations.SetWalkAnimationState(true);
+                ManagerHub.S.PlayerEntity.PlayerAnimations.SetWalkAnimationState(true);
             }
             else
             {
-                GameManager.S.PlayerEntity.PlayerAnimations.SetWalkAnimationState(false);
+                ManagerHub.S.PlayerEntity.PlayerAnimations.SetWalkAnimationState(false);
             }
         }
 
@@ -221,13 +221,13 @@ namespace WGRF.Entities.Player
             }
         }
 
-        private void OnDestroy()
+        protected override void PreDestroy()
         {
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.PlayerEntity.onPlayerStateChange -= SetControllerIsActive;
+                ManagerHub.S.PlayerEntity.onPlayerStateChange -= SetControllerIsActive;
 
-                GameManager.S.GameEventHandler.onPlayerRewind -= SetControllerIsActive;
+                ManagerHub.S.GameEventHandler.onPlayerRewind -= SetControllerIsActive;
             }
         }
     }

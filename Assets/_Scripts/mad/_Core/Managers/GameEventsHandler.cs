@@ -225,6 +225,29 @@ namespace WGRF.Core
         }
 
         /// <summary>
+        /// Called from PlayerAttack to notify every subbed method that the player started kicking.
+        /// </summary>
+        public event Action onPlayerKickStart;
+        public void OnPlayerKickStart()
+        {
+            if (onPlayerKickStart != null)
+            {
+                onPlayerKickStart();
+            }
+        }
+        /// <summary>
+        /// Called from PlayerAttack to notify every subbed method that the player stopped kicking.
+        /// </summary>
+        public event Action onPlayerKickEnd;
+        public void OnPlayerKickEnd()
+        {
+            if (onPlayerKickEnd != null)
+            {
+                onPlayerKickEnd();
+            }
+        }
+
+        /// <summary>
         /// Called when the player picks up the bat prefab in the intro scene.
         /// </summary>
         public event Action onWeaponPickup;

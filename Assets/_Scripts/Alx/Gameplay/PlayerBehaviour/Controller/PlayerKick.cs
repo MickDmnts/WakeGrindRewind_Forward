@@ -1,10 +1,10 @@
 using UnityEngine;
-using WGRF.Core.Managers;
+using WGRF.Core;
 using WGRF.Interactions;
 
 namespace WGRF.Entities.Player
 {
-    public class PlayerKick : MonoBehaviour
+    public class PlayerKick : CoreBehaviour
     {
         [Header("Set in inspector")]
         [SerializeField] float maxDistance;
@@ -20,9 +20,9 @@ namespace WGRF.Entities.Player
 
         void Start()
         {
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.PlayerEntity.onPlayerStateChange += SetIsKickEnabled;
+                ManagerHub.S.GameEventsHandler.onPlayerKickStart += SetIsKickEnabled;
                 kickCooldown = 0;
             }
         }
@@ -82,9 +82,9 @@ namespace WGRF.Entities.Player
             RaycastHit hit;
 
             IsKicking = true;
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.PlayerEntity.PlayerAnimations.PlayKickAnimation();
+                ManagerHub.S.PlayerEntity.PlayerAnimations.PlayKickAnimation();
             }
 
             if (Physics.Raycast(ray, out hit, maxDistance))
@@ -140,11 +140,11 @@ namespace WGRF.Entities.Player
         }
 #endif
 
-        private void OnDestroy()
+        protected override void PreDestroy()
         {
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.PlayerEntity.onPlayerStateChange -= SetIsKickEnabled;
+                ManagerHub.S.GameEventHandler.onPlayerKickStart -= SetIsKickEnabled;
             }
         }
     }

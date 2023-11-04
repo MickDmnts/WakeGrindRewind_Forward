@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 using WGRF.BattleSystem;
-using WGRF.Core.Managers;
+using WGRF.Core;
 using WGRF.Entities.BattleSystem;
 using WGRF.Interactions;
 
@@ -43,13 +43,13 @@ namespace WGRF.Entities.Player
 
         private void Start()
         {
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.PlayerEntity.onPlayerStateChange += SetIsAttacking;
+                ManagerHub.S.PlayerEntity.onPlayerStateChange += SetIsAttacking;
 
-                GameManager.S.GameEventHandler.onPlayerRewind += SetIsAttacking;
+                ManagerHub.S.GameEventHandler.onPlayerRewind += SetIsAttacking;
 
-                GameManager.S.GameEventHandler.onSceneChanged += ClearEquipedWeaponOnIdleScenes;
+                ManagerHub.S.GameEventHandler.onSceneChanged += ClearEquipedWeaponOnIdleScenes;
 
                 canShoot = true;
 
@@ -77,20 +77,20 @@ namespace WGRF.Entities.Player
             switch (scene)
             {
                 case GameScenes.PlayerHub:
-                    if (GameManager.S != null)
+                    if (ManagerHub.S != null)
                     {
-                        GameManager.S.HUDHandler.ChangeBulletsLeft(System.String.Empty);
-                        GameManager.S.HUDHandler.ChangeWeaponInfo(null);
-                        GameManager.S.PlayerEntity.PlayerAnimations.SetRangedWeaponAnimation(false);
+                        ManagerHub.S.HUDHandler.ChangeBulletsLeft(System.String.Empty);
+                        ManagerHub.S.HUDHandler.ChangeWeaponInfo(null);
+                        ManagerHub.S.PlayerEntity.PlayerAnimations.SetRangedWeaponAnimation(false);
                     }
                     SetWeaponInfo(defaultWeapon);
                     break;
 
                 case GameScenes.AbilitiesTutorial:
-                    if (GameManager.S != null)
+                    if (ManagerHub.S != null)
                     {
-                        GameManager.S.HUDHandler.ChangeBulletsLeft(System.String.Empty);
-                        GameManager.S.HUDHandler.ChangeWeaponInfo(null);
+                        ManagerHub.S.HUDHandler.ChangeBulletsLeft(System.String.Empty);
+                        ManagerHub.S.HUDHandler.ChangeWeaponInfo(null);
                     }
                     SetWeaponInfo(defaultWeapon);
                     break;
@@ -119,16 +119,16 @@ namespace WGRF.Entities.Player
             //Enable the weapon holding animation.
             if (weapon.WeaponCategory.Equals(WeaponCategory.Ranged))
             {
-                if (GameManager.S != null)
+                if (ManagerHub.S != null)
                 {
-                    GameManager.S.PlayerEntity.PlayerAnimations.SetRangedWeaponAnimation(true);
+                    ManagerHub.S.PlayerEntity.PlayerAnimations.SetRangedWeaponAnimation(true);
                 }
             }
             else
             {
-                if (GameManager.S != null)
+                if (ManagerHub.S != null)
                 {
-                    GameManager.S.PlayerEntity.PlayerAnimations.SetRangedWeaponAnimation(false);
+                    ManagerHub.S.PlayerEntity.PlayerAnimations.SetRangedWeaponAnimation(false);
                 }
             }
             
@@ -136,7 +136,7 @@ namespace WGRF.Entities.Player
             UpdateWeaponsUI(weapon, weapon.weaponAmmoSprite);
 
             //For managing the starting weapon pickup
-            if (GameManager.S.LevelManager.FocusedScene.Equals(GameScenes.PlayerHub))
+            if (ManagerHub.S.LevelManager.FocusedScene.Equals(GameScenes.PlayerHub))
             {
                 SetStartingBulletCount(weapon);
             }
@@ -150,8 +150,8 @@ namespace WGRF.Entities.Player
         /// <param name="weaponAmmoSprite">The ammo sprite of the weapon.</param>
         void UpdateWeaponsUI(Weapon weapon, Sprite weaponAmmoSprite)
         {
-            GameManager.S.HUDHandler.ChangeWeaponInfo(weaponAmmoSprite);
-            GameManager.S.HUDHandler.ChangeBulletsLeft((weapon.WeaponCategory != WeaponCategory.Ranged)
+            ManagerHub.S.HUDHandler.ChangeWeaponInfo(weaponAmmoSprite);
+            ManagerHub.S.HUDHandler.ChangeBulletsLeft((weapon.WeaponCategory != WeaponCategory.Ranged)
                 ? System.String.Empty : bulletsLeft.ToString());
         }
 
@@ -210,10 +210,10 @@ namespace WGRF.Entities.Player
         /// </summary>
         void ClearWeaponsUI()
         {
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.HUDHandler.ChangeWeaponInfo(null);
-                GameManager.S.HUDHandler.ChangeBulletsLeft(System.String.Empty);
+                ManagerHub.S.HUDHandler.ChangeWeaponInfo(null);
+                ManagerHub.S.HUDHandler.ChangeBulletsLeft(System.String.Empty);
             }
         }
 
@@ -223,9 +223,9 @@ namespace WGRF.Entities.Player
             {
                 DecreaseSpread();
 
-                if (GameManager.S != null)
+                if (ManagerHub.S != null)
                 {
-                    GameManager.S.GameEventHandler.OnPlayerShootEnd();
+                    ManagerHub.S.GameEventHandler.OnPlayerShootEnd();
                 }
             }
         }
@@ -245,8 +245,8 @@ namespace WGRF.Entities.Player
         {
             //Prevents shooting when the mechanic is deactivate, the player is Kicking or when he's in the PlayerHub.
             if (!IsAttackActive
-                || GameManager.S.PlayerEntity.PlayerKick.IsKicking
-                || GameManager.S.LevelManager.FocusedScene == GameScenes.PlayerHub) return;
+                || ManagerHub.S.PlayerEntity.PlayerKick.IsKicking
+                || ManagerHub.S.LevelManager.FocusedScene == GameScenes.PlayerHub) return;
 
             //Check if the player can shoot when the user presse the Fire button.
             if (Input.GetButton("Fire1") && CanShoot())
@@ -332,9 +332,9 @@ namespace WGRF.Entities.Player
         /// </summary>
         void MeleeAttack()
         {
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.PlayerEntity.PlayerAnimations.PlayMeleeWeaponAnimation(equipedWeapon.WeaponType);
+                ManagerHub.S.PlayerEntity.PlayerAnimations.PlayMeleeWeaponAnimation(equipedWeapon.WeaponType);
             }
 
             //Shoot a ray forward
@@ -359,11 +359,11 @@ namespace WGRF.Entities.Player
                                 //Call the Entity AttackInteraction().
                                 interaction.AttackInteraction();
 
-                                if (GameManager.S != null)
+                                if (ManagerHub.S != null)
                                 {
-                                    GameManager.S.WeaponManager.WeaponKillCount.AddKillToWeapon(equipedWeapon.WeaponType);
+                                    ManagerHub.S.WeaponManager.WeaponKillCount.AddKillToWeapon(equipedWeapon.WeaponType);
 
-                                    GameManager.S.GameSoundsHandler.PlayOneShot(GameAudioClip.PunchSound);
+                                    ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.PunchSound);
                                 }
                             }
                         }
@@ -373,9 +373,9 @@ namespace WGRF.Entities.Player
 
             //Play the equiped weapon random SFX
             int rndSfx = Random.Range(0, equipedWeapon.gunShootSound.Length);
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.GameSoundsHandler.PlayOneShot(equipedWeapon.gunShootSound[rndSfx]);
+                ManagerHub.S.GameSoundsHandler.PlayOneShot(equipedWeapon.gunShootSound[rndSfx]);
             }
         }
         #endregion
@@ -404,9 +404,9 @@ namespace WGRF.Entities.Player
             bulletsLeft = bulletsLeft > 0 ? --bulletsLeft : 0;
 
             //Update Bullets ui
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.HUDHandler.ChangeBulletsLeft(bulletsLeft.ToString());
+                ManagerHub.S.HUDHandler.ChangeBulletsLeft(bulletsLeft.ToString());
             }
         }
 
@@ -440,7 +440,7 @@ namespace WGRF.Entities.Player
             }
 
             //Transfer the bullet.
-            GameObject tempBullet = GameManager.S.BulletPool.GetPooledBulletByType(BulletType.Player);
+            GameObject tempBullet = ManagerHub.S.BulletPool.GetPooledBulletByType(BulletType.Player);
 
             float randomFloat = Random.Range(-totalBulletSpread, totalBulletSpread);
 
@@ -458,9 +458,9 @@ namespace WGRF.Entities.Player
                 Debug.Log("BulletPool returned null");
             }
 
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.GameEventHandler.OnPlayerShootStart();
+                ManagerHub.S.GameEventHandler.OnPlayerShootStart();
             }
 
             SetIsShooting(false);
@@ -477,7 +477,7 @@ namespace WGRF.Entities.Player
 
             for (int i = 0; i < 6; i++)
             {
-                pellets[i] = GameManager.S.BulletPool.GetPooledBulletByType(BulletType.Player);
+                pellets[i] = ManagerHub.S.BulletPool.GetPooledBulletByType(BulletType.Player);
             }
 
             foreach (GameObject pellet in pellets)
@@ -498,9 +498,9 @@ namespace WGRF.Entities.Player
                 }
             }
 
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.GameEventHandler.OnPlayerShootStart();
+                ManagerHub.S.GameEventHandler.OnPlayerShootStart();
             }
 
             SetIsShooting(false);
@@ -528,11 +528,11 @@ namespace WGRF.Entities.Player
             if (equipedWeapon.gunShootSound.Length > 1)
             {
                 int rndSfx = Random.Range(0, equipedWeapon.gunShootSound.Length);
-                GameManager.S.GameSoundsHandler.PlayOneShot(equipedWeapon.gunShootSound[rndSfx]);
+                ManagerHub.S.GameSoundsHandler.PlayOneShot(equipedWeapon.gunShootSound[rndSfx]);
             }
             else
             {
-                GameManager.S.GameSoundsHandler.PlayOneShot(equipedWeapon.gunShootSound[0]);
+                ManagerHub.S.GameSoundsHandler.PlayOneShot(equipedWeapon.gunShootSound[0]);
             }
         }
         #endregion
@@ -584,12 +584,12 @@ namespace WGRF.Entities.Player
         //ALEX COMMENT: Created this section identical to throwing a weapon, need to implement GameManager.S.WeaponManager.GetHeldItem()
         void Throw ()
         {
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.PlayerEntity.PlayerAnimations.SetRangedWeaponAnimation(false);
+                ManagerHub.S.PlayerEntity.PlayerAnimations.SetRangedWeaponAnimation(false);
             }
           
-            GameObject toBeThrown = GameManager.S.WeaponManager.GetHeldItem();
+            GameObject toBeThrown = ManagerHub.S.WeaponManager.GetHeldItem();
 
             if (toBeThrown != null)
             {
@@ -604,10 +604,10 @@ namespace WGRF.Entities.Player
                 {
                     throwable.InitiateThrow();
 
-                    if (GameManager.S != null)
+                    if (ManagerHub.S != null)
                     {
-                        GameManager.S.PlayerEntity.PlayerAnimations.PlayThrowAnimation();
-                        GameManager.S.GameSoundsHandler.PlayOneShot(GameAudioClip.WeaponThrow);
+                        ManagerHub.S.PlayerEntity.PlayerAnimations.PlayThrowAnimation();
+                        ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.WeaponThrow);
                     }
 
                 }
@@ -638,13 +638,13 @@ namespace WGRF.Entities.Player
 
         private void OnDestroy()
         {
-            if (GameManager.S != null)
+            if (ManagerHub.S != null)
             {
-                GameManager.S.PlayerEntity.onPlayerStateChange -= SetIsAttacking;
+                ManagerHub.S.PlayerEntity.onPlayerStateChange -= SetIsAttacking;
 
-                GameManager.S.GameEventHandler.onPlayerRewind -= SetIsAttacking;
+                ManagerHub.S.GameEventHandler.onPlayerRewind -= SetIsAttacking;
 
-                GameManager.S.GameEventHandler.onSceneChanged -= ClearEquipedWeaponOnIdleScenes;
+                ManagerHub.S.GameEventHandler.onSceneChanged -= ClearEquipedWeaponOnIdleScenes;
             }
         }
     }

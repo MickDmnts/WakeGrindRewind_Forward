@@ -20,7 +20,7 @@ public class ScreenShake : CoreBehaviour
 
     void Start()
     {
-        ManagerHub.S.GameEventsHandler.onPlayerShootStart() += ShakeCamera;
+        ManagerHub.S.GameEventsHandler.onPlayerShootStart += ShakeCamera;
     }
 
     // Update is called once per frame
