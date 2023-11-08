@@ -21,11 +21,6 @@ namespace WGRF.Entities.Player
         protected override void PreAwake()
         {
             SetController(transform.root.GetComponent<Controller>());
-        }
-
-        void Start()
-        {
-            //ManagerHub.S.GameEventHandler.onPlayerKickStart += SetIsKickEnabled;
             kickCooldown = 0;
         }
 
@@ -138,10 +133,5 @@ namespace WGRF.Entities.Player
             Gizmos.DrawRay(transform.position, transform.forward * maxDistance);
         }
 #endif
-
-        protected override void PreDestroy()
-        {
-            //ManagerHub.S.GameEventHandler.onPlayerKickStart -= SetIsKickEnabled;
-        }
     }
 }

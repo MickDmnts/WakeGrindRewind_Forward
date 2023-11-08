@@ -330,18 +330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf18cfd47a43ffd4b90f1666c7beaa9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxZoomOut: 1
-  maxZoomIn: 0.5
-  zoomForce: 0.05
-  boundaries:
-  - {fileID: 6994833330837364661}
-  - {fileID: 153840317773685222}
-  - {fileID: 5982585632306380787}
-  - {fileID: 1983842692909600280}
-  - {fileID: 4438321596034617045}
-  - {fileID: 4788135527901130803}
-  - {fileID: 6162746262884581335}
-  - {fileID: 928052294709285423}
 --- !u!20 &1728470968
 Camera:
   m_ObjectHideFlags: 0

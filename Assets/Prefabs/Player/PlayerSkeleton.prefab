@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 6015199087048063065}
   - component: {fileID: 6015199087048063066}
   - component: {fileID: 6015199086522612045}
+  - component: {fileID: 1244864206050803795}
   m_Layer: 6
   m_Name: PlayerSkeleton
   m_TagString: Player
@@ -302,6 +303,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1244864206050803795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015199087048063045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012766b6a557f3b4d84794f9e6fa33aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: playerController
 --- !u!1 &6015199087393421351
 GameObject:
   m_ObjectHideFlags: 0
