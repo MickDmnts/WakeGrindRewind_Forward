@@ -8,10 +8,10 @@ namespace WGRF.Core
     /// <summary>
     /// The AppInternal class caches app specific variables to be used from other managers.
     /// </summary>
-    public class AppInternal
+    public sealed class AppInternal
     {
         ///<summary>A static string which stores the App Data folder absolute path of the app.</summary>
-        static string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Application.companyName);
+        string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Application.companyName);
 
         ///<summary>A static string which stores the App Data folder absolute path of the app.</summary>
         public string AppDataPath => appDataPath;

@@ -48,13 +48,11 @@ namespace WGRF.Abilities
 
             UpdateStatsPerTier();
 
-            ManagerHub.S.GameEventHandler.onSceneChanged += DisableBehaviourOnSceneChange;
-
             this.CanActivate = true;
         }
 
         ///<summary>Disable the ability on any scene change.</summary>
-        public override void DisableBehaviourOnSceneChange(GameScenes scene)
+        public void DisableBehaviourOnSceneChange()
         {
             OnAbilityFinished();
         }

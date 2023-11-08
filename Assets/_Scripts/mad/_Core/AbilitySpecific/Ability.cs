@@ -105,9 +105,6 @@ namespace WGRF.Abilities
         /// </summary>
         public abstract void ResetAbilityUses();
 
-        ///<summary>Disables ability behaviour on specific scenes</summary>
-        public abstract void DisableBehaviourOnSceneChange(GameScenes scene);
-
         public virtual bool Compare(Ability ability, Ability otherAbility)
         {return ability.AbilityName == otherAbility.AbilityName; }
         #endregion

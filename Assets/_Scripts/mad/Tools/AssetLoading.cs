@@ -17,11 +17,11 @@ namespace WGRF.Core
     public static class UnityAssets
     {
         /// <summary>Holds the addressable paths of the globaly loaded assets. Note: Global assets are released from memory on the termination of the application.</summary>
-        public static HashSet<string> hGlobal = new HashSet<string>();
+        public static HashSet<string> GlobalLoadedAssets = new HashSet<string>();
         /// <summary>Holds the addressable paths of the loaded scene assets.
         /// Note: This list is cleaned every time a new scene is loaded unless the automatic scene assets release flag is cleared
         /// when the LoadSceneAsync method is called. In that case the ReleaseSceneAssets method should be called manualy.</summary>
-        public static Dictionary<string, AsyncOperationHandle> dScene = new Dictionary<string, AsyncOperationHandle>();
+        public static Dictionary<string, AsyncOperationHandle> LoadedScenes = new Dictionary<string, AsyncOperationHandle>();
 
         /// <summary>
         /// Releases all the currently loaded scene assets.
@@ -29,13 +29,13 @@ namespace WGRF.Core
         public static void ReleaseSceneAssets()
         {
             // Makes sure that any loaded scene asset is released before loading the requested scene.
-            foreach (AsyncOperationHandle obj in dScene.Values)
+            foreach (AsyncOperationHandle obj in LoadedScenes.Values)
             {
                 Addressables.Release(obj);
             }
 
             // Clears the addressable paths of the loaded scene assets.
-            dScene.Clear();
+            LoadedScenes.Clear();
         }
 
         /// <summary>
@@ -44,15 +44,15 @@ namespace WGRF.Core
         public static void RegisterAsset(string path, bool global, AsyncOperationHandle obj)
         {
             // Registers a global asset.
-            if (global && !hGlobal.Contains(path))
+            if (global && !GlobalLoadedAssets.Contains(path))
             {
-                hGlobal.Add(path);
+                GlobalLoadedAssets.Add(path);
 
                 return;
             }
 
             // Registers a scene asset.
-            dScene.TryAdd(path, obj);
+            LoadedScenes.TryAdd(path, obj);
         }
 
         /// <summary>
@@ -61,11 +61,11 @@ namespace WGRF.Core
         public static void ReleaseAsset(string path)
         {
             // Makes sure that the given path doesn't belongs to a global asset.
-            if (hGlobal.Contains(path) || !dScene.ContainsKey(path)) { return; }
+            if (GlobalLoadedAssets.Contains(path) || !LoadedScenes.ContainsKey(path)) { return; }
 
             // Releases the scene asset from the memory.
-            Addressables.Release(dScene[path]);
-            dScene.Remove(path);
+            Addressables.Release(LoadedScenes[path]);
+            LoadedScenes.Remove(path);
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace WGRF.Core
         /// <param name="asar">The automatic scene assets release flag.</param>
         /// <param name="cb">The callback function that holds the scene instance.
         /// Note: If the callback is not set then a scene is automaticaly loaded.</param>
-        public async static void LoadSceneAsync(string path, int delay = 0, bool asar = true, Action<SceneInstance> cb = null)
+        public async static void LoadSceneAsync(string path, LoadSceneMode mode, int delay = 0, bool asar = true, Action<SceneInstance> cb = null)
         {
             bool ald = true;
 
@@ -103,7 +103,7 @@ namespace WGRF.Core
             if (asar) { ReleaseSceneAssets(); }
 
             // Loads the new scene asynchronously.
-            Addressables.LoadSceneAsync(path, LoadSceneMode.Single, ald).Completed += (AsyncOperationHandle<SceneInstance> obj) =>
+            Addressables.LoadSceneAsync(path, mode, ald).Completed += (AsyncOperationHandle<SceneInstance> obj) =>
             {
                 if (cb != null)
                 {

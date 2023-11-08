@@ -43,40 +43,6 @@ namespace WGRF.Core
         }
 
         /// <summary>
-        /// Called after the NEW SCENE is LOADED and passes the new scene to its subscribers.
-        /// </summary>
-        public event Action<GameScenes> onSceneChanged;
-        public void OnSceneChanged(GameScenes activeScene)
-        {
-            if (onSceneChanged != null)
-            {
-                onSceneChanged(activeScene);
-            }
-        }
-
-        public event Action<GameScenes> onSceneUnloaded;
-        public void OnSceneUnloaded(GameScenes unloadedScene)
-        {
-            if (onSceneUnloaded != null)
-            {
-                onSceneUnloaded(unloadedScene);
-            }
-        }
-
-        /// <summary>
-        /// Called whenever the player WINS a level.
-        /// Used for skill point aquisition.
-        /// </summary>
-        public event Action<GameScenes> onLevelPassed;
-        public void OnLevelPassed(GameScenes currentScene)
-        {
-            if (onLevelPassed != null)
-            {
-                onLevelPassed(currentScene);
-            }
-        }
-
-        /// <summary>
         /// Called whenever the player dies.
         /// </summary>
         public event Action onPlayerDeath;
