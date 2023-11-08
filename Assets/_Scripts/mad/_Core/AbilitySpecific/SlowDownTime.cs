@@ -45,8 +45,6 @@ namespace WGRF.Abilities
         /// </summary>
         public override void Start(Action onAbilityFinishCallback)
         {
-            ManagerHub.S.GameEventHandler.onSceneChanged += DisableBehaviourOnSceneChange;
-
             this.onAbilityFinishCallback = onAbilityFinishCallback;
 
             UpdateStatsPerTier();
@@ -55,7 +53,7 @@ namespace WGRF.Abilities
         }
 
         ///<summary>Disable the ability on any scene change.</summary>
-        public override void DisableBehaviourOnSceneChange(GameScenes scene)
+        public void DisableBehaviourOnSceneChange()
         {
             OnAbilityFinished();
         }

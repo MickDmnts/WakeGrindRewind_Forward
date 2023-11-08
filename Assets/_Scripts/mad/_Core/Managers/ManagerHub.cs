@@ -17,8 +17,6 @@ namespace WGRF.Core
         GameEventsHandler _gameEventsHandler;
         ///<summary>The globals reference contains usefull game-wide paths and variables</summary>
         AppInternal _globals;
-        ///<summary>LevelManager reference</summary>
-        LevelManager _levelManager;
         ///<summary>Database handler reference</summary>
         Database _database;
         ///<summary>The settings handler reference</summary>
@@ -27,13 +25,13 @@ namespace WGRF.Core
         CursorHandler _cursorHandler;
         ///<summary>The WGRF audio handler reference</summary>
         GameSoundsHandler _gameSoundsHandler;
+        ///<summary>The stage handler reference</summary>
+        StageHandler _stageHandler;
 
         ///<summary>Returns the GameEventsHandler reference</summary>
         public GameEventsHandler GameEventHandler => _gameEventsHandler;
         ///<summary>Returns the globals reference containing game-wide paths and variables</summary>
         public AppInternal Globals => _globals;
-        ///<summary>Returns the LevelManager reference</summary>
-        public LevelManager LevelManager => _levelManager;
         ///<summary>Returns the Database handler reference</summary>
         public Database Database => _database;
         ///<summary>Returns the settings handler reference</summary>
@@ -42,6 +40,8 @@ namespace WGRF.Core
         public CursorHandler CursorHandler => _cursorHandler;
         ///<summary>Returns the WGRF audio handler reference</summary>
         public GameSoundsHandler GameSoundsHandler => _gameSoundsHandler;
+        ///<summary>Returns the reference to the Stage Handler of WGRF</summary>
+        public StageHandler StageHandler => _stageHandler;
 
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
@@ -72,6 +72,7 @@ namespace WGRF.Core
             _settingsHandler = new SettingsHandler();
             _cursorHandler = new CursorHandler();
             _gameSoundsHandler = GetComponent<GameSoundsHandler>();
+            _stageHandler = new StageHandler();
         }
     }
 }
