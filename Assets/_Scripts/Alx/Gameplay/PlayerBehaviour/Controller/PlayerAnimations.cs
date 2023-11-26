@@ -11,11 +11,9 @@ namespace WGRF.Entities.Player
 
         protected override void PreAwake()
         {
-            playerAnimator = GetComponent<Animator>();
-        }
+            SetController(transform.root.GetComponent<Controller>());
 
-        private void Start()
-        {
+            playerAnimator = GetComponent<Animator>();
             //ManagerHub.S.PlayerEntity.onPlayerStateChange += PlaybackOnStateChange;
         }
 
@@ -132,7 +130,7 @@ namespace WGRF.Entities.Player
         /// </summary>
         public Animator GetAnimator() => playerAnimator;
 
-        private void OnDestroy()
+        protected override void PreDestroy()
         {
             //ManagerHub.S.PlayerEntity.onPlayerStateChange -= PlaybackOnStateChange;
         }

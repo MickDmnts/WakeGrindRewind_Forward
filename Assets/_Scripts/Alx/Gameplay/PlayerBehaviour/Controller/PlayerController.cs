@@ -11,7 +11,7 @@ namespace WGRF.Entities.Player
         [SerializeField] float speed;
         [SerializeField] float dashSpeed = 30f;
         [SerializeField] TrailRenderer[] dashLines;
-        
+
         #region PRIVATE_VARIABLES
         bool controllerIsActive = false;
 
@@ -35,25 +35,16 @@ namespace WGRF.Entities.Player
         protected override void PreAwake()
         {
             //SetController here
-            SetController(transform.root.GetComponent<Controller>());
+            SetController(transform.GetComponent<Controller>());
 
-            EntrySetup();
+            playerRB = GetComponent<Rigidbody>();
+            defaultConstraints = playerRB.constraints;
+
+            SetControllerIsActive(true);
 
             SetDashTrailEmision(false);
 
-
             input = new PlayerInput();
-
-            
-        }
-        
-        /// <summary>
-        /// Call to setup the player controller on first load.
-        /// </summary>
-        void EntrySetup()
-        {
-            playerRB = GetComponent<Rigidbody>();
-            defaultConstraints = playerRB.constraints;
         }
 
         private void OnEnable()
@@ -77,28 +68,13 @@ namespace WGRF.Entities.Player
         private void Start()
         {
             //ManagerHub.S.PlayerEntity.onPlayerStateChange += SetControllerIsActive;
-            ManagerHub.S.GameEventHandler.onPlayerRewind += SetControllerIsActive;
         }
 
         /// <summary>
-        /// *Subscribed to the onPlayerStateChange and onPlayerRewind event.
-        /// Call to change the rigidbody constraints based on the passed value.
-        /// <para>If the passed value is true, then the starting RB costraints are used,
-        /// otherwise the RB freezes every constraint.</para>
+        /// 
         /// </summary>
         void SetControllerIsActive(bool value)
-        {
-            controllerIsActive = value;
-
-            if (controllerIsActive)
-            {
-                playerRB.constraints = defaultConstraints;
-            }
-            else
-            {
-                playerRB.constraints = RigidbodyConstraints.FreezeAll;
-            }
-        }
+        { controllerIsActive = value; }
 
         void Update()
         {
@@ -107,7 +83,7 @@ namespace WGRF.Entities.Player
 
             //Get the mouse position.
             //mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
+
             ApplyRotationBasedOnMousePos();
 
             //Get the Dash input
@@ -203,14 +179,14 @@ namespace WGRF.Entities.Player
 
         private void OnCursorMoved(InputAction.CallbackContext value)
         {
-            mousePos = new Vector3(value.ReadValue<Vector2>().x, 0, value.ReadValue<Vector2>().y) ;
+            mousePos = new Vector3(value.ReadValue<Vector2>().x, 0, value.ReadValue<Vector2>().y);
         }
 
         private void OnDashPerformed(InputAction.CallbackContext value)
         {
             isTryingToDash = value.ReadValue<bool>();
         }
-        
+
 
         /// <summary>
         /// Call to set the isWalking animation state value based on the passed value.
@@ -255,8 +231,6 @@ namespace WGRF.Entities.Player
         protected override void PreDestroy()
         {
             //ManagerHub.S.PlayerEntity.onPlayerStateChange -= SetControllerIsActive;
-            
-            ManagerHub.S.GameEventHandler.onPlayerRewind -= SetControllerIsActive;
         }
     }
 }

@@ -69,27 +69,7 @@ namespace WGRF.Entities.Player
                 //ManagerHub.S.AttachPlayerController(this);
 
                 //Subscribe to the needed events.
-                ManagerHub.S.GameEventHandler.onSceneChanged += PlayerHubEntry;
                 ManagerHub.S.GameEventHandler.onPlayerSpawn += MoveToSpawnPoint;
-            }
-        }
-
-        /// <summary>
-        /// Method subscribed to the onSceneChanged event.
-        /// <para>When called and the focused scene is the PlayerHub, the player active state gets set to false,
-        /// the animator speed is reseted to 1, playerLife is set to 1 and the the PlayerAnimations.PlayWakeUpAnimation gets called.</para>
-        /// </summary>
-        /// <param name="scenes"></param>
-        void PlayerHubEntry(GameScenes scenes)
-        {
-            if (ManagerHub.S.LevelManager.FocusedScene == GameScenes.PlayerHub)
-            {
-                isActive = false;
-
-                /*PlayerAnimations.GetAnimator().speed = 1f;
-                PlayerAnimations.PlayWakeUpAnimation();*/
-
-                SetHealth(1);
             }
         }
 
@@ -168,9 +148,6 @@ namespace WGRF.Entities.Player
             //ManagerHub.S.HUDHandler.ChangeWeaponInfo(null);
 
             yield return new WaitForSeconds(2f);
-
-            //Level Manager still WIP
-            ManagerHub.S.LevelManager.TransitToPlayerHub();
 
             transform.rotation = Quaternion.Euler(Vector3.up);
 
@@ -255,10 +232,7 @@ namespace WGRF.Entities.Player
         protected override void PreDestroy()
         {
             if (ManagerHub.S != null)
-            {
-                ManagerHub.S.GameEventHandler.onSceneChanged -= PlayerHubEntry;
-                ManagerHub.S.GameEventHandler.onPlayerSpawn -= MoveToSpawnPoint;
-            }
+            { ManagerHub.S.GameEventHandler.onPlayerSpawn -= MoveToSpawnPoint; }
         }
     }
 }
