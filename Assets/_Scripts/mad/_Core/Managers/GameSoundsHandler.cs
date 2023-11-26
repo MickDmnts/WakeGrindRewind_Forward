@@ -6,7 +6,7 @@ namespace WGRF.Core
     /// This class is responsible for all of WGRF game sounds.
     /// </summary>
     [DefaultExecutionOrder(0)]
-    public class GameSoundsHandler : MonoBehaviour
+    public class GameSoundsHandler : CoreBehaviour
     {
         ///<summary>The master audio source value</summary>
         [Header("Audio sources settings")]
@@ -25,7 +25,7 @@ namespace WGRF.Core
         [SerializeField, Tooltip("An array containing all of the SFX clips of the game")]
         AudioClip[] sfxClips;
 
-        private void Awake()
+        protected override void PreAwake()
         {
             ConfigureAudioSources(ref ostSource, ref sfxSource);
         }
@@ -51,7 +51,7 @@ namespace WGRF.Core
             sfx.loop = false;
 
             ost.priority = 127;
-            sfx.priority = 255;           
+            sfx.priority = 255;
         }
 
         /// <summary>

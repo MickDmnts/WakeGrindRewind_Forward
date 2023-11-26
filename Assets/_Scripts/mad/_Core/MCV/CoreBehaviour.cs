@@ -12,6 +12,7 @@ namespace WGRF.Core
         /// <summary>The ID of the specific Component registered into the assigned Controller.</summary>
         [SerializeField, Tooltip("The ID of the specific Component registered into the assigned Controller.")]
         string _id = "";
+        [Space]
 
         /// <summary>The Controller that this component will register into.</summary>
         Controller _controller;

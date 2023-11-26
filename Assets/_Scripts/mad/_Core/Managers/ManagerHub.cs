@@ -27,6 +27,8 @@ namespace WGRF.Core
         GameSoundsHandler _gameSoundsHandler;
         ///<summary>The stage handler reference</summary>
         StageHandler _stageHandler;
+        ///<summary>The time scale handler of WGRF</summary>
+        InternalTime _internalTime;
 
         ///<summary>Returns the GameEventsHandler reference</summary>
         public GameEventsHandler GameEventHandler => _gameEventsHandler;
@@ -42,6 +44,8 @@ namespace WGRF.Core
         public GameSoundsHandler GameSoundsHandler => _gameSoundsHandler;
         ///<summary>Returns the reference to the Stage Handler of WGRF</summary>
         public StageHandler StageHandler => _stageHandler;
+        ///<summary>Returns the reference to the Internal Time of WGRF</summary>
+        public InternalTime InternalTime => _internalTime;
 
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
@@ -73,6 +77,7 @@ namespace WGRF.Core
             _cursorHandler = new CursorHandler();
             _gameSoundsHandler = GetComponent<GameSoundsHandler>();
             _stageHandler = new StageHandler();
+            _internalTime = new InternalTime(this);
         }
     }
 }
