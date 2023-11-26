@@ -169,6 +169,7 @@ namespace WGRF.Core
         /// <summary>
         /// Called from PlayerAttack to notify every subbed method that the player fired a gun.
         /// </summary>
+        [Obsolete("To be deleted")]
         public event Action onPlayerShootStart;
         public void OnPlayerShootStart()
         {
@@ -181,12 +182,36 @@ namespace WGRF.Core
         /// <summary>
         /// Called from PlayerAttack to notify every subbed method that the player stopped firing a gun.
         /// </summary>
+        [Obsolete("To be deleted")]
         public event Action onPlayerShootEnd;
         public void OnPlayerShootEnd()
         {
             if (onPlayerShootEnd != null)
             {
                 onPlayerShootEnd();
+            }
+        }
+
+        /// <summary>
+        /// Called from PlayerAttack to notify every subbed method that the player stopped kicking.
+        /// </summary>
+        public event Action onPlayerKickStart;
+        public void OnPlayerKickStart()
+        {
+            if (onPlayerKickStart != null)
+            {
+                onPlayerKickStart();
+            }
+        }
+        /// <summary>
+        /// Called from PlayerAttack to notify every subbed method that the player stopped kicking.
+        /// </summary>
+        public event Action onPlayerKickEnd;
+        public void OnPlayerKickEnd()
+        {
+            if (onPlayerKickEnd != null)
+            {
+                onPlayerKickEnd();
             }
         }
 
