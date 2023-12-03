@@ -402,7 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90da30693d51bb24fa066745559d367b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: pic
+  _id: pInputController
   speed: 5
   dashSpeed: 30
   dashLines:
@@ -424,7 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f5d56c909cef75449bd5e1b6d720969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: playerAnimations
+  _id: pAnimations
 --- !u!1 &385755474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,7 +1159,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1244864206050803795, guid: a2374148760b53045b125ed10ac84227, type: 3}
       propertyPath: _id
-      value: pc
+      value: pController
       objectReference: {fileID: 0}
     - target: {fileID: 6015199087048063045, guid: a2374148760b53045b125ed10ac84227, type: 3}
       propertyPath: m_Name
