@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
 using UnityEngine;
-//using WGRF.Abilities;
+using WGRF.Abilities;
 using WGRF.Core;
 
 namespace WGRF.Entities.Player
 {
-
     [DefaultExecutionOrder(150)]
     public class PlayerEntity : Entity //IRewindable
     {
@@ -25,52 +24,12 @@ namespace WGRF.Entities.Player
         ///<summary>Returns the is active state of the player</summary>
         public bool IsActive => isActive;
 
-        //REPLACE THIS WITH THE CONTROLLER AND COREBEHAVIOUR SYSTEM -  SEE EXAMPLES FOLDER FOR MCV
-        #region BEHAVIOUR_CACHING
-        /*        //Cache player controller script
-                private PlayerController playerController;
-                public PlayerController PlayerController
-                {
-                    get { return playerController; }
-                    set { playerController = value; }
-                }
-
-                //Cache player attacking script
-                private PlayerAttack playerShooting;
-                public PlayerAttack PlayerShooting
-                {
-                    get { return playerShooting; }
-                    set { playerShooting = value; }
-                }
-
-                //Cache player animations script
-                private PlayerAnimations playerAnimations;
-                public PlayerAnimations PlayerAnimations
-                {
-                    get { return playerAnimations; }
-                    set { playerAnimations = value; }
-                }
-
-                //Cache player kicking script
-                private PlayerKick playerKick;
-                public PlayerKick PlayerKick
-                {
-                    get { return playerKick; }
-                    set { playerKick = value; }
-                }*/
-        #endregion
-
         protected override void PreAwake()
         {
-            if (ManagerHub.S != null)
-            {
-                //UNCOMMENT WHEN YOY'VE IMPLEMENTED THE CORE BEHAVIOUR AND CONTROLLER SYSTEM ON THE PLAYER,
-                //THEN PASS THE CONTROLLER AS AN ARGUMENT
-                //ManagerHub.S.AttachPlayerController(this);
+            ManagerHub.S.AttachPlayerController(Controller);
 
-                //Subscribe to the needed events.
-                ManagerHub.S.GameEventHandler.onPlayerSpawn += MoveToSpawnPoint;
-            }
+            //Subscribe to the needed events.
+            ManagerHub.S.GameEventHandler.onPlayerSpawn += MoveToSpawnPoint;
         }
 
         private void Start()
@@ -96,8 +55,11 @@ namespace WGRF.Entities.Player
             {
                 isActive = false;
 
-                //This should use the still WIP addressables system.
-                //Instantiate(bloodDecalPath, transform.position, bloodDecalPath.transform.rotation * Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f)));
+                UnityAssets.LoadAsync(bloodDecalPath, false, (decal) =>
+                {
+                    decal.transform.position = transform.position;
+                    decal.transform.rotation = decal.transform.rotation * Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
+                });
 
                 //Ability system still WIP
                 /*if (ManagerHub.S.AbilityManager.CanRewind(true))
@@ -119,15 +81,15 @@ namespace WGRF.Entities.Player
         /// </summary>
         IEnumerator RewindOnDeath()
         {
-            //playerAnimations.GetAnimator().speed = 1f;
-            //playerAnimations.PlayDeathAnimation();
+            Controller.Access<PlayerAnimations>("pAnimations").GetAnimator().speed = 1f;
+            Controller.Access<PlayerAnimations>("pAnimations").PlayDeathAnimation();
             yield return new WaitForSecondsRealtime(1f);
 
-            //playerAnimations.PlayWakeUpAnimation();
+            Controller.Access<PlayerAnimations>("pAnimations").PlayWakeUpAnimation();
 
             yield return new WaitForSecondsRealtime(1f);
 
-            //playerAnimations.SetWalkAnimationState(true);
+            Controller.Access<PlayerAnimations>("pAnimations").SetWalkAnimationState(true);
 
             //AI Manager is WIP
             //ManagerHub.S.AIEntityManager.ActivateDetectors();
@@ -142,7 +104,7 @@ namespace WGRF.Entities.Player
         /// <returns></returns>
         IEnumerator DeathSequence()
         {
-            //PlayerAnimations.PlayDeathAnimation();
+            Controller.Access<PlayerAnimations>("pAnimations").PlayDeathAnimation();
 
             //UI System stil WIP
             //ManagerHub.S.HUDHandler.ChangeWeaponInfo(null);
@@ -221,18 +183,15 @@ namespace WGRF.Entities.Player
         public void EnableUserControlOfPlayer()
         {
             //Change after implemented the CoreBehaviour and Controller
-            /*ManagerHub.S.PlayerEntity.IsDead = false;
-            ManagerHub.S.PlayerEntity.IsActive = true;
+            isDead = false;
+            isActive = true;
 
-            playerAnimations.GetAnimator().SetBool("isDead", false);
-            playerAnimations.GetAnimator().SetBool("isWakingUp", false);*/
+            Controller.Access<PlayerAnimations>("pAnimations").GetAnimator().SetBool("isDead", false);
+            Controller.Access<PlayerAnimations>("pAnimations").GetAnimator().SetBool("isWakingUp", false);
         }
         #endregion
 
         protected override void PreDestroy()
-        {
-            if (ManagerHub.S != null)
-            { ManagerHub.S.GameEventHandler.onPlayerSpawn -= MoveToSpawnPoint; }
-        }
+        { ManagerHub.S.GameEventHandler.onPlayerSpawn -= MoveToSpawnPoint; }
     }
 }

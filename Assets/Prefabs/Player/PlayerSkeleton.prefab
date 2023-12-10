@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6ef3463b5fc14468b3c8d8e9a8fd33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 
+  _id: pKick
   maxDistance: 1
 --- !u!1 &6015199087048063045
 GameObject:
@@ -204,6 +204,9 @@ GameObject:
   - component: {fileID: 6015199087048063066}
   - component: {fileID: 6015199086522612045}
   - component: {fileID: 1244864206050803795}
+  - component: {fileID: 2101251271416466325}
+  - component: {fileID: 2706696686325513107}
+  - component: {fileID: 8354939839914514700}
   m_Layer: 6
   m_Name: PlayerSkeleton
   m_TagString: Player
@@ -315,7 +318,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012766b6a557f3b4d84794f9e6fa33aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: playerController
+  _id: pController
+--- !u!114 &2101251271416466325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015199087048063045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc9261024b3142841995ff81f616b645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: pEntity
+  entityName: Player
+  maxLife: 100
+  entityLife: 100
+  bloodDecalPath: sfx/blooddecal
+--- !u!114 &2706696686325513107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015199087048063045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90da30693d51bb24fa066745559d367b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: pInputController
+  speed: 5
+  dashSpeed: 30
+  dashLines:
+  - {fileID: 5323082862355549291}
+  - {fileID: 6500972846808952587}
+  - {fileID: 9147108920602299384}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &8354939839914514700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015199087048063045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f5d56c909cef75449bd5e1b6d720969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: pAnimations
 --- !u!1 &6015199087393421351
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,6 +495,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6015199088145770782}
+  - component: {fileID: 4042594995575520777}
   m_Layer: 6
   m_Name: PlayerAttack
   m_TagString: Untagged
@@ -464,6 +520,31 @@ Transform:
   - {fileID: 6015199087523189644}
   m_Father: {fileID: 6015199087048063064}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4042594995575520777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015199088145770783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2a43421c1c5f064d957bc4152ff3d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: pAttack
+  meleeDetectionLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  meleeLinecastLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  firePoint: {fileID: 6015199087523189644}
+  bulletSpreadRate: 0
+  accuracyIncreaseRate: 0
+  equipedWeapon: {fileID: 0}
+  defaultWeapon: {fileID: 0}
+  IsAttackActive: 0
 --- !u!1 &6015199088552736586
 GameObject:
   m_ObjectHideFlags: 0

@@ -64,7 +64,6 @@ namespace WGRF.Core
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
         public AIEntityManager AIEntityManager { get; private set; }
-        public WeaponManager WeaponManager { get; private set; }
         public AbilityManager AbilityManager { get; private set; }
         public SkillPointHandle SkillPointHandle { get; private set; }
         public WeaponSelectionUI WeaponSelectionUIHandler { get; private set; }*/
