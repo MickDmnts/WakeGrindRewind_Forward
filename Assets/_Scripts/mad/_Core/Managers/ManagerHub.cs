@@ -1,4 +1,5 @@
 using UnityEngine;
+using WGRF.BattleSystem;
 using WGRF.Core.Managers;
 using WGRF.Internal;
 
@@ -33,6 +34,8 @@ namespace WGRF.Core
         Controller _playerController;
         ///<summary>Reference to the bullet pool of the game</summary>
         BulletPool _bulletPool;
+        ///<summary>Reference to the weapon manager</summary>
+        WeaponManager _weaponManager;
         
 
         ///<summary>Returns the GameEventsHandler reference</summary>
@@ -55,6 +58,8 @@ namespace WGRF.Core
         public Controller PlayerController => _playerController;
         ///<summary>Returns the reference to the bullet pool</summary>
         public BulletPool BulletPool => _bulletPool;
+        ///<summary>Returns the reference to the Weapon manager</summary>
+        public WeaponManager WeaponManager => _weaponManager;
 
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
