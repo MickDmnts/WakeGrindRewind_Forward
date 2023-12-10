@@ -13,20 +13,6 @@ namespace WGRF.Core.Managers
         Player,
     }
 
-    /* [CLASS DOCUMENTATION]
-    * 
-    * Inspector variable : Must be set from the inspector
-    * Private variables: These values change in runtime.
-    * 
-    * [Class flow]
-    * 1. When the game loads the manager divides the amountToPool value by 2 and creates 2 Queues, one for the player bullets
-    *   and one for the enemy bullets.
-    * 2. Each bullet instance is assigned a BulletType so we don't have friendly fire between entities.
-    * 
-    * [Must know]
-    * 1. The GetPooledBulletByType(...) returns null in case the pool is empty.
-    * 
-    */
     [DefaultExecutionOrder(50)]
     public class BulletPool : MonoBehaviour
     {

@@ -1,6 +1,7 @@
 using UnityEngine;
 using WGRF.Core;
 using WGRF.Core.Managers;
+using WGRF.Gameplay.BattleSystem;
 using WGRF.Interactions;
 
 namespace WGRF.BattleSystem
@@ -14,22 +15,6 @@ namespace WGRF.BattleSystem
         EnemyProjectile = 13,
     }
 
-    /* [CLASS DOCUMENTATION]
-     * 
-     * Inspector variable : Must be set from the inspector
-     * Private variables: These values change in runtime.
-     * 
-     * [Class flow]
-     * 1. Each bullet gets instantiated and deactivated at the first game load from the BuletPool manager.
-     * 2. When the bullet gets instatiated it gets its BulletType assigned too from the BulletPool manager so
-     *      the enemies and the player use different bullets but with the same mechanisms.
-     * 
-     * [Must know]
-     * 1. Its bullets' gameObject layer is set based on the BulletType value passed in the SetBulletType(...) method.
-     *      Enemy bullet type: Collides with the player and not the enemies.
-     *      Player bullet type: Collides with the enemies and not the player.
-     * 
-     */
     public class Bullet : MonoBehaviour
     {
         [Header("Set in inspector")]
@@ -67,15 +52,6 @@ namespace WGRF.BattleSystem
             if (interaction != null)
             {
                 interaction.AttackInteraction();
-
-                //If the bullet was fired from the player then also add a kill to the player weapon kill count.
-                if (bulletType.Equals(BulletType.Player))
-                {
-                    if (ManagerHub.S != null)
-                    {
-                        //ManagerHub.S.WeaponManager.WeaponKillCount.AddKillToWeapon(firedFrom);
-                    }
-                }
 
                 //Spawn the blood impact FX when the bullet hits an entity
                 GameObject spawnedFX = Instantiate(bloodImpactFX, other.transform.position, Quaternion.identity);
@@ -124,7 +100,7 @@ namespace WGRF.BattleSystem
         {
             if (isCached) return;
 
-            //ManagerHub.S.BulletPool.CacheBullet(this, bulletType);
+            ManagerHub.S.BulletPool.CacheBullet(this, bulletType);
         }
         #endregion
 
@@ -139,7 +115,7 @@ namespace WGRF.BattleSystem
 
             if (ManagerHub.S.PlayerController != null)
             {
-                firedFrom = WeaponType._NaN;//ManagerHub.S.PlayerController.PlayerShooting.equipedWeapon.WeaponType;
+                firedFrom = ManagerHub.S.PlayerController.Access<PlayerAttack>("pAttack").equipedWeapon.WeaponType;
             }
 
             //Auto-cache the bullet after a short time.
@@ -153,10 +129,7 @@ namespace WGRF.BattleSystem
 
         private void OnDestroy()
         {
-            if (ManagerHub.S != null)
-            {
-                ManagerHub.S.GameEventHandler.onBulletSpeedChange -= ChangeSpeed;
-            }
+            ManagerHub.S.GameEventHandler.onBulletSpeedChange -= ChangeSpeed;
         }
     }
 }

@@ -17,11 +17,6 @@ public class ScreenShake : CoreBehaviour
         vcamera = GetComponent<CinemachineVirtualCamera>();
     }
 
-    void Start()
-    {
-        //ManagerHub.S.GameEventHandler.onPlayerShootStart += ShakeCamera;
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -60,11 +55,6 @@ public class ScreenShake : CoreBehaviour
           
         }
        
-    }
-   
-    protected override void PreDestroy()
-    {
-        //ManagerHub.S.GameEventHandler.onPlayerShootStart() -= ShakeCamera;
     }
 }
 

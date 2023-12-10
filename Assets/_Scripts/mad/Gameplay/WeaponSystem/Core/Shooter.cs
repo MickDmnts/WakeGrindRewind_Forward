@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using WGRF.BattleSystem;
+using WGRF.Core;
 
 namespace WGRF.Entities.BattleSystem
 {
@@ -17,7 +18,7 @@ namespace WGRF.Entities.BattleSystem
      *      An abstract class was used so each type can use its own attacking style.
      * 2. The equipedWeapon field must be set from the inspector ONLY in the enemies if we want them to hold a weapon before-hand.
      */
-    public abstract class Shooter : MonoBehaviour, IShooter
+    public abstract class Shooter : CoreBehaviour, IShooter
     {
         #region INSPECTOR_VALUES
         [Header("\tSet in inspector\n" +

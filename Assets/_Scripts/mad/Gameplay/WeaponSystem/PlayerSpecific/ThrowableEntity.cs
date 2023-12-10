@@ -1,29 +1,17 @@
 using UnityEngine;
 using WGRF.AI.Entities.Hostile.Generic;
 using WGRF.Core;
-using WGRF.Core.Managers;
 using WGRF.Interactions;
 
 namespace WGRF.Entities.BattleSystem
 {
-    /* [CLASS DOCUMENTATION]
-     * 
-     * Inspector variable : Must be set from the inspector
-     * Private variables: These values change in runtime. 
-     * 
-     *  Implements: IThrowable interface
-     * [Must know]
-     * 1. This script is responsible for moving forward the gameObject it is attached to while checking for AI or environment collisions.
-     * 2. The throwable speed changes based on the ability use events.
-     */
-    public class ThrowableEntity : MonoBehaviour, IThrowable
+    public class ThrowableEntity : CoreBehaviour, IThrowable
     {
         [Header("Set in inspector")]
         [SerializeField] float throwForSeconds;
         [SerializeField] float throwSpeed;
         [SerializeField] LayerMask detectionLayers;
 
-        #region PRIVATE_VARIABLES
         bool wasThrown;
         bool abilityInUse;
         bool isFrozen;
@@ -34,20 +22,16 @@ namespace WGRF.Entities.BattleSystem
         float throwTimer;
 
         SpriteRenderer childSpriteTransform;
-        #endregion
 
-        private void Awake()
+        protected override void PreAwake()
         {
             throwSpeedCache = throwSpeed;
         }
 
         private void Start()
         {
-            if (ManagerHub.S != null)
-            {
-                ManagerHub.S.GameEventHandler.onAbilityUse += OnAbilityUse;
-                ManagerHub.S.GameEventHandler.onAbilityEnd += OnAbilityEnd;
-            }
+            ManagerHub.S.GameEventHandler.onAbilityUse += OnAbilityUse;
+            ManagerHub.S.GameEventHandler.onAbilityEnd += OnAbilityEnd;
         }
 
         /// <summary>
@@ -190,13 +174,10 @@ namespace WGRF.Entities.BattleSystem
             throwSpeedCache = throwSpeed;
         }
 
-        private void OnDestroy()
+        protected override void PreDestroy()
         {
-            if (ManagerHub.S != null)
-            {
-                ManagerHub.S.GameEventHandler.onAbilityUse -= OnAbilityUse;
-                ManagerHub.S.GameEventHandler.onAbilityEnd -= OnAbilityEnd;
-            }
+            ManagerHub.S.GameEventHandler.onAbilityUse -= OnAbilityUse;
+            ManagerHub.S.GameEventHandler.onAbilityEnd -= OnAbilityEnd;
         }
     }
 }

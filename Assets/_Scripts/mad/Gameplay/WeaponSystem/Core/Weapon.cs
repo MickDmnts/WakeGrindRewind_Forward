@@ -44,8 +44,6 @@ namespace WGRF.BattleSystem
         public float IntervalBetweenShots;
         public int DefaultMagazine;
         public float MaxBulletSpread;
-        /*public GameAudioClip[] gunShootSound;
-        public GameAudioClip gunEmptySound;*/
 
         //AI-specific
         public float MinShootDistance;

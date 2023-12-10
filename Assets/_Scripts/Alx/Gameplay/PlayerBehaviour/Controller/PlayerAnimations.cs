@@ -1,4 +1,6 @@
 using UnityEngine;
+using WGRF.BattleSystem;
+
 //using WGRF.BattleSystem;
 using WGRF.Core;
 
@@ -14,25 +16,6 @@ namespace WGRF.Entities.Player
             SetController(transform.root.GetComponent<Controller>());
 
             playerAnimator = GetComponent<Animator>();
-            //ManagerHub.S.PlayerEntity.onPlayerStateChange += PlaybackOnStateChange;
-        }
-
-        /// <summary>
-        /// Subscribed to the onPlayerStateChange event.
-        /// <para>Call to set the animator playback speed based on the value passed.</para>
-        /// <para>If the value passed is true then sets the speed to 1, otherwise 0.</para>
-        /// </summary>
-        /// <param name="isActive"></param>
-        void PlaybackOnStateChange(bool isActive)
-        {
-            if (!isActive)
-            {
-                playerAnimator.speed = 0f;
-            }
-            else
-            {
-                playerAnimator.speed = 1f;
-            }
         }
 
         /// <summary>
@@ -83,7 +66,7 @@ namespace WGRF.Entities.Player
         /// Call to play the respective player melee animation based on the weaponType passed.
         /// <para>Also disables WeaponHolding stance by calling SetRangedWeaponAnimation(...)</para>
         /// </summary>
-        /*public void PlayMeleeWeaponAnimation(WeaponType weaponType)
+        public void PlayMeleeWeaponAnimation(WeaponType weaponType)
         {
             switch (weaponType)
             {
@@ -99,7 +82,7 @@ namespace WGRF.Entities.Player
                     playerAnimator.Play("player_batAttack", 0);
                     break;
             }
-        }*/
+        }
 
         /// <summary>
         /// Call to set the isHoldingGun animator boolean value to the passed value.
@@ -129,10 +112,5 @@ namespace WGRF.Entities.Player
         /// Call to get a player animator reference.
         /// </summary>
         public Animator GetAnimator() => playerAnimator;
-
-        protected override void PreDestroy()
-        {
-            //ManagerHub.S.PlayerEntity.onPlayerStateChange -= PlaybackOnStateChange;
-        }
     }
 }

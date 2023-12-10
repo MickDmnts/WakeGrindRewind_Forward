@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using WGRF.Core.Managers;
 using WGRF.Internal;
 
 namespace WGRF.Core
@@ -31,6 +31,9 @@ namespace WGRF.Core
         InternalTime _internalTime;
         ///<summary>Reference to the player controller</summary>
         Controller _playerController;
+        ///<summary>Reference to the bullet pool of the game</summary>
+        BulletPool _bulletPool;
+        
 
         ///<summary>Returns the GameEventsHandler reference</summary>
         public GameEventsHandler GameEventHandler => _gameEventsHandler;
@@ -50,10 +53,11 @@ namespace WGRF.Core
         public InternalTime InternalTime => _internalTime;
         ///<summary>Returns the reference to the player Controller</summary>
         public Controller PlayerController => _playerController;
+        ///<summary>Returns the reference to the bullet pool</summary>
+        public BulletPool BulletPool => _bulletPool;
 
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
-        public BulletPool BulletPool { get; private set; }
         public AIEntityManager AIEntityManager { get; private set; }
         public WeaponManager WeaponManager { get; private set; }
         public AbilityManager AbilityManager { get; private set; }
