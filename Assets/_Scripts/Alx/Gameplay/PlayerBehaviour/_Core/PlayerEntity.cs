@@ -7,7 +7,7 @@ using WGRF.Core;
 namespace WGRF.Entities.Player
 {
     [DefaultExecutionOrder(150)]
-    public class PlayerEntity : Entity //IRewindable
+    public class PlayerEntity : Entity, IRewindable
     {
         ///<summary>The blood decal addressable path of the player</summary>
         [Header("Decal on death")]
@@ -62,11 +62,11 @@ namespace WGRF.Entities.Player
                 });
 
                 //Ability system still WIP
-                /*if (ManagerHub.S.AbilityManager.CanRewind(true))
+                if (ManagerHub.S.AbilityManager.CanRewind(true))
                 {
                     StartCoroutine(RewindOnDeath());
                     return;
-                }*/
+                }
 
                 isDead = true;
                 StartCoroutine(DeathSequence());

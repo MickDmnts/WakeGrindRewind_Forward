@@ -91,16 +91,6 @@ namespace WGRF.Abilities
         public abstract int GetCachedUses();
 
         /// <summary>
-        /// Returns the SkillPointsPerTier() value.
-        /// </summary>
-        public abstract int GetPointsForUpgrade();
-
-        /// <summary>
-        /// Returns the skill points needed for ability tier up.
-        /// </summary>
-        protected abstract int SkillPointsPerTier();
-
-        /// <summary>
         /// Call to reset the ability uses back to maxAbilityUses.
         /// </summary>
         public abstract void ResetAbilityUses();

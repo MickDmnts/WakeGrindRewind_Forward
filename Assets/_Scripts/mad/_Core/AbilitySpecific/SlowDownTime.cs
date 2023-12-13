@@ -1,8 +1,5 @@
 using System;
 using UnityEngine;
-
-//using WGRF.AI.Entities.Hostile.Generic;
-//using WGRF.BattleSystem;
 using WGRF.Core;
 
 namespace WGRF.Abilities
@@ -153,8 +150,6 @@ namespace WGRF.Abilities
             //call the external method on ability finish.
             onAbilityFinishCallback();
 
-            //BulletStatics.CurrentSpeed = BulletStatics.StartingSpeed;
-
             /* foreach (EnemyEntity enemy in ManagerHub.S.AIEntityManager.GetEnemyEntityRefs())
             {
                 if (enemy == null) continue;
@@ -172,33 +167,16 @@ namespace WGRF.Abilities
         /// </summary>
         public override void UpgradeAbility()
         {
-            //Get the current player skill points.
-            int playerPoints = 0;//ManagerHub.S.SkillPointHandle.RemainingSkillPoints();
-
-            //Get the next tier update points needed.
-            int neededPoints = SkillPointsPerTier();
-
-            if (playerPoints >= neededPoints && AbilityTier < MaxAbilityTier)
+            //Enable the ability if it is still locked.
+            if (!IsUnlocked)
             {
-                //Enable the ability if it is still locked.
-                if (!IsUnlocked)
-                {
-                    EnableAbility();
-                }
-
-                AbilityTier++;
-
-                //Decrease player current skill points by the ability needed points.
-                //ManagerHub.S.SkillPointHandle.DecreaseSkillPoints(neededPoints);
-
-                //Refresh the ability stats to the new tier stats.
-                UpdateStatsPerTier();
+                EnableAbility();
             }
-            else
-            {
-                //We can fire off an event to notify the UI to throw an error
-                //?Maybe build an event that passes strings to a UI message system?
-            }
+
+            AbilityTier++;
+
+            //Refresh the ability stats to the new tier stats.
+            UpdateStatsPerTier();
         }
 
         /// <summary>
@@ -211,63 +189,29 @@ namespace WGRF.Abilities
             {
                 case 1:
                     slowDownPercent = 30f;
-                    //BulletStatics.SlowDownSpeed = 30f;
                     ActiveTime = 2;
                     UsesPerLevel = 1;
                     break;
 
                 case 2:
                     slowDownPercent = 30f;
-                    //BulletStatics.SlowDownSpeed = 20f;
                     ActiveTime = 5;
                     UsesPerLevel = 2;
                     break;
 
                 case 3:
                     slowDownPercent = 60f;
-                    //BulletStatics.SlowDownSpeed = 10f;
                     ActiveTime = 5;
                     UsesPerLevel = 3;
                     break;
             }
 
-            string pointToNext = AbilityTier < MaxAbilityTier ? GetPointsForUpgrade().ToString() : "Maxed out!";
+            string pointToNext = AbilityTier < MaxAbilityTier ? 1.ToString() : "Maxed out!";
             string uses = UsesPerLevel > 0 ? UsesPerLevel.ToString() + " use(s) per floor." : "Not yet unlocked";
 
             AbilityDescription = $"Points needed for next tier {pointToNext}\nReduce enemy and projectile movement speed by {slowDownPercent}% for {ActiveTime} seconds.\n{uses}";
 
             cachedUses = UsesPerLevel;
-        }
-
-        //This is needed for UI display purposes!
-        public override int GetPointsForUpgrade()
-        {
-            return SkillPointsPerTier();
-        }
-
-        /// <summary>
-        /// Call to get the needed points to update the skill to the next tier.
-        /// </summary>
-        /// <returns>An int representing the skill points needed to upgrade.</returns>
-        protected override int SkillPointsPerTier()
-        {
-            int points = 0;
-
-            switch (AbilityTier)
-            {
-                //The slow down time ability is free so we need 0 points to update to tier 1.
-                case 0:
-                    points = 0;
-                    break;
-                case 1:
-                    points = 4;
-                    break;
-                case 2:
-                    points = 14;
-                    break;
-            }
-
-            return points;
         }
 
         /// <summary>

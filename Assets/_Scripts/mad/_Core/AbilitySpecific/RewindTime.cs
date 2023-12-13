@@ -1,32 +1,26 @@
 using System;
 using UnityEngine;
 
-//using WGRF.AI.Entities.Hostile.Generic;
-//using WGRF.BattleSystem;
+using WGRF.AI.Entities.Hostile.Generic;
+using WGRF.BattleSystem;
 using WGRF.Core;
+using WGRF.Core.Managers;
+using WGRF.Entities.Player;
 
 namespace WGRF.Abilities
 {
-    /// <summary>
-    /// The time stop ability
-    /// </summary>
-    public class StopTime : Ability
+    public class RewindTime : Ability
     {
-        ///<summary>Cached method called when the ability finishes execution</summary>
-        Action onAbilityFinishCallback;
+        //The Rewinder is created so we have access to runtime MonoBehaviour.
+        Rewinder Rewinder { get; set; }
+        Action externalCallback;
 
-        /// <summary>
-        /// Creates a StopTime instance.
-        /// </summary>
-        /// <param name="name">The name of the ability</param>
-        /// <param name="tier">The starting tier of the ability</param>
-        /// <param name="abilitySprite">The ability sprite</param>
-        /// <param name="isUnlocked">Is the ability unlocked initialy?</param>
-        public StopTime(string name, int tier, Sprite abilitySprite, bool isUnlocked)
+        public RewindTime(string name, int tier, Sprite abilitySprite, bool isUnlocked, Rewinder rewinder)
         {
             this.AbilityName = name;
             this.AbilityDescription = "UPDATE TEXT PER TIER";
 
+            //Set from json
             this.AbilityTier = tier;
 
             this.MaxAbilityTier = 3;
@@ -35,29 +29,29 @@ namespace WGRF.Abilities
 
             this.AbilitySprite = abilitySprite;
 
+            //Set from json
             this.IsUnlocked = isUnlocked;
+
+            //Ability specific
+            this.Rewinder = rewinder;
         }
 
         /// <summary>
-        /// Call to startup any basic ability behaviour.
+        /// Call to startup any basic ability behaviour
+        /// <para>Sets the stats based on the abiltiy tier, caches the uses per level and sets canActivate to true.</para>
         /// </summary>
-        /// <param name="onAbilityFinishCallback">The method to execute when the ability ends</param>
-        public override void Start(Action onAbilityFinishCallback)
+        public override void Start(Action callback)
         {
-            this.onAbilityFinishCallback = onAbilityFinishCallback;
+            externalCallback = callback;
 
             UpdateStatsPerTier();
 
             this.CanActivate = true;
         }
 
-        ///<summary>Disable the ability on any scene change.</summary>
-        public void DisableBehaviourOnSceneChange()
-        {
-            OnAbilityFinished();
-        }
-
-        ///<summary>Fully enables the ability</summary>
+        /// <summary>
+        /// Call to set IsUnlocked and CanActivate to true.
+        /// </summary>
         protected override void EnableAbility()
         {
             IsUnlocked = true;
@@ -65,36 +59,69 @@ namespace WGRF.Abilities
         }
 
         /// <summary>
-        /// Call to Activate the ability behaviour.
+        /// Call to Activate 
         /// </summary>
         public override bool TryActivate()
         {
             if (UsesPerLevel <= 0 || !IsUnlocked)
                 return false;
 
-            timer = ActiveTime;
-
-            //REWORK INTO TIME MANAGER
-            //Change the bullet current speed to simulate a stop time feeling.
-            //BulletStatics.CurrentSpeed = BulletStatics.StopTimeSpeed;
-
-            //Decrease THIS runs remaining ability uses.
             UsesPerLevel--;
+
             //Update remaining uses UI
             //ManagerHub.S.HUDHandler.UpdateRemainingUsesIcon(UsesPerLevel, cachedUses);
 
-            AbilitySpecificActions();
+            CanActivate = false;
+
+            timer = ActiveTime;
+
+            //Start the entity positions storing
+            Rewinder.RecordEntity(ManagerHub.S.PlayerController.Access<PlayerEntity>("pEntity"), ActiveTime);
 
             PlayAbilitySound();
 
             return true;
         }
 
-        ///<summary>Play this ability's SFX</summary>
         protected override void PlayAbilitySound()
         {
             //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.PressPlay);
-            //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.StopActivate);
+            //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.PressRewind);
+        }
+
+        public override void UpdateAbilityTick()
+        {
+            //the timer will be used in the UI timer reference
+            timer -= Time.deltaTime;
+            //ManagerHub.S.HUDHandler.UpdateRemainingTimeIcon(timer, ActiveTime);
+
+            if (timer <= 0f)
+            {
+                OnAbilityRecordingFinished();
+                externalCallback();
+            }
+        }
+
+        /// <summary>
+        /// Call to invoke the AbilitySpecificActions() and the OnRewindStart() of the PlayerEntity.
+        /// Then start the actual rewinding!!
+        /// </summary>
+        void OnAbilityRecordingFinished()
+        {
+            AbilitySpecificActions();
+
+            Rewinder.CanRecord = false;
+
+            //Initiate the actual rewind here!!!!
+
+            //Set up the player behaviour for rewind
+            ManagerHub.S.GameEventHandler.OnPlayerRewind(false);
+
+            //Set notify other entities of the use of the rewind ability
+            ManagerHub.S.GameEventHandler.OnAbilityUse(ThrowableSpeeds.RewindTimeSpeed, ThrowableSpeeds.RewindTimeRotation, true);
+
+            //Move the player back in previous positions.
+            Rewinder.RewindEntity(ManagerHub.S.PlayerController.Access<PlayerEntity>("pEntity"), OnAbilityFinished);
         }
 
         /// <summary>
@@ -102,7 +129,6 @@ namespace WGRF.Abilities
         /// </summary>
         void AbilitySpecificActions()
         {
-            //CHANGE AFTER TIME MANAGER CREATION
             /* foreach (EnemyEntity enemy in GameManager.S.AIEntityManager.GetEnemyEntityRefs())
             {
                 if (enemy == null) continue;
@@ -114,38 +140,21 @@ namespace WGRF.Abilities
 
                 enemy.DisableShootingBehaviour();
             } */
-
-            //ManagerHub.S.GameSoundsHandler.SetGameWideSoundtrackState(true);
         }
 
         /// <summary>
-        /// Call to update the tick of the ability script, just like running an Update() from MonoBehaviour.
-        /// </summary>
-        public override void UpdateAbilityTick()
-        {
-            //the timer will be used in the UI timer reference
-            timer -= Time.deltaTime;
-            //ManagerHub.S.HUDHandler.UpdateRemainingTimeIcon(timer, ActiveTime);
-
-            if (timer <= 0f)
-            {
-                //Call to revert back to normal gameplay.
-                OnAbilityFinished();
-            }
-        }
-
-        /// <summary>
-        /// Called when the ability timer has reached zero to revert back any changes the abiltiy has made.
+        /// Call to reset the bullet speed and enemy behaviour, then call the OnRewindEnd() of the PlayerEntity.
+        /// Sets canActivate to true.
         /// </summary>
         protected override void OnAbilityFinished()
         {
-            CanActivate = true;
+            externalCallback();
 
-            //reset the timer
             timer = ActiveTime;
 
-            //call the external method on ability finish.
-            onAbilityFinishCallback();
+            BulletStatics.CurrentSpeed = BulletStatics.StartingSpeed;
+
+            Rewinder.ResetRewinderBehaviour();
 
             /* foreach (EnemyEntity enemy in GameManager.S.AIEntityManager.GetEnemyEntityRefs())
             {
@@ -154,9 +163,10 @@ namespace WGRF.Abilities
                 enemy.OnPlayerAbilityFinish();
             } */
 
+            ManagerHub.S.GameEventHandler.OnPlayerRewind(true);
             ManagerHub.S.GameEventHandler.OnAbilityEnd();
 
-            //ManagerHub.S.GameSoundsHandler.SetGameWideSoundtrackState(false);
+            CanActivate = true;
         }
 
         /// <summary>
@@ -164,15 +174,12 @@ namespace WGRF.Abilities
         /// </summary>
         public override void UpgradeAbility()
         {
-            //Enable the ability if it is still locked.
             if (!IsUnlocked)
             {
                 EnableAbility();
             }
 
             AbilityTier++;
-
-            //Refresh the ability stats to the new tier stats.
             UpdateStatsPerTier();
         }
 
@@ -190,12 +197,12 @@ namespace WGRF.Abilities
                     break;
 
                 case 2:
-                    ActiveTime = 3;
+                    ActiveTime = 4;
                     UsesPerLevel = 2;
                     break;
 
                 case 3:
-                    ActiveTime = 5;
+                    ActiveTime = 6;
                     UsesPerLevel = 3;
                     break;
             }
@@ -204,7 +211,7 @@ namespace WGRF.Abilities
             string uses = UsesPerLevel > 0 ? UsesPerLevel.ToString() + " use(s) per floor." : "Not yet unlocked";
             string activeTime = ActiveTime > 0 ? ActiveTime.ToString() : "2";
 
-            AbilityDescription = $"Points needed for next tier {pointToNext}\nEnemies and projectiles freeze in time for {activeTime}.\n{uses}";
+            AbilityDescription = $"Points needed for next tier {pointToNext}\nRecord for {activeTime} seconds, after which you return back to position.\n{uses}";
             cachedUses = UsesPerLevel;
         }
 
@@ -218,7 +225,20 @@ namespace WGRF.Abilities
             //ManagerHub.S.HUDHandler.UpdateRemainingUsesIcon(0, cachedUses);
         }
 
+        public void AbilityInfoFullReset()
+        {
+            this.AbilityTier = 0;
+
+            this.MaxAbilityTier = 3;
+            this.ActiveTime = 0;
+            this.UsesPerLevel = 0;
+
+            this.IsUnlocked = false;
+        }
+
         public override int GetCachedUses()
-        { return cachedUses; }
+        {
+            return cachedUses;
+        }
     }
 }

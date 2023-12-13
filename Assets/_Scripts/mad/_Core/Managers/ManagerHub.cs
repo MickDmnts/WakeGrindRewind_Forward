@@ -36,7 +36,8 @@ namespace WGRF.Core
         BulletPool _bulletPool;
         ///<summary>Reference to the weapon manager</summary>
         WeaponManager _weaponManager;
-        
+        ///<summary>Reference to the ability manager</summary>
+        AbilityManager _abilityManager;
 
         ///<summary>Returns the GameEventsHandler reference</summary>
         public GameEventsHandler GameEventHandler => _gameEventsHandler;
@@ -60,12 +61,12 @@ namespace WGRF.Core
         public BulletPool BulletPool => _bulletPool;
         ///<summary>Returns the reference to the Weapon manager</summary>
         public WeaponManager WeaponManager => _weaponManager;
+        ///<summary>Reruns the reference to the ability manager</summary>
+        public AbilityManager AbilityManager => _abilityManager;
 
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
         public AIEntityManager AIEntityManager { get; private set; }
-        public AbilityManager AbilityManager { get; private set; }
-        public SkillPointHandle SkillPointHandle { get; private set; }
         public WeaponSelectionUI WeaponSelectionUIHandler { get; private set; }*/
 
         private void Awake()
@@ -88,6 +89,9 @@ namespace WGRF.Core
             _gameSoundsHandler = GetComponent<GameSoundsHandler>();
             _stageHandler = new StageHandler();
             _internalTime = new InternalTime(this);
+            _bulletPool = GetComponent<BulletPool>();
+            _weaponManager = GetComponent<WeaponManager>();
+            _abilityManager = GetComponent<AbilityManager>();
         }
 
         /// <summary>
