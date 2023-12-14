@@ -301,7 +301,7 @@ namespace WGRF.Gameplay.BattleSystem
             }
 
             //Transfer the bullet.
-            GameObject tempBullet = ManagerHub.S.BulletPool.GetPooledBulletByType(BulletType.Player);
+            GameObject tempBullet = ManagerHub.S.BulletPool.GetBullet();
 
             float randomFloat = Random.Range(-totalBulletSpread, totalBulletSpread);
 
@@ -335,7 +335,7 @@ namespace WGRF.Gameplay.BattleSystem
 
             for (int i = 0; i < 6; i++)
             {
-                pellets[i] = ManagerHub.S.BulletPool.GetPooledBulletByType(BulletType.Player);
+                pellets[i] = ManagerHub.S.BulletPool.GetBullet();
             }
 
             foreach (GameObject pellet in pellets)

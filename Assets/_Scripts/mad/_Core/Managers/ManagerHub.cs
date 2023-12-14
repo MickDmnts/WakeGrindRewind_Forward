@@ -1,5 +1,4 @@
 using UnityEngine;
-using WGRF.BattleSystem;
 using WGRF.Core.Managers;
 using WGRF.Internal;
 
@@ -32,8 +31,8 @@ namespace WGRF.Core
         InternalTime _internalTime;
         ///<summary>Reference to the player controller</summary>
         Controller _playerController;
-        ///<summary>Reference to the bullet pool of the game</summary>
-        BulletPool _bulletPool;
+        ///<summary>Reference to the bullet handler of the game</summary>
+        BulletHandler _bulletHandler;
         ///<summary>Reference to the weapon manager</summary>
         WeaponManager _weaponManager;
         ///<summary>Reference to the ability manager</summary>
@@ -57,8 +56,8 @@ namespace WGRF.Core
         public InternalTime InternalTime => _internalTime;
         ///<summary>Returns the reference to the player Controller</summary>
         public Controller PlayerController => _playerController;
-        ///<summary>Returns the reference to the bullet pool</summary>
-        public BulletPool BulletPool => _bulletPool;
+        ///<summary>Returns the reference to the bullet handler</summary>
+        public BulletHandler BulletPool => _bulletHandler;
         ///<summary>Returns the reference to the Weapon manager</summary>
         public WeaponManager WeaponManager => _weaponManager;
         ///<summary>Reruns the reference to the ability manager</summary>
@@ -89,7 +88,7 @@ namespace WGRF.Core
             _gameSoundsHandler = GetComponent<GameSoundsHandler>();
             _stageHandler = new StageHandler();
             _internalTime = new InternalTime(this);
-            _bulletPool = GetComponent<BulletPool>();
+            _bulletHandler = GetComponent<BulletHandler>();
             _weaponManager = GetComponent<WeaponManager>();
             _abilityManager = GetComponent<AbilityManager>();
         }

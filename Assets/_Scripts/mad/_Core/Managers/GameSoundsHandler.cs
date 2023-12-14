@@ -2,6 +2,11 @@ using UnityEngine;
 
 namespace WGRF.Core
 {
+    public enum GameAudioClip
+    {
+        //@TODO:
+    }
+
     /// <summary>
     /// This class is responsible for all of WGRF game sounds.
     /// </summary>
@@ -145,10 +150,19 @@ namespace WGRF.Core
         /// Decreases the SFX audio source volume by the value passed
         /// The value gets capped at the current game wide master volume.
         /// </summary>
-        /// <param name="value">Teh value to decrease the audio source volume by.</param>
+        /// <param name="value">The value to decrease the audio source volume by.</param>
         public void DecreaseSFXVolumeBy(float value)
         {
             SetVolume(ref sfxSource, sfxSource.volume - value);
+        }
+
+        /// <summary>
+        /// Plays the requested SFX as an one shot
+        /// </summary>
+        /// <param name="sound">The SFX to play</param>
+        public void PlayOneShotSFX(GameAudioClip sound)
+        {
+            sfxSource.PlayOneShot(sfxClips[(int)sound]);
         }
         #endregion
     }

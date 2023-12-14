@@ -274,15 +274,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f539a73057cd496f8e8fb6cc3c31f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 0}
+  bulletPath: ws/bullet
   playerBulletLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
   enemyBulletLayer:
     serializedVersion: 2
-    m_Bits: 0
-  startingSpeed: 0
-  amountToPool: 500
+    m_Bits: 8192
+  startingSpeed: 10
 --- !u!1 &915369950
 GameObject:
   m_ObjectHideFlags: 0
