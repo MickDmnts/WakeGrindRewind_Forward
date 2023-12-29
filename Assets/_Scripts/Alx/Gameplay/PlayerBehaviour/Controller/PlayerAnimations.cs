@@ -1,15 +1,19 @@
 using UnityEngine;
-using WGRF.BattleSystem;
 
-//using WGRF.BattleSystem;
+using WGRF.BattleSystem;
 using WGRF.Core;
 
 namespace WGRF.Entities.Player
 {
     public class PlayerAnimations : CoreBehaviour
     {
-        //Private variable
+        ///<summary>Cache for the player animator</summary>
         Animator playerAnimator;
+
+        /// <summary>
+        /// Call to get a player animator reference.
+        /// </summary>
+        public Animator Animator => playerAnimator;
 
         protected override void PreAwake()
         {
@@ -93,10 +97,8 @@ namespace WGRF.Entities.Player
         {
             playerAnimator.SetBool("isHoldingGun", state);
 
-            if (state.Equals(true))
-            {
-                playerAnimator.Play("player_holdingRangedGun");
-            }
+            if (state)
+            { playerAnimator.Play("player_holdingRangedGun"); }
         }
 
         /// <summary>
@@ -107,10 +109,5 @@ namespace WGRF.Entities.Player
         {
             playerAnimator.SetBool("isThrowing", false);
         }
-
-        /// <summary>
-        /// Call to get a player animator reference.
-        /// </summary>
-        public Animator GetAnimator() => playerAnimator;
     }
 }

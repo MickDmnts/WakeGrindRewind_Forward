@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using WGRF.Core;
 using WGRF.Interactions;
 
@@ -24,14 +25,8 @@ namespace WGRF.Entities.Player
             kickCooldown = 0;
         }
 
-        /// <summary>
-        /// Subscribed to the PlayerEntity.onPlayerStateChange event.
-        /// <para>Sets the isKickEnabled to the passed value.</para>
-        /// </summary>
-        void SetIsKickEnabled(bool value)
-        {
-            isKickEnabled = value;
-        }
+        void Start()
+        {isKickEnabled = true;}
 
         void Update()
         {
@@ -41,7 +36,7 @@ namespace WGRF.Entities.Player
             if (CanKick(kickCooldown))
             { IsKicking = false; }
 
-            if (Input.GetKeyDown(KeyCode.Space) && !IsKicking)
+            if (Keyboard.current.spaceKey.isPressed && !IsKicking)
             {
                 InitiateKickSequence();
             }
@@ -79,7 +74,7 @@ namespace WGRF.Entities.Player
             RaycastHit hit;
 
             IsKicking = true;
-            Controller.Access<PlayerAnimations>("playerAnimations").PlayKickAnimation();
+            Controller.Access<PlayerAnimations>("pAnimations").PlayKickAnimation();
 
             if (Physics.Raycast(ray, out hit, maxDistance))
             {

@@ -78,7 +78,7 @@ namespace WGRF.Abilities
             startTime = Time.time;
             startRewind = true;
 
-            ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").GetAnimator().speed = 0f;
+            ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").Animator.speed = 0f;
             //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.Rewind);
         }
 
@@ -120,7 +120,7 @@ namespace WGRF.Abilities
             u = 1;
             startRewind = false;
 
-            ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").GetAnimator().speed = 1f;
+            ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").Animator.speed = 1f;
             //ManagerHub.S.GameSoundsHandler.ChangeSoundPitch(1f);
         }
     }

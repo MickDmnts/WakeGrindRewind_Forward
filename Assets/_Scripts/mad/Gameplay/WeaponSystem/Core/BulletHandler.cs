@@ -18,9 +18,9 @@ namespace WGRF.Core
         [Header("Set in inspector - Bullet prefab")]
         [SerializeField] string bulletPath;
 
-        [Header("Set in inspector - Projectile layers")]
+        /* [Header("Set in inspector - Projectile layers")]
         [SerializeField] LayerMask playerBulletLayer;
-        [SerializeField] LayerMask enemyBulletLayer;
+        [SerializeField] LayerMask enemyBulletLayer; */
 
         [Header("Set in inspector - Bullet default speed")]
         [SerializeField] float startingSpeed;

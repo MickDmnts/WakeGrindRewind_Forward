@@ -13,6 +13,10 @@ namespace WGRF.Core
         ///<summary>Manager Hub reference</summary>
         public static ManagerHub S;
 
+        ///<summary>Toggle to not load the game stages normally</summary>
+        [SerializeField, Tooltip("Toggle to not load the game stages normally")]
+        bool loadFromBoot;
+
         ///<summary>GameEventsHandler reference</summary>
         GameEventsHandler _gameEventsHandler;
         ///<summary>The globals reference contains usefull game-wide paths and variables</summary>
@@ -86,7 +90,11 @@ namespace WGRF.Core
             _settingsHandler = new SettingsHandler();
             _cursorHandler = new CursorHandler();
             _gameSoundsHandler = GetComponent<GameSoundsHandler>();
+#if !UNITY_EDITOR
             _stageHandler = new StageHandler();
+#else
+            _stageHandler = new StageHandler(loadFromBoot);
+#endif
             _internalTime = new InternalTime(this);
             _bulletHandler = GetComponent<BulletHandler>();
             _weaponManager = GetComponent<WeaponManager>();

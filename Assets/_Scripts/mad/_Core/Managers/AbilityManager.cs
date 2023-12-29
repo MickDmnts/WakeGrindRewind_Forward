@@ -20,7 +20,7 @@ namespace WGRF.Core.Managers
         [Header("Set ability Icons")]
         [SerializeField] List<Sprite> abilityIcons;
 
-        List<Ability> Abilities;
+        List<Ability> abilities;
 
         /// <summary>
         /// When set to true abilities are shown and enabled, if false then abilities are neither drawn or can be used.
@@ -39,7 +39,7 @@ namespace WGRF.Core.Managers
         bool activatedAnAbility;
 
         protected override void PreAwake()
-        { CreateAbilities(ref Abilities); }
+        { CreateAbilities(ref abilities); }
 
         /// <summary>
         /// Call to create all the player abilities and set their state based on the loaded JSON info.
@@ -64,7 +64,7 @@ namespace WGRF.Core.Managers
         /// </summary>
         public void EnableAbilities()
         {
-            foreach (Ability ability in Abilities)
+            foreach (Ability ability in abilities)
             {
                 ability.ResetAbilityUses();
                 CycleActiveAbility();
@@ -81,7 +81,7 @@ namespace WGRF.Core.Managers
         /// </summary>
         void StartAbilities()
         {
-            foreach (Ability ability in Abilities)
+            foreach (Ability ability in abilities)
             {
                 ability.Start(EnableAbilitySelection);
             }
@@ -124,12 +124,12 @@ namespace WGRF.Core.Managers
         {
             ActiveAbilityIndex++;
 
-            if (ActiveAbilityIndex >= Abilities.Count)
+            if (ActiveAbilityIndex >= abilities.Count)
             {
                 ActiveAbilityIndex = 0;
             }
 
-            activeAbility = Abilities[ActiveAbilityIndex];
+            activeAbility = abilities[ActiveAbilityIndex];
 
             //UI UPDATES
             /* if (ManagerHub.S != null)
@@ -163,13 +163,13 @@ namespace WGRF.Core.Managers
             switch (type)
             {
                 case AbilityType.Slowtime:
-                    Abilities[0].UpgradeAbility();
+                    abilities[0].UpgradeAbility();
                     break;
                 case AbilityType.RewindTime:
-                    Abilities[1].UpgradeAbility();
+                    abilities[1].UpgradeAbility();
                     break;
                 case AbilityType.StopTime:
-                    Abilities[2].UpgradeAbility();
+                    abilities[2].UpgradeAbility();
                     break;
             }
 
@@ -189,13 +189,13 @@ namespace WGRF.Core.Managers
             switch (type)
             {
                 case AbilityType.Slowtime:
-                    tempTier = Abilities[0].AbilityTier;
+                    tempTier = abilities[0].AbilityTier;
                     break;
                 case AbilityType.RewindTime:
-                    tempTier = Abilities[1].AbilityTier;
+                    tempTier = abilities[1].AbilityTier;
                     break;
                 case AbilityType.StopTime:
-                    tempTier = Abilities[2].AbilityTier;
+                    tempTier = abilities[2].AbilityTier;
                     break;
             }
 
@@ -209,13 +209,13 @@ namespace WGRF.Core.Managers
             switch (type)
             {
                 case AbilityType.Slowtime:
-                    tempStr = Abilities[0].AbilityDescription;
+                    tempStr = abilities[0].AbilityDescription;
                     break;
                 case AbilityType.RewindTime:
-                    tempStr = Abilities[1].AbilityDescription;
+                    tempStr = abilities[1].AbilityDescription;
                     break;
                 case AbilityType.StopTime:
-                    tempStr = Abilities[2].AbilityDescription;
+                    tempStr = abilities[2].AbilityDescription;
                     break;
                 default:
                     break;
@@ -240,11 +240,11 @@ namespace WGRF.Core.Managers
         /// subtract one use from the rewind ability UsesPerLevel value.</param>
         public bool CanRewind(bool subtractOneUse)
         {
-            if (Abilities[1].UsesPerLevel > 0)
+            if (abilities[1].UsesPerLevel > 0)
             {
                 if (subtractOneUse)
                 {
-                    Abilities[1].UsesPerLevel--;
+                    abilities[1].UsesPerLevel--;
                 }
 
                 return true;

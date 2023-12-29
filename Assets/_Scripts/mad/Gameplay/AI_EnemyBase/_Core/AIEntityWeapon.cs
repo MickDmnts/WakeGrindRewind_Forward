@@ -65,7 +65,7 @@ namespace WGRF.AI.Entities.Hostile
         /// </summary>
         public abstract Transform GetFirepointTransform();
 
-        public abstract override void SetWeaponInfo(Weapon weapon, int cachedBulletCount = -1);
+        public abstract override void SetWeaponInfo(Weapon weapon);
 
         /// <summary>
         /// Call to get the equipedWeapon minimum shoot distance.

@@ -26,6 +26,7 @@ namespace WGRF.Entities.Player
 
         protected override void PreAwake()
         {
+            SetController(transform.root.GetComponent<Controller>());
             ManagerHub.S.AttachPlayerController(Controller);
 
             //Subscribe to the needed events.
@@ -81,7 +82,7 @@ namespace WGRF.Entities.Player
         /// </summary>
         IEnumerator RewindOnDeath()
         {
-            Controller.Access<PlayerAnimations>("pAnimations").GetAnimator().speed = 1f;
+            Controller.Access<PlayerAnimations>("pAnimations").Animator.speed = 1f;
             Controller.Access<PlayerAnimations>("pAnimations").PlayDeathAnimation();
             yield return new WaitForSecondsRealtime(1f);
 
@@ -186,8 +187,8 @@ namespace WGRF.Entities.Player
             isDead = false;
             isActive = true;
 
-            Controller.Access<PlayerAnimations>("pAnimations").GetAnimator().SetBool("isDead", false);
-            Controller.Access<PlayerAnimations>("pAnimations").GetAnimator().SetBool("isWakingUp", false);
+            Controller.Access<PlayerAnimations>("pAnimations").Animator.SetBool("isDead", false);
+            Controller.Access<PlayerAnimations>("pAnimations").Animator.SetBool("isWakingUp", false);
         }
         #endregion
 

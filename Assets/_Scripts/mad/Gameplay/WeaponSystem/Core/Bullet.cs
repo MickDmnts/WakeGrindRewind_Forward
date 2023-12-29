@@ -18,8 +18,8 @@ namespace WGRF.BattleSystem
     {
         [Header("Set in inspector")]
         [SerializeField] string bloodImpactFX_Path;
+        [SerializeField] float bulletSpeed;
 
-        float bulletSpeed;
 
         private void Update()
         {
@@ -29,14 +29,12 @@ namespace WGRF.BattleSystem
 
         private void OnTriggerEnter(Collider other)
         {
-            IInteractable interaction = other.GetComponent<IInteractable>();
-
-            if (interaction != null)
+            if (other.TryGetComponent<IInteractable>(out IInteractable nteraction))
             {
-                interaction.AttackInteraction();
+                nteraction.AttackInteraction();
 
                 //Spawn the blood impact FX when the bullet hits an entity
-                GameObject spawnedFX = UnityAssets.Load(bloodImpactFX_Path, false);
+                GameObject spawnedFX = Instantiate(UnityAssets.Load(bloodImpactFX_Path, false));
                 spawnedFX.transform.position = other.transform.position;
                 spawnedFX.transform.rotation = Quaternion.identity;
                 spawnedFX.transform.rotation = transform.rotation * Quaternion.Euler(-90f, 0f, 0f);
@@ -57,7 +55,6 @@ namespace WGRF.BattleSystem
         /// </summary>
         private void OnEnable()
         {
-            bulletSpeed = BulletStatics.CurrentSpeed;
             Destroy(gameObject, 2f);
         }
     }

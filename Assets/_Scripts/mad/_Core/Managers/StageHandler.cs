@@ -18,10 +18,12 @@ namespace WGRF.Core
         public string[] GameScenePaths => (string[])gameScenePaths.Clone();
 
         ///<summary>Constructs a StageHandler instance</summary>
-        public StageHandler()
+        public StageHandler(bool loadFromBoot = true)
         {
             GenerateScenes(ref this.gameScenePaths);
-            LoadFromBoot();
+
+            if (loadFromBoot)
+            { LoadFromBoot(); }
         }
 
         /// <summary>
@@ -32,7 +34,7 @@ namespace WGRF.Core
         {
             gameScenes = new string[]
             {
-                this.scenesPathPrefix + "entry", 
+                this.scenesPathPrefix + "entry",
                 this.scenesPathPrefix + "mainMenu",
                 this.scenesPathPrefix + "run",
             };

@@ -1,8 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using WGRF.BattleSystem;
 using WGRF.Core;
-using WGRF.Core.Managers;
 using WGRF.Entities.BattleSystem;
 using WGRF.Entities.Player;
 using WGRF.Interactions;
@@ -13,30 +13,32 @@ namespace WGRF.Gameplay.BattleSystem
     {
         [Header("Player specific")]
         [SerializeField] Weapon defaultWeapon;
-        [HideInInspector] public bool IsAttackActive = false;
 
         //Private variables
+        Weapon currentRoomWeapon;
+        bool isAttackActive = false;
+        bool isReloading = false;
         SpriteRenderer playerWeaponRenderer;
         float totalBulletSpread;
         GameObject objOnHand;
 
         protected override void PreAwake()
         {
+            SetController(transform.root.GetComponent<Controller>());
+
             playerWeaponRenderer = GetComponentInChildren<SpriteRenderer>(true);
         }
 
         private void Start()
         {
-            if (ManagerHub.S != null)
-            {
-                //ManagerHub.S.PlayerEntity.onPlayerStateChange += SetIsAttacking;
+            //ManagerHub.S.PlayerEntity.onPlayerStateChange += SetIsAttacking;
 
-                ManagerHub.S.GameEventHandler.onPlayerRewind += SetIsAttacking;
+            ManagerHub.S.GameEventHandler.onPlayerRewind += SetIsAttacking;
 
-                canShoot = true;
+            canShoot = true;
+            SetIsAttacking(canShoot);
 
-                SetWeaponInfo(defaultWeapon);
-            }
+            SetWeaponInfo(defaultWeapon);
         }
 
         /// <summary>
@@ -45,8 +47,15 @@ namespace WGRF.Gameplay.BattleSystem
         /// </summary>
         void SetIsAttacking(bool isActive)
         {
-            IsAttackActive = isActive;
+            isAttackActive = isActive;
         }
+
+        /// <summary>
+        /// Sets the current room's weapon type to the passed weapon
+        /// </summary>
+        /// <param name="weapon">The current room weapon</param>
+        public void SetCurrentRoomWeapon(Weapon weapon)
+        { currentRoomWeapon = weapon; }
 
         /// <summary>
         /// Call to set the player weapon to the passed weapon type and values.
@@ -54,7 +63,7 @@ namespace WGRF.Gameplay.BattleSystem
         /// </summary>
         /// <param name="cachedBulletCount">Leave to default when passing a non ranged weapon so the bullet count does not get printed in the UI.
         /// <para>Used to transfer the bullets left between the equiped weapon and the picked up weapon.</para></param>
-        public override void SetWeaponInfo(Weapon weapon, int cachedBulletCount = -1)
+        public override void SetWeaponInfo(Weapon weapon)
         {
             //Update equiped weapon values
             equipedWeapon = weapon;
@@ -63,17 +72,13 @@ namespace WGRF.Gameplay.BattleSystem
             maxBulletSpread = weapon.MaxBulletSpread;
             canShoot = true;
 
-            bulletsLeft = cachedBulletCount;
+            bulletsPerMag = weapon.DefaultMagazine;
 
-            //Enable the weapon holding animation.
+            //Enables the weapon holding animation.
             if (weapon.WeaponCategory.Equals(WeaponCategory.Ranged))
-            {
-                ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").SetRangedWeaponAnimation(true);
-            }
+            { ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").SetRangedWeaponAnimation(true); }
             else
-            {
-                ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").SetRangedWeaponAnimation(false);
-            }
+            { ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").SetRangedWeaponAnimation(false); }
 
             //Show the equiped weapon on the UI.
             UpdateWeaponsUI(weapon, weapon.weaponAmmoSprite);
@@ -90,27 +95,6 @@ namespace WGRF.Gameplay.BattleSystem
             /* GameManager.S.HUDHandler.ChangeWeaponInfo(weaponAmmoSprite);
             GameManager.S.HUDHandler.ChangeBulletsLeft((weapon.WeaponCategory != WeaponCategory.Ranged)
                 ? System.String.Empty : bulletsLeft.ToString()); */
-        }
-
-        /// <summary>
-        /// Call to set the player starting weapon bullet count when in the player hub to the passed weapon value.
-        /// <para>Calls UpdateWeaponsUI(...)</para>
-        /// </summary>
-        /// <param name="weapon"></param>
-        void SetStartingBulletCount(Weapon weapon)
-        {
-            bulletsLeft = weapon.DefaultMagazine;
-
-            UpdateWeaponsUI(weapon, weapon.weaponAmmoSprite);
-        }
-
-        /// <summary>
-        /// Call to set the bullet and bulletsLeft UI elements to null and String.Empty respectivaly.
-        /// </summary>
-        void ClearWeaponsUI()
-        {
-            /* ManagerHub.S.HUDHandler.ChangeWeaponInfo(null);
-            ManagerHub.S.HUDHandler.ChangeBulletsLeft(System.String.Empty); */
         }
 
         private void FixedUpdate()
@@ -137,24 +121,24 @@ namespace WGRF.Gameplay.BattleSystem
         void Update()
         {
             //Prevents shooting when the mechanic is deactivate, the player is Kicking or when he's in the PlayerHub.
-            if (!IsAttackActive
+            if (!isAttackActive
                 || ManagerHub.S.PlayerController.Access<PlayerKick>("pKick").IsKicking) return;
 
             //Check if the player can shoot when the user presses the Fire button.
-            if (Input.GetButton("Fire1") && CanShoot())
+            if (Mouse.current.leftButton.isPressed && CanShoot())
             {
                 TypeBasedAttack();
             }
 
-            if (Input.GetButtonUp("Fire1"))
+            if (!Mouse.current.leftButton.isPressed)
             {
                 SetIsShooting(false);
             }
 
-            if (Input.GetButtonDown("Fire2") && equipedWeapon.WeaponType != WeaponType.Punch)
+            if (Mouse.current.rightButton.isPressed && equipedWeapon.WeaponType != WeaponType.Punch)
             {
                 ThrowObject();
-                SetWeaponInfo(defaultWeapon);
+                SetWeaponInfo(currentRoomWeapon);
             }
         }
 
@@ -179,6 +163,12 @@ namespace WGRF.Gameplay.BattleSystem
         /// </summary>
         void TypeBasedAttack()
         {
+            if (isReloading)
+            {
+                //Play a click click sounds here
+                return;
+            }
+
             switch (equipedWeapon.WeaponCategory)
             {
                 case WeaponCategory.Unarmed:
@@ -268,7 +258,14 @@ namespace WGRF.Gameplay.BattleSystem
                 EnableBullet(true);
             }
 
-            bulletsLeft = bulletsLeft > 0 ? --bulletsLeft : 0;
+            bulletsPerMag = bulletsPerMag > 0 ? --bulletsPerMag : 0;
+
+            if (bulletsPerMag <= 0)
+            {
+                isReloading = true;
+                StartCoroutine(ReloadAfter(1.5f));
+                return;
+            }
 
             //Update Bullets ui
             //ManagerHub.S.HUDHandler.ChangeBulletsLeft(bulletsLeft.ToString());
@@ -285,7 +282,7 @@ namespace WGRF.Gameplay.BattleSystem
         void EnableBullet(bool shotgunShot)
         {
             //Check if the gun is empty.
-            if (bulletsLeft <= 0)
+            if (bulletsPerMag <= 0)
             {
                 //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.EmptyGunSound);
                 return;
@@ -294,31 +291,24 @@ namespace WGRF.Gameplay.BattleSystem
             //Play the equiped weapon shoot sound.
             PlayWeaponShootSound();
 
-            if (shotgunShot && bulletsLeft != 0)
+            if (shotgunShot && bulletsPerMag != 0)
             {
                 StartCoroutine(ShotgunShot());
                 return;
             }
 
             //Transfer the bullet.
-            GameObject tempBullet = ManagerHub.S.BulletPool.GetBullet();
+            GameObject tempBullet = Instantiate(ManagerHub.S.BulletPool.GetBullet());
+            tempBullet.GetComponent<Bullet>().SetBulletType((BulletType)ProjectileLayers.PlayerProjectile);
 
             float randomFloat = Random.Range(-totalBulletSpread, totalBulletSpread);
 
-            if (tempBullet != null)
-            {
-                //Rotate the bullet based on the randomFloat value.
-                Quaternion bulletRotation = Quaternion.Euler(0f, randomFloat, 0);
+            //Rotate the bullet based on the randomFloat value.
+            Quaternion bulletRotation = Quaternion.Euler(0f, randomFloat, 0);
 
-                tempBullet.transform.position = firePoint.transform.position;
-                tempBullet.transform.rotation = firePoint.rotation * bulletRotation;
-                tempBullet.SetActive(true);
-            }
-            else
-            {
-                Debug.Log("BulletPool returned null");
-            }
-
+            tempBullet.transform.position = firePoint.transform.position;
+            tempBullet.transform.rotation = firePoint.rotation * bulletRotation;
+            tempBullet.SetActive(true);
             ManagerHub.S.GameEventHandler.OnPlayerShootStart();
 
             SetIsShooting(false);
@@ -335,25 +325,19 @@ namespace WGRF.Gameplay.BattleSystem
 
             for (int i = 0; i < 6; i++)
             {
-                pellets[i] = ManagerHub.S.BulletPool.GetBullet();
+                pellets[i] = Instantiate(ManagerHub.S.BulletPool.GetBullet());
+                pellets[i].GetComponent<Bullet>().SetBulletType((BulletType)ProjectileLayers.PlayerProjectile); ;
             }
 
             foreach (GameObject pellet in pellets)
             {
                 float randomFloat = Random.Range(-equipedWeapon.MaxBulletSpread, equipedWeapon.MaxBulletSpread);
 
-                if (pellet != null)
-                {
-                    Quaternion bulletRotation = Quaternion.Euler(0f, randomFloat, 0);
+                Quaternion bulletRotation = Quaternion.Euler(0f, randomFloat, 0);
 
-                    pellet.transform.position = firePoint.transform.position;
-                    pellet.transform.rotation = firePoint.rotation * bulletRotation;
-                    pellet.SetActive(true);
-                }
-                else
-                {
-                    Debug.Log("BulletPool returned null");
-                }
+                pellet.transform.position = firePoint.transform.position;
+                pellet.transform.rotation = firePoint.rotation * bulletRotation;
+                pellet.SetActive(true);
             }
 
             ManagerHub.S.GameEventHandler.OnPlayerShootStart();
@@ -390,6 +374,14 @@ namespace WGRF.Gameplay.BattleSystem
                 GameManager.S.GameSoundsHandler.PlayOneShot(equipedWeapon.gunShootSound[0]);
             } */
         }
+
+        IEnumerator ReloadAfter(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+
+            bulletsPerMag = equipedWeapon.DefaultMagazine;
+            isReloading = false;
+        }
         #endregion
 
         #region WEAPON_THROWING
@@ -403,25 +395,31 @@ namespace WGRF.Gameplay.BattleSystem
         {
             ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").SetRangedWeaponAnimation(false);
 
-            if (objOnHand != null)
+            objOnHand.transform.position = firePoint.position;
+            objOnHand.transform.rotation = firePoint.rotation;
+
+            objOnHand.SetActive(true);
+
+            IThrowable throwable = objOnHand.GetComponent<IThrowable>();
+
+            if (throwable != null)
             {
-                objOnHand.transform.position = firePoint.position;
-                objOnHand.transform.rotation = firePoint.rotation;
+                throwable.InitiateThrow();
 
-                objOnHand.SetActive(true);
+                ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").PlayThrowAnimation();
+                //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.WeaponThrow);
 
-                IThrowable throwable = objOnHand.GetComponent<IThrowable>();
-
-                if (throwable != null)
-                {
-                    throwable.InitiateThrow();
-
-                    ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").PlayThrowAnimation();
-                    //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.WeaponThrow);
-
-                    ClearWeaponsUI();
-                }
+                ClearWeaponsUI();
             }
+        }
+
+        /// <summary>
+        /// Call to set the bullet and bulletsLeft UI elements to null and String.Empty respectivaly.
+        /// </summary>
+        void ClearWeaponsUI()
+        {
+            /* ManagerHub.S.HUDHandler.ChangeWeaponInfo(null);
+            ManagerHub.S.HUDHandler.ChangeBulletsLeft(System.String.Empty); */
         }
         #endregion
 

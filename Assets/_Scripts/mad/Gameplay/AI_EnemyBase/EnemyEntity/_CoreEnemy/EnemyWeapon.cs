@@ -44,7 +44,7 @@ namespace WGRF.AI.Entities.Hostile.Generic
         }
 
         //Base type summary
-        public override void SetWeaponInfo(Weapon weapon, int cachedBulletCount = -1)
+        public override void SetWeaponInfo(Weapon weapon)
         {
             if (weapon == null) return;
 
