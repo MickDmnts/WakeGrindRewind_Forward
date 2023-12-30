@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2618696383725250960}
   - component: {fileID: 2809289063518233439}
   - component: {fileID: 4719744327217021027}
+  - component: {fileID: 1797006946041369248}
   m_Layer: 0
   m_Name: HUB
   m_TagString: Untagged
@@ -64,6 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6fc27e9824cc6a40896a4bbdee0548e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadFromBoot: 1
 --- !u!114 &6444130155384594058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,12 +97,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPath: ws/bullet
-  playerBulletLayer:
-    serializedVersion: 2
-    m_Bits: 4096
-  enemyBulletLayer:
-    serializedVersion: 2
-    m_Bits: 8192
   startingSpeed: 10
 --- !u!114 &2809289063518233439
 MonoBehaviour:
@@ -131,6 +127,19 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 15e962ba936b5c84594cda8c3a7f7850, type: 3}
   - {fileID: 21300000, guid: 73c985ef031d1e34ba809e110025eedf, type: 3}
   - {fileID: 21300000, guid: 6e8b87529bb515943943c6d91a578bee, type: 3}
+--- !u!114 &1797006946041369248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870692252466404067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1803478d8c2820041a69b81918c8d689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: rewardSelector
 --- !u!1 &6061030992449791060
 GameObject:
   m_ObjectHideFlags: 0

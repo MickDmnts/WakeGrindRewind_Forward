@@ -13,6 +13,7 @@ namespace WGRF.Gameplay.BattleSystem
     {
         [Header("Player specific")]
         [SerializeField] Weapon defaultWeapon;
+        [SerializeField] Transform objThrowPos;
 
         //Private variables
         Weapon currentRoomWeapon;
@@ -441,6 +442,16 @@ namespace WGRF.Gameplay.BattleSystem
         {
             shootDoneTime = shootInterval + Time.time;
             canShoot = false;
+        }
+
+        /// <summary>
+        /// Attaches an object to the players holding position
+        /// </summary>
+        public void SetHeldObject(GameObject obj)
+        {
+            objOnHand = obj;
+            objOnHand.transform.position = objThrowPos.position;
+            objOnHand.transform.rotation = objThrowPos.rotation;
         }
         #endregion
 

@@ -41,6 +41,7 @@ namespace WGRF.Core
         WeaponManager _weaponManager;
         ///<summary>Reference to the ability manager</summary>
         AbilityManager _abilityManager;
+        RewardSelector _rewardSelector;
 
         ///<summary>Returns the GameEventsHandler reference</summary>
         public GameEventsHandler GameEventHandler => _gameEventsHandler;
@@ -66,6 +67,8 @@ namespace WGRF.Core
         public WeaponManager WeaponManager => _weaponManager;
         ///<summary>Reruns the reference to the ability manager</summary>
         public AbilityManager AbilityManager => _abilityManager;
+        ///<summary>Returns the reference to the rewards selector</summary>
+        public RewardSelector RewardSelector => _rewardSelector;
 
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
@@ -99,6 +102,7 @@ namespace WGRF.Core
             _bulletHandler = GetComponent<BulletHandler>();
             _weaponManager = GetComponent<WeaponManager>();
             _abilityManager = GetComponent<AbilityManager>();
+            _rewardSelector = GetComponent<RewardSelector>();
         }
 
         /// <summary>
