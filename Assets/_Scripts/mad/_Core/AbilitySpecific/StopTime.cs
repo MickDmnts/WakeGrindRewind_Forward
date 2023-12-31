@@ -1,8 +1,6 @@
 using System;
 using UnityEngine;
 
-//using WGRF.AI.Entities.Hostile.Generic;
-//using WGRF.BattleSystem;
 using WGRF.Core;
 
 namespace WGRF.Abilities
@@ -31,7 +29,6 @@ namespace WGRF.Abilities
 
             this.MaxAbilityTier = 3;
             this.ActiveTime = 0;
-            this.UsesPerLevel = 0;
 
             this.AbilitySprite = abilitySprite;
 
@@ -69,7 +66,7 @@ namespace WGRF.Abilities
         /// </summary>
         public override bool TryActivate()
         {
-            if (UsesPerLevel <= 0 || !IsUnlocked)
+            if (ManagerHub.S.AbilityManager.AbilitiesPerRoom <= 0 || !IsUnlocked)
                 return false;
 
             timer = ActiveTime;
@@ -79,7 +76,7 @@ namespace WGRF.Abilities
             //BulletStatics.CurrentSpeed = BulletStatics.StopTimeSpeed;
 
             //Decrease THIS runs remaining ability uses.
-            UsesPerLevel--;
+            ManagerHub.S.AbilityManager.DecreaseAbilityUses();
             //Update remaining uses UI
             //ManagerHub.S.HUDHandler.UpdateRemainingUsesIcon(UsesPerLevel, cachedUses);
 
@@ -186,26 +183,21 @@ namespace WGRF.Abilities
             {
                 case 1:
                     ActiveTime = 2;
-                    UsesPerLevel = 1;
                     break;
 
                 case 2:
                     ActiveTime = 3;
-                    UsesPerLevel = 2;
                     break;
 
                 case 3:
                     ActiveTime = 5;
-                    UsesPerLevel = 3;
                     break;
             }
 
             string pointToNext = AbilityTier < MaxAbilityTier ? 1.ToString() : "Maxed out!";
-            string uses = UsesPerLevel > 0 ? UsesPerLevel.ToString() + " use(s) per floor." : "Not yet unlocked";
             string activeTime = ActiveTime > 0 ? ActiveTime.ToString() : "2";
 
-            AbilityDescription = $"Points needed for next tier {pointToNext}\nEnemies and projectiles freeze in time for {activeTime}.\n{uses}";
-            cachedUses = UsesPerLevel;
+            AbilityDescription = $"Points needed for next tier {pointToNext}\nEnemies and projectiles freeze in time for {activeTime}.";
         }
 
         /// <summary>
@@ -214,11 +206,7 @@ namespace WGRF.Abilities
         /// </summary>
         public override void ResetAbilityUses()
         {
-            UsesPerLevel = cachedUses;
             //ManagerHub.S.HUDHandler.UpdateRemainingUsesIcon(0, cachedUses);
         }
-
-        public override int GetCachedUses()
-        { return cachedUses; }
     }
 }

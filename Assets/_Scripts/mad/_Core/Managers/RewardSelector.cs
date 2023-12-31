@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WGRF.BattleSystem;
+using WGRF.Entities.Player;
 
 namespace WGRF.Core
 {
@@ -13,6 +14,8 @@ namespace WGRF.Core
         ///<summary>The available weapon rewards</summary>
         [SerializeField, Tooltip("The available weapon rewards")]
         List<Weapon> weaponRewards;
+        [SerializeField, Tooltip("The min max range of health the player's health update")]
+        [Range(10, 50)] int maxHealthUpdate;
 
         ///<summary>Weapon rewards cache for reseting</summary>
         Weapon[] weaponRewardsCache;
@@ -21,6 +24,18 @@ namespace WGRF.Core
         {
             weaponRewardsCache = new Weapon[weaponRewards.Count];
             weaponRewards.CopyTo(weaponRewardsCache);
+        }
+
+        ///<summary>Call to increase the ability uses per room as a reward</summary>
+        public int AbilityUsesReward()
+        { return ManagerHub.S.AbilityManager.IncreaseAbilityUsesPerRoom(); }
+
+        ///<summary>Call to increase the player health by a random value set from the inspector</summary>
+        public int PlayerHealthUpdateReward()
+        {
+            int healthIncrease = Random.Range(0, maxHealthUpdate);
+            ManagerHub.S.PlayerController.Access<PlayerEntity>("pEntity").IncreaseHealthBy(healthIncrease);
+            return healthIncrease;
         }
 
         /// <summary>

@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using WGRF.Core;
 
 namespace WGRF.Abilities
 {
@@ -29,14 +28,9 @@ namespace WGRF.Abilities
         public int MaxAbilityTier;
         ///<summary>The active time of the ability</summary>
         public int ActiveTime;
-        ///<summary>The ability uses per level</summary>
-        public int UsesPerLevel;
-        #endregion
-
-        ///<summary>Current uses of the ability in the current level</summary>
-        protected int cachedUses;
         ///<summary>Cache timer for each ability sequence</summary>
         protected float timer;
+        #endregion
 
         #region STARTUP_BEHAVIOUR
         /// <summary>
@@ -87,9 +81,6 @@ namespace WGRF.Abilities
         #endregion
 
         #region UTILITIES
-        ///<summary>Returns the current cached ability uses.</summary>
-        public abstract int GetCachedUses();
-
         /// <summary>
         /// Call to reset the ability uses back to maxAbilityUses.
         /// </summary>

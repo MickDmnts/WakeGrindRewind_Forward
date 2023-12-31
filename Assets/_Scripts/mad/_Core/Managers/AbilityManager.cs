@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 using WGRF.Abilities;
 
 namespace WGRF.Core.Managers
@@ -17,26 +20,28 @@ namespace WGRF.Core.Managers
     [DefaultExecutionOrder(100)]
     public class AbilityManager : CoreBehaviour
     {
+        ///<summary>The ability icons in order of the AbilityTypes enumeration</summary>
         [Header("Set ability Icons")]
-        [SerializeField] List<Sprite> abilityIcons;
+        [SerializeField, Tooltip("The ability icons in order of the AbilityTypes enumeration")]
+        List<Sprite> abilityIcons;
 
+        ///<summary>The player abilities</summary>
         List<Ability> abilities;
-
-        /// <summary>
-        /// When set to true abilities are shown and enabled, if false then abilities are neither drawn or can be used.
-        /// </summary>
-        public bool AbilitiesCanActivate { get; set; }
-
-        public bool AbilitiesCanCycle { get; private set; }
-
-        /// <summary>
-        /// Active ability index can be used from the UI to visualize the currently selected ability.
-        /// </summary>
-        public int ActiveAbilityIndex { get; private set; }
+        ///<summary>The currently active ability</summary>
         Ability activeAbility;
-
-        //Used as ability re-enabling preventor while another or the same ability is used.
+        ///<summary>The current ability uses left</summary>
+        int abilitiesPerRoom = 2;
+        ///<summary>True if the player activated an ability in this frame</summary>
         bool activatedAnAbility;
+
+        ///<summary>When set to true abilities are shown and enabled, if false then abilities are neither drawn or can be used.</summary>
+        public bool AbilitiesCanActivate { get; set; }
+        ///<summary>If true the player can cycle through his abilities</summary>
+        public bool AbilitiesCanCycle { get; private set; }
+        ///<summary>The current ability uses left.</summary>
+        public int AbilitiesPerRoom => abilitiesPerRoom;
+        ///<summary>Active ability index can be used from the UI to visualize the currently selected ability.</summary>
+        public int ActiveAbilityIndex { get; private set; }
 
         protected override void PreAwake()
         { CreateAbilities(ref abilities); }
@@ -103,13 +108,13 @@ namespace WGRF.Core.Managers
 
             if (AbilitiesCanCycle)
             {
-                if (Input.GetKeyDown(KeyCode.Tab) && !activatedAnAbility)
+                if (Keyboard.current.tabKey.isPressed && !activatedAnAbility)
                 {
                     CycleActiveAbility();
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && !activatedAnAbility)
+            if (Keyboard.current.rKey.isPressed && !activatedAnAbility)
             {
                 activatedAnAbility = activeAbility.TryActivate();
             }
@@ -232,25 +237,12 @@ namespace WGRF.Core.Managers
             return ActiveAbilityIndex;
         }
 
-        /// <summary>
-        /// Call to check if the rewind ability UsesPerLevel is greater than 0.
-        /// <para>If yes, then return true, false otherwise.</para>
-        /// </summary>
-        /// <param name="subtractOneUse">If set to true and the above evaluation results to true too, then 
-        /// subtract one use from the rewind ability UsesPerLevel value.</param>
-        public bool CanRewind(bool subtractOneUse)
-        {
-            if (abilities[1].UsesPerLevel > 0)
-            {
-                if (subtractOneUse)
-                {
-                    abilities[1].UsesPerLevel--;
-                }
+        ///<summary>Decreases the ability usages per room by 1</summary>
+        public void DecreaseAbilityUses()
+        { abilitiesPerRoom = Math.Max(0, abilitiesPerRoom--); }
 
-                return true;
-            }
-
-            return false;
-        }
+        ///<summary>Increases the ability uses per room by 1</summary>
+        public int IncreaseAbilityUsesPerRoom()
+        { return abilitiesPerRoom++; }
     }
 }

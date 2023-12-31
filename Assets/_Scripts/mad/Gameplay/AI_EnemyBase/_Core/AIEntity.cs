@@ -98,7 +98,7 @@ namespace WGRF.AI.Entities
 
         protected abstract void TargetFound();
 
-        protected abstract void SetHealth(float value);
+        protected abstract void SetHealth(int value);
         protected abstract bool CheckIfDead();
         #endregion
 

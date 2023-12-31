@@ -522,6 +522,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1797006946041369248, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
+      propertyPath: maxHealthUpdate
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1797006946041369248, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
       propertyPath: weaponRewards.Array.size
       value: 5
       objectReference: {fileID: 0}

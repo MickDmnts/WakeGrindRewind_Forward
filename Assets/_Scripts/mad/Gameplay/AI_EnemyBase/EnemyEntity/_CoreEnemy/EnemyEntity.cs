@@ -258,9 +258,7 @@ namespace WGRF.AI.Entities.Hostile.Generic
             }
             else
             {
-                float tempLife = entityLife;
-
-                SetHealth(--tempLife);
+                SetHealth(--entityLife);
 
                 if (CheckIfDead())
                 {
@@ -280,7 +278,7 @@ namespace WGRF.AI.Entities.Hostile.Generic
         /// <summary>
         /// Call to set the entityLife to the passed value.
         /// </summary>
-        protected override void SetHealth(float value)
+        protected override void SetHealth(int value)
         {
             entityLife = value;
         }

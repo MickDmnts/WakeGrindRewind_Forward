@@ -15,9 +15,9 @@ namespace WGRF.Entities
         [Header("Set base entity data")]
         [SerializeField, Tooltip("The entity name")] protected string entityName;
         ///<summary>The entity max life</summary>
-        [SerializeField, Tooltip("The entity max life")] protected float maxLife;
+        [SerializeField, Tooltip("The entity max life")] protected int maxLife;
         ///<summary>The entity base life</summary>
-        [SerializeField, Tooltip("The entity base life")] protected float entityLife;
+        [SerializeField, Tooltip("The entity base life")] protected int entityLife;
         #endregion
 
         /// <summary>
