@@ -140,6 +140,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: rewardSelector
+  weaponRewards:
+  - {fileID: 11400000, guid: bb023f16f8dd0db4aaadec179630d023, type: 2}
+  - {fileID: 11400000, guid: 1938fa1f4b8ce0c449a8de9893d120a3, type: 2}
+  - {fileID: 11400000, guid: fc5d76e6676e1dc48bc63b170b4a8c83, type: 2}
+  - {fileID: 11400000, guid: 8b05c13df00caa7468160b1ae0a781e0, type: 2}
+  - {fileID: 11400000, guid: 9eade4af57363e64b9ee8273e3aaca3e, type: 2}
+  maxHealthUpdate: 30
 --- !u!1 &6061030992449791060
 GameObject:
   m_ObjectHideFlags: 0

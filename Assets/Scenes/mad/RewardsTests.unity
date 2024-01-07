@@ -521,42 +521,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1797006946041369248, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: maxHealthUpdate
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 1797006946041369248, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: weaponRewards.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1797006946041369248, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: weaponRewards.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: bb023f16f8dd0db4aaadec179630d023, type: 2}
-    - target: {fileID: 1797006946041369248, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: weaponRewards.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1938fa1f4b8ce0c449a8de9893d120a3, type: 2}
-    - target: {fileID: 1797006946041369248, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: weaponRewards.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: fc5d76e6676e1dc48bc63b170b4a8c83, type: 2}
-    - target: {fileID: 1797006946041369248, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: weaponRewards.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 8b05c13df00caa7468160b1ae0a781e0, type: 2}
-    - target: {fileID: 1797006946041369248, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: weaponRewards.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: 9eade4af57363e64b9ee8273e3aaca3e, type: 2}
-    - target: {fileID: 1797006946041369248, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: weaponRewards.Array.data[5]
-      value: 
-      objectReference: {fileID: 11400000, guid: 9eade4af57363e64b9ee8273e3aaca3e, type: 2}
-    - target: {fileID: 4469987772911589703, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: loadFromBoot
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4564756271911385196, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

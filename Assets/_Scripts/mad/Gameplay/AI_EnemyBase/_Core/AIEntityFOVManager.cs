@@ -4,7 +4,6 @@ using UnityEngine;
 
 using WGRF.AI.Entities;
 using WGRF.Core;
-using WGRF.Core.Managers;
 
 namespace WGRF.AI.FOV
 {

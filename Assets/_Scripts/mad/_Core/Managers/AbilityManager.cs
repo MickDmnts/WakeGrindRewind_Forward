@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 using WGRF.Abilities;
 
-namespace WGRF.Core.Managers
+namespace WGRF.Core
 {
     /// <summary>
     /// All the available abilities the player has.

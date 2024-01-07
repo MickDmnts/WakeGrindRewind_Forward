@@ -1,5 +1,5 @@
 using UnityEngine;
-using WGRF.Core.Managers;
+
 using WGRF.Internal;
 
 namespace WGRF.Core
@@ -41,7 +41,10 @@ namespace WGRF.Core
         WeaponManager _weaponManager;
         ///<summary>Reference to the ability manager</summary>
         AbilityManager _abilityManager;
+        ///<summary>Reference to the reward selector</summary>
         RewardSelector _rewardSelector;
+        ///<summary>Reference to the score handler</summary>
+        ScoreHandler _scoreHandler;
 
         ///<summary>Returns the GameEventsHandler reference</summary>
         public GameEventsHandler GameEventHandler => _gameEventsHandler;
@@ -69,6 +72,8 @@ namespace WGRF.Core
         public AbilityManager AbilityManager => _abilityManager;
         ///<summary>Returns the reference to the rewards selector</summary>
         public RewardSelector RewardSelector => _rewardSelector;
+        ///<summary>Returns the reference to the score handler</summary>
+        public ScoreHandler ScoreHandler => _scoreHandler;
 
         /*public UI_Manager UIManager { get; private set; }
         public UserHUDHandler HUDHandler { get; private set; }
@@ -92,13 +97,15 @@ namespace WGRF.Core
             _database = new Database();
             _settingsHandler = new SettingsHandler();
             _cursorHandler = new CursorHandler();
-            _gameSoundsHandler = GetComponent<GameSoundsHandler>();
 #if !UNITY_EDITOR
             _stageHandler = new StageHandler();
 #else
             _stageHandler = new StageHandler(loadFromBoot);
 #endif
             _internalTime = new InternalTime(this);
+            _scoreHandler = new ScoreHandler();
+
+            _gameSoundsHandler = GetComponent<GameSoundsHandler>();
             _bulletHandler = GetComponent<BulletHandler>();
             _weaponManager = GetComponent<WeaponManager>();
             _abilityManager = GetComponent<AbilityManager>();
