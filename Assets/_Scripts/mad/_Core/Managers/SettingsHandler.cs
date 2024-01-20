@@ -14,11 +14,11 @@ namespace WGRF.Core
         ///<summary>Is gore enabled?</summary>
         public bool goreVFX;
         ///<summary>Master volume float value</summary>
-        public float masterVolume;
+        public int masterVolume;
         ///<summary>Soundtrack float value</summary>
-        public float ostVolume;
+        public int ostVolume;
         ///<summary>SFX float value</summary>
-        public float sfxVolume;
+        public int sfxVolume;
     }
 
     /// <summary>
@@ -41,6 +41,12 @@ namespace WGRF.Core
         public string SettingsFilePath => settingsFilePath;
         ///<summary>Returns the currently cached user settings</summary>
         public UserSettings UserSettings => userSettings;
+        
+        /// <summary>
+        /// Sets the cached user settings to the passed package
+        /// </summary>
+        public void SetUserSettings(UserSettings userSettings)
+        { this.userSettings = userSettings; }
 
         /// <summary>
         /// Construct a settings handler reference
@@ -166,10 +172,16 @@ namespace WGRF.Core
         /// <param name="newUserSettings">The new user settings.</param>
         public void UpdateUserSettings(UserSettings newUserSettings)
         {
-            Task.Run(async () =>
+            try
             {
-                await WriteSettingsFile(settingsFilePath, newUserSettings);
-            });
+                Task.Run(async () =>
+                {
+                    await WriteSettingsFile(settingsFilePath, newUserSettings);
+                    userSettings = newUserSettings;
+                });
+            }
+            catch (Exception e)
+            { UnityEngine.Debug.Log(e); }
         }
     }
 }

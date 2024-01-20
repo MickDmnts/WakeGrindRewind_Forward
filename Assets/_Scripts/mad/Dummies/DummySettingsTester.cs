@@ -5,9 +5,9 @@ using WGRF.Core;
 public class DummySettingsTester : MonoBehaviour
 {
     public bool gore;
-    public float master;
-    public float ost;
-    public float sfx;
+    public int master;
+    public int ost;
+    public int sfx;
 
     // Update is called once per frame
     void Update()
