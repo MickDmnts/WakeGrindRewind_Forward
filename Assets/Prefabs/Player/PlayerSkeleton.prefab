@@ -259,7 +259,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!136 &6015199087048063066
@@ -544,7 +544,7 @@ MonoBehaviour:
   accuracyIncreaseRate: 0
   equipedWeapon: {fileID: 0}
   defaultWeapon: {fileID: 11400000, guid: 8652a4471703e164d959c7f510a68ea2, type: 2}
-  IsAttackActive: 0
+  objThrowPos: {fileID: 0}
 --- !u!1 &6015199088552736586
 GameObject:
   m_ObjectHideFlags: 0

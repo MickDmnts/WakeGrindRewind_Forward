@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using WGRF.Internal;
+using WGRF.UI;
 
 namespace WGRF.Core
 {
@@ -45,6 +46,8 @@ namespace WGRF.Core
         RewardSelector _rewardSelector;
         ///<summary>Reference to the score handler</summary>
         ScoreHandler _scoreHandler;
+        ///<summary>Reference to the HUD handler</summary>
+        UserHUDHandler _hudHandler;
 
         ///<summary>Returns the GameEventsHandler reference</summary>
         public GameEventsHandler GameEventHandler => _gameEventsHandler;
@@ -74,9 +77,10 @@ namespace WGRF.Core
         public RewardSelector RewardSelector => _rewardSelector;
         ///<summary>Returns the reference to the score handler</summary>
         public ScoreHandler ScoreHandler => _scoreHandler;
+        ///<summary>Returns the reference to the HUD handler</summary>
+        public UserHUDHandler HUDHandler => _hudHandler;
 
         /*public UI_Manager UIManager { get; private set; }
-        public UserHUDHandler HUDHandler { get; private set; }
         public AIEntityManager AIEntityManager { get; private set; }
         public WeaponSelectionUI WeaponSelectionUIHandler { get; private set; }*/
 
@@ -119,5 +123,13 @@ namespace WGRF.Core
         /// <param name="controller">The player's controller</param>
         public void AttachPlayerController(Controller controller)
         { _playerController = controller; }
+            
+        /// <summary>
+        /// * HUD USE ONLY *
+        /// Attaches the UserHUDHandler reference to the ManagerHub.
+        /// </summary>
+        /// <param name="controller">The player's controller</param>
+        public void AttackHudHandler(UserHUDHandler userHUD)
+        { _hudHandler = userHUD; }
     }
 }

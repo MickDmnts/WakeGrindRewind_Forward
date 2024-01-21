@@ -31,6 +31,8 @@ namespace WGRF.Core
         Ability activeAbility;
         ///<summary>The current ability uses left</summary>
         int abilitiesPerRoom = 2;
+        ///<summary>The total ability uses</summary>
+        int totalAbilitiesPerRoom = -1;
         ///<summary>True if the player activated an ability in this frame</summary>
         bool activatedAnAbility;
 
@@ -41,10 +43,16 @@ namespace WGRF.Core
         ///<summary>The current ability uses left.</summary>
         public int AbilitiesPerRoom => abilitiesPerRoom;
         ///<summary>Active ability index can be used from the UI to visualize the currently selected ability.</summary>
-        public int ActiveAbilityIndex { get; private set; }
+        public int activeAbilityIndex = -1;
 
         protected override void PreAwake()
-        { CreateAbilities(ref abilities); }
+        {
+            CreateAbilities(ref abilities);
+            totalAbilitiesPerRoom = abilitiesPerRoom;
+
+            AbilitiesCanActivate = true;
+            AbilitiesCanCycle = true;
+        }
 
         /// <summary>
         /// Call to create all the player abilities and set their state based on the loaded JSON info.
@@ -108,13 +116,13 @@ namespace WGRF.Core
 
             if (AbilitiesCanCycle)
             {
-                if (Keyboard.current.tabKey.isPressed && !activatedAnAbility)
+                if (Keyboard.current.tabKey.wasPressedThisFrame && !activatedAnAbility)
                 {
                     CycleActiveAbility();
                 }
             }
 
-            if (Keyboard.current.rKey.isPressed && !activatedAnAbility)
+            if (Keyboard.current.rKey.wasPressedThisFrame && !activatedAnAbility)
             {
                 activatedAnAbility = activeAbility.TryActivate();
             }
@@ -125,26 +133,24 @@ namespace WGRF.Core
         /// <para>ActiveAbilityIndex is set to 0 when it goes past the Abilities.Count.</para>
         /// <para>Also sets the activeAbility to the Abilities[ActiveAbilityIndex]</para>
         /// </summary>
-        void CycleActiveAbility()
+        public void CycleActiveAbility()
         {
-            ActiveAbilityIndex++;
+            activeAbilityIndex++;
 
-            if (ActiveAbilityIndex >= abilities.Count)
+            if (activeAbilityIndex >= abilities.Count)
             {
-                ActiveAbilityIndex = 0;
+                activeAbilityIndex = 0;
             }
 
-            activeAbility = abilities[ActiveAbilityIndex];
+            activeAbility = abilities[activeAbilityIndex];
 
             //UI UPDATES
-            /* if (ManagerHub.S != null)
-            {
-                ManagerHub.S.HUDHandler.ChangeSelectedAbilityIcon(activeAbility.AbilitySprite, ActiveAbilityIndex, activeAbility.IsUnlocked);
-                ManagerHub.S.HUDHandler.UpdateRemainingTimeIcon(0, activeAbility.ActiveTime);
-                ManagerHub.S.HUDHandler.UpdateRemainingUsesIcon(activeAbility.UsesPerLevel, activeAbility.GetCachedUses());
+            Debug.Log(activeAbility);
+            ManagerHub.S.HUDHandler.ChangeSelectedAbilityIcon(activeAbility.AbilitySprite, activeAbilityIndex, activeAbility.IsUnlocked);
+            ManagerHub.S.HUDHandler.UpdateRemainingTimeIcon(0, activeAbility.ActiveTime);
+            ManagerHub.S.HUDHandler.UpdateRemainingUsesIcon(AbilitiesPerRoom, totalAbilitiesPerRoom);
 
-                ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.VHSSlideIn);
-            } */
+            //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.VHSSlideIn);
         }
 
         private void FixedUpdate()
@@ -233,16 +239,17 @@ namespace WGRF.Core
         /// Call to get the current selected ability index.
         /// </summary>
         public int GetCurrentSelectedAbility()
-        {
-            return ActiveAbilityIndex;
-        }
+        { return activeAbilityIndex; }
 
         ///<summary>Decreases the ability usages per room by 1</summary>
         public void DecreaseAbilityUses()
-        { abilitiesPerRoom = Math.Max(0, abilitiesPerRoom--); }
+        { totalAbilitiesPerRoom = Math.Max(0, totalAbilitiesPerRoom--); }
 
         ///<summary>Increases the ability uses per room by 1</summary>
         public int IncreaseAbilityUsesPerRoom()
-        { return abilitiesPerRoom++; }
+        {
+            totalAbilitiesPerRoom = abilitiesPerRoom += 1;
+            return totalAbilitiesPerRoom;
+        }
     }
 }
