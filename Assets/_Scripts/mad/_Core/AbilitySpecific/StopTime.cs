@@ -70,15 +70,14 @@ namespace WGRF.Abilities
                 return false;
 
             timer = ActiveTime;
-
-            //REWORK INTO TIME MANAGER
+            
             //Change the bullet current speed to simulate a stop time feeling.
-            //BulletStatics.CurrentSpeed = BulletStatics.StopTimeSpeed;
+            ManagerHub.S.InternalTime.ChangeTimeScale(0.0f, ActiveTime);
 
             //Decrease THIS runs remaining ability uses.
             ManagerHub.S.AbilityManager.DecreaseAbilityUses();
             //Update remaining uses UI
-            //ManagerHub.S.HUDHandler.UpdateRemainingUsesIcon(UsesPerLevel, cachedUses);
+            ManagerHub.S.HUDHandler.SetAbilityUses(ManagerHub.S.AbilityManager.AbilitiesPerRoom);
 
             AbilitySpecificActions();
 
@@ -122,7 +121,6 @@ namespace WGRF.Abilities
         {
             //the timer will be used in the UI timer reference
             timer -= Time.deltaTime;
-            //ManagerHub.S.HUDHandler.UpdateRemainingTimeIcon(timer, ActiveTime);
 
             if (timer <= 0f)
             {
@@ -206,7 +204,7 @@ namespace WGRF.Abilities
         /// </summary>
         public override void ResetAbilityUses()
         {
-            //ManagerHub.S.HUDHandler.UpdateRemainingUsesIcon(0, cachedUses);
+            ManagerHub.S.HUDHandler.SetAbilityUses(ManagerHub.S.AbilityManager.TotalAbilitiesPerRoom);
         }
     }
 }

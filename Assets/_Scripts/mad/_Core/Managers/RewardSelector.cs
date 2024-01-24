@@ -28,7 +28,7 @@ namespace WGRF.Core
 
         ///<summary>Call to increase the ability uses per room as a reward</summary>
         public int AbilityUsesReward()
-        { return ManagerHub.S.AbilityManager.IncreaseAbilityUsesPerRoom(); }
+        { return ManagerHub.S.AbilityManager.IncreaseTotalAbilityUsesPerRoom(); }
 
         ///<summary>Call to increase the player health by a random value set from the inspector</summary>
         public int PlayerHealthUpdateReward()

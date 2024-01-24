@@ -73,15 +73,14 @@ namespace WGRF.Abilities
 
             timer = ActiveTime;
 
-            //REWORK INTO TIME MANAGER
             //Change the bullet current speed to simulate a slow down feeling.
-            //BulletStatics.CurrentSpeed = BulletStatics.SlowDownSpeed;
+            ManagerHub.S.InternalTime.ChangeTimeScale(0.5f, ActiveTime);
 
             //Decrease THIS rooms remaining ability uses.
             ManagerHub.S.AbilityManager.DecreaseAbilityUses();
 
             //Update remaining uses UI
-            //ManagerHub.S.HUDHandler.UpdateRemainingUsesIcon(UsesPerLevel, cachedUses);
+            ManagerHub.S.HUDHandler.SetAbilityUses(ManagerHub.S.AbilityManager.AbilitiesPerRoom);
 
             AbilitySpecificActions();
 
@@ -124,7 +123,6 @@ namespace WGRF.Abilities
         {
             //the timer will be used in the UI timer reference
             timer -= Time.deltaTime;
-            //ManagerHub.S.HUDHandler.UpdateRemainingTimeIcon(timer, ActiveTime);
 
             //Notify any subscriber of onAbilityUse
             //ManagerHub.S.GameEventHandler.OnAbilityUse(ThrowableSpeeds.SlowDownSpeed, ThrowableSpeeds.SlowDownRotation, false);
@@ -213,7 +211,7 @@ namespace WGRF.Abilities
         /// </summary>
         public override void ResetAbilityUses()
         {
-            //ManagerHub.S.HUDHandler.UpdateRemainingUsesIcon(0, ManagerHub.S.AbilityManager.AbilitiesPerRoom);
+            ManagerHub.S.HUDHandler.SetAbilityUses(ManagerHub.S.AbilityManager.TotalAbilitiesPerRoom);
         }
     }
 }

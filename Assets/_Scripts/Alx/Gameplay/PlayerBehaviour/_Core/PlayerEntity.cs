@@ -34,7 +34,10 @@ namespace WGRF.Entities.Player
         }
 
         private void Start()
-        { isActive = true; }
+        {
+            isActive = true;
+            ManagerHub.S.HUDHandler.SetPlayerHealthInfo(this);
+        }
 
         /// <summary>
         /// Call to initiate the attack interaction of the player.
@@ -46,7 +49,10 @@ namespace WGRF.Entities.Player
         {
             //Prevents the player from dying from multiple shots when he's already dead.
             if (entityLife <= 0) return;
+
             entityLife--;
+
+            ManagerHub.S.HUDHandler.SetPlayerHealth(entityLife);
 
             //Should check for rewind availability here
             if (entityLife <= 0)

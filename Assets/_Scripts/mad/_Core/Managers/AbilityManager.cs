@@ -35,6 +35,8 @@ namespace WGRF.Core
         int totalAbilitiesPerRoom = -1;
         ///<summary>True if the player activated an ability in this frame</summary>
         bool activatedAnAbility;
+        ///<summary>Active ability index can be used from the UI to visualize the currently selected ability.</summary>
+        int activeAbilityIndex = -1;
 
         ///<summary>When set to true abilities are shown and enabled, if false then abilities are neither drawn or can be used.</summary>
         public bool AbilitiesCanActivate { get; set; }
@@ -42,8 +44,8 @@ namespace WGRF.Core
         public bool AbilitiesCanCycle { get; private set; }
         ///<summary>The current ability uses left.</summary>
         public int AbilitiesPerRoom => abilitiesPerRoom;
-        ///<summary>Active ability index can be used from the UI to visualize the currently selected ability.</summary>
-        public int activeAbilityIndex = -1;
+        ///<summary>The total ability uses</summary>
+        public int TotalAbilitiesPerRoom => totalAbilitiesPerRoom;
 
         protected override void PreAwake()
         {
@@ -80,13 +82,14 @@ namespace WGRF.Core
             foreach (Ability ability in abilities)
             {
                 ability.ResetAbilityUses();
-                CycleActiveAbility();
             }
         }
 
         private void Start()
         {
             StartAbilities();
+            activeAbilityIndex = 0;
+            activeAbility = abilities[activeAbilityIndex];
         }
 
         /// <summary>
@@ -107,6 +110,7 @@ namespace WGRF.Core
         void EnableAbilitySelection()
         {
             activatedAnAbility = false;
+            AbilitiesCanCycle = true;
         }
 
         private void Update()
@@ -125,6 +129,8 @@ namespace WGRF.Core
             if (Keyboard.current.rKey.wasPressedThisFrame && !activatedAnAbility)
             {
                 activatedAnAbility = activeAbility.TryActivate();
+                if (activatedAnAbility)
+                { AbilitiesCanCycle = false; }
             }
         }
 
@@ -133,22 +139,15 @@ namespace WGRF.Core
         /// <para>ActiveAbilityIndex is set to 0 when it goes past the Abilities.Count.</para>
         /// <para>Also sets the activeAbility to the Abilities[ActiveAbilityIndex]</para>
         /// </summary>
-        public void CycleActiveAbility()
+        void CycleActiveAbility()
         {
             activeAbilityIndex++;
 
-            if (activeAbilityIndex >= abilities.Count)
-            {
-                activeAbilityIndex = 0;
-            }
-
+            activeAbilityIndex = activeAbilityIndex % abilities.Count;
             activeAbility = abilities[activeAbilityIndex];
 
             //UI UPDATES
-            Debug.Log(activeAbility);
-            ManagerHub.S.HUDHandler.ChangeSelectedAbilityIcon(activeAbility.AbilitySprite, activeAbilityIndex, activeAbility.IsUnlocked);
-            ManagerHub.S.HUDHandler.UpdateRemainingTimeIcon(0, activeAbility.ActiveTime);
-            ManagerHub.S.HUDHandler.UpdateRemainingUsesIcon(AbilitiesPerRoom, totalAbilitiesPerRoom);
+            ManagerHub.S.HUDHandler.ChangeSelectedAbilityIcon(activeAbility);
 
             //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.VHSSlideIn);
         }
@@ -243,10 +242,13 @@ namespace WGRF.Core
 
         ///<summary>Decreases the ability usages per room by 1</summary>
         public void DecreaseAbilityUses()
-        { totalAbilitiesPerRoom = Math.Max(0, totalAbilitiesPerRoom--); }
+        {
+            abilitiesPerRoom = Math.Max(0, --abilitiesPerRoom);
+            ManagerHub.S.HUDHandler.SetAbilityUses(abilitiesPerRoom);
+        }
 
         ///<summary>Increases the ability uses per room by 1</summary>
-        public int IncreaseAbilityUsesPerRoom()
+        public int IncreaseTotalAbilityUsesPerRoom()
         {
             totalAbilitiesPerRoom = abilitiesPerRoom += 1;
             return totalAbilitiesPerRoom;

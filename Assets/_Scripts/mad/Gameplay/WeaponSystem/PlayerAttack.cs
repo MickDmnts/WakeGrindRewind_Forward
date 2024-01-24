@@ -83,20 +83,18 @@ namespace WGRF.Gameplay.BattleSystem
             { ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").SetRangedWeaponAnimation(false); }
 
             //Show the equiped weapon on the UI.
-            UpdateWeaponsUI(weapon, weapon.weaponAmmoSprite);
+            UpdateWeaponsUI(weapon);
         }
 
         /// <summary>
-        /// Call to update the ammo icon and the bullets left UI elements based to the passed weapon values.
+        /// Call to update the bullets left UI elements based to the passed weapon values.
         /// <para>Displays only ranged weaponCategory weapons.</para>
         /// </summary>
         /// <param name="weapon">The currently equiped weapon.</param>
         /// <param name="weaponAmmoSprite">The ammo sprite of the weapon.</param>
-        void UpdateWeaponsUI(Weapon weapon, Sprite weaponAmmoSprite)
+        void UpdateWeaponsUI(Weapon weapon)
         {
-            /* GameManager.S.HUDHandler.ChangeWeaponInfo(weaponAmmoSprite);
-            GameManager.S.HUDHandler.ChangeBulletsLeft((weapon.WeaponCategory != WeaponCategory.Ranged)
-                ? System.String.Empty : bulletsLeft.ToString()); */
+            ManagerHub.S.HUDHandler.SetWeaponSliderInfo(weapon);
         }
 
         private void FixedUpdate()
@@ -270,7 +268,7 @@ namespace WGRF.Gameplay.BattleSystem
             }
 
             //Update Bullets ui
-            //ManagerHub.S.HUDHandler.ChangeBulletsLeft(bulletsLeft.ToString());
+            ManagerHub.S.HUDHandler.ChangeBulletsLeft(bulletsPerMag);
         }
 
         /// <summary>
@@ -420,8 +418,7 @@ namespace WGRF.Gameplay.BattleSystem
         /// </summary>
         void ClearWeaponsUI()
         {
-            /* ManagerHub.S.HUDHandler.ChangeWeaponInfo(null);
-            ManagerHub.S.HUDHandler.ChangeBulletsLeft(System.String.Empty); */
+            ManagerHub.S.HUDHandler.ChangeBulletsLeft(0);
         }
         #endregion
 

@@ -64,7 +64,7 @@ namespace WGRF.Abilities
             ManagerHub.S.AbilityManager.DecreaseAbilityUses();
 
             //Update remaining uses UI
-            //ManagerHub.S.HUDHandler.UpdateRemainingUsesIcon(UsesPerLevel, cachedUses);
+            ManagerHub.S.HUDHandler.SetAbilityUses(ManagerHub.S.AbilityManager.AbilitiesPerRoom);
 
             CanActivate = false;
 
@@ -88,7 +88,6 @@ namespace WGRF.Abilities
         {
             //the timer will be used in the UI timer reference
             timer -= Time.deltaTime;
-            //ManagerHub.S.HUDHandler.UpdateRemainingTimeIcon(timer, ActiveTime);
 
             if (timer <= 0f)
             {
@@ -211,7 +210,7 @@ namespace WGRF.Abilities
         /// </summary>
         public override void ResetAbilityUses()
         {
-            //ManagerHub.S.HUDHandler.UpdateRemainingUsesIcon(0, cachedUses);
+            ManagerHub.S.HUDHandler.SetAbilityUses(ManagerHub.S.AbilityManager.TotalAbilitiesPerRoom);
         }
 
         public void AbilityInfoFullReset()

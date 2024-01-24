@@ -20,6 +20,9 @@ namespace WGRF.Entities
         [SerializeField, Tooltip("The entity base life")] protected int entityLife;
         #endregion
 
+        ///<summary>The player max health</summary>
+        public int MaxHealth => maxLife;
+
         /// <summary>
         /// Call to initiate the attack interaction behaviour of any Entity GameObject
         /// </summary>
