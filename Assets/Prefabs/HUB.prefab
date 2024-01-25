@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPath: ws/bullet
-  startingSpeed: 10
+  startingSpeed: 15
 --- !u!114 &2809289063518233439
 MonoBehaviour:
   m_ObjectHideFlags: 0

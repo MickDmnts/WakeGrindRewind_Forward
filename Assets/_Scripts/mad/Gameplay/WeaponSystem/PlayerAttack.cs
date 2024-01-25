@@ -135,7 +135,7 @@ namespace WGRF.Gameplay.BattleSystem
                 SetIsShooting(false);
             }
 
-            if (Mouse.current.rightButton.isPressed && equipedWeapon.WeaponType != WeaponType.Punch)
+            if (Mouse.current.rightButton.isPressed && equipedWeapon.WeaponType == WeaponType.Throwable)
             {
                 ThrowObject();
                 SetWeaponInfo(currentRoomWeapon);
@@ -408,8 +408,6 @@ namespace WGRF.Gameplay.BattleSystem
 
                 ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").PlayThrowAnimation();
                 //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.WeaponThrow);
-
-                ClearWeaponsUI();
             }
         }
 

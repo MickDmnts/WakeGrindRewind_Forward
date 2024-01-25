@@ -8,12 +8,12 @@ namespace WGRF.UI
         #region INSPECOTR_VARIABLES
         [Header("Set in inspector")]
         [SerializeField] RectTransform mousePanel;
+        [SerializeField] Camera uiCamera;
         [SerializeField] float minSize;
         [SerializeField] float maxSize;
         #endregion
 
         #region PRIVATE_VARIABLES
-        Camera uiCamera;
         float currentSize;
         bool playerShooting = false;
         #endregion

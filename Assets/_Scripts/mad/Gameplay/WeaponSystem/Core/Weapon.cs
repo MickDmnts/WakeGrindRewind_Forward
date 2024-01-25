@@ -26,6 +26,7 @@ namespace WGRF.BattleSystem
         Shotgun = 5,
 
         _NaN = -1,
+        Throwable = -2,
     }
 
     /*
