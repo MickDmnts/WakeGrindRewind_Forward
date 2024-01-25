@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 using WGRF.Core;
 using WGRF.Interactions;
 
@@ -26,7 +27,7 @@ namespace WGRF.Entities.Player
         }
 
         void Start()
-        {isKickEnabled = true;}
+        { isKickEnabled = true; }
 
         void Update()
         {
@@ -81,8 +82,10 @@ namespace WGRF.Entities.Player
                 objToKick = IsKickable(hit);
                 if (objToKick != null) //check if the hit is kickable
                 {
-                    PushKickable(objToKick);
+                    objToKick.SimulateKnockback(transform.position);
                     objToKick = null;
+
+                    //Execute POST EFFECTS here
                 }
             }
 
@@ -108,16 +111,7 @@ namespace WGRF.Entities.Player
                 return kickInteraction;
             }
 
-
             return null;
-        }
-
-        /// <summary>
-        /// Call to invoke the SimulateKnockback from the passed IKickable reference.
-        /// </summary>
-        void PushKickable(IKickable kickable)
-        {
-            kickable.SimulateKnockback(transform.position);
         }
         #endregion
 
