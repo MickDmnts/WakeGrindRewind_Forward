@@ -80,9 +80,7 @@ namespace WGRF.Core
         ///<summary>Returns the reference to the HUD handler</summary>
         public UserHUDHandler HUDHandler => _hudHandler;
 
-        /*public UI_Manager UIManager { get; private set; }
-        public AIEntityManager AIEntityManager { get; private set; }
-        public WeaponSelectionUI WeaponSelectionUIHandler { get; private set; }*/
+        //public AIEntityManager AIEntityManager { get; private set; }
 
         private void Awake()
         {

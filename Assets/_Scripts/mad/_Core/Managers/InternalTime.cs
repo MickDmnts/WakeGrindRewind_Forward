@@ -40,6 +40,22 @@ namespace WGRF.Core
         }
 
         /// <summary>
+        /// Changes the time scale of the engine to the passed value.
+        /// </summary>
+        /// <param name="newTimeScale">Can not be greater than 1f and smaller than 0f</param>
+        public void ChangeTimeScale(float newTimeScale)
+        { 
+            if (newTimeScale <= 0f)
+            { newTimeScale = 0.1f; }
+            else if (newTimeScale >= 1.0f)
+            { newTimeScale = 1f; }
+
+            OnTimeScaleChange();
+            Time.timeScale = newTimeScale;
+            Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
+        }
+
+        /// <summary>
         /// Changes the time scale of the engine to the passed value and then resets if after the reset delay.
         /// </summary>
         /// <param name="newTimeScale">Can not be greater than 1f and smaller than 0f</param>

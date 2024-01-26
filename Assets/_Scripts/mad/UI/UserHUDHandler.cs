@@ -24,8 +24,14 @@ namespace WGRF.UI
         [SerializeField] TextMeshProUGUI weaponName;
         [SerializeField] Slider remainingBullets;
 
+        [Header("Score UI")]
+        [SerializeField] GameObject scorePanel;
+
         void Awake()
-        { ManagerHub.S.AttackHudHandler(this); }
+        {
+            ManagerHub.S.AttackHudHandler(this);
+            CloseScoreUI();
+        }
 
         /// <summary>
         /// Call to change all the sprites of the selectedAbilityIcons list to the passed abilityIcon sprite.
@@ -78,5 +84,13 @@ namespace WGRF.UI
         /// </summary>
         public void ChangeBulletsLeft(int bulletsLeft)
         { remainingBullets.value = bulletsLeft; }
+
+        ///<summary>Opens the score UI</summary>
+        public void OpenScoreUI()
+        { scorePanel.SetActive(true); }
+
+        ///<summary>Closes the score UI</summary>
+        public void CloseScoreUI()
+        { scorePanel.SetActive(false); }
     }
 }
