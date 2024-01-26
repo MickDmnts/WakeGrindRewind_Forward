@@ -16523,7 +16523,7 @@ GameObject:
   - component: {fileID: 748614259}
   - component: {fileID: 748614258}
   m_Layer: 0
-  m_Name: THE  BIG COLLIDER
+  m_Name: The Big Bad Floor Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
