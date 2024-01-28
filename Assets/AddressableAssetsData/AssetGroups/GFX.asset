@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: SFX
+  m_Name: GFX
   m_EditorClassIdentifier: 
-  m_GroupName: SFX
+  m_GroupName: GFX
   m_Data:
     m_SerializedData: []
   m_GUID: 5071c738af8d04342a8c570483e9ce34
   m_SerializeEntries:
   - m_GUID: 0fb77a12776fb294091e3c3bfd24dfda
-    m_Address: sfx/bloodfx
+    m_Address: gfx/bloodfx
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 42e2175f3afb7504389936965858e507
-    m_Address: sfx/blooddecal
+    m_Address: gfx/blooddecal
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

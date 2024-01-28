@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 using WGRF.Core;
-using WGRF.BattleSystem;
 
 namespace WGRF.AI
 {
@@ -12,22 +10,15 @@ namespace WGRF.AI
         [Header("Set Armor value IF any")]
         [SerializeField] float armorValue;
 
-        [Header("Set in inspector")]
-        [SerializeField] bool isPatroller;
-        [SerializeField] float idleTimeOnPatrol;
-        [SerializeField] bool attackAfterStun;
-        [SerializeField] List<Transform> waypoints;
-        [SerializeField] float waypointDistanceOffset;
-
+        ///<summary>The behaviour tree handler of the agent</summary>
         EnemyBTHandler btHandler;
+
+        ///<summary>Returns the target of this agent.</summary>
+        public Transform Target => attackTarget;
 
         protected override void PreAwake()
         {
-            CacheComponents();
-        }
-
-        protected override void CacheComponents()
-        {
+            SetController(GetComponent<Controller>());
             agent = GetComponent<NavMeshAgent>();
             enemyRB = GetComponent<Rigidbody>();
         }
@@ -35,59 +26,10 @@ namespace WGRF.AI
         private void Start()
         {
             IsDead = false;
-            //ManagerHub.S.AIEntityManager.AddEntityReference(this);
-
-            CreateNodeData();
-            CreateBTHandler();
-
-            onPlayerFound += TargetFound;
-        }
-
-        /// <summary>
-        /// Call to create the behaviour tree data container for THIS enemy entity.
-        /// <para>Creates a new EnemyNodeData instance and assigns it in the enemyNodeData variable.</para>
-        /// </summary>
-        protected override void CreateNodeData()
-        {
             enemyNodeData = new EnemyNodeData();
-            SetupNodeDataFields();
+            btHandler = new EnemyBTHandler(enemyNodeData, this);
+            ManagerHub.S.AIHandler.RegisterAgent(enemyRoom, this);
         }
-
-        /// <summary>
-        /// Call to set up the needed node data fields for correct startup agent behaviour.
-        /// </summary>
-        protected override void SetupNodeDataFields()
-        {
-            enemyNodeData.SetEnemyEntity(this);
-            enemyNodeData.SetOriginalPos(transform.position);
-            enemyNodeData.SetEnemyAnimations(Controller.Access<EnemyAnimations>("eAnimations"));
-            enemyNodeData.SetIsPatroller(isPatroller);
-            enemyNodeData.SetAttackAfterStun(attackAfterStun);
-            enemyNodeData.SetIsDead(IsDead);
-            //enemyNodeData.SetIsStunned(IsStunned);
-            enemyNodeData.SetCanShoot(true);
-            enemyNodeData.SetWaypoints(waypoints);
-            enemyNodeData.SetIdleTimeOnPatrol(idleTimeOnPatrol);
-            enemyNodeData.SetWaypointDistanceOffset(waypointDistanceOffset);
-            enemyNodeData.SetCurrentWaypointIndex(0);
-            enemyNodeData.SetTarget(attackTarget);
-            enemyNodeData.SetNavMeshAgent(agent);
-            enemyNodeData.SetOcclusionLayers(occlusionLayers);
-
-            enemyNodeData.SetWeaponRange(Controller.Access<EnemyWeapon>("eWeapon").GetWeaponRange());
-        }
-
-        /// <summary>
-        /// Call to create an instance of EnemyBTHandler and assign it to the btHandler varable.
-        /// </summary>
-        protected override void CreateBTHandler()
-        { btHandler = new EnemyBTHandler(enemyNodeData, this); }
-
-        /// <summary>
-        /// Call to set the agent node data target found value to true.
-        /// </summary>
-        protected override void TargetFound()
-        { enemyNodeData.SetTargetFound(true); }
 
         private void Update()
         {
@@ -96,9 +38,7 @@ namespace WGRF.AI
 
             //Run the updateBT method ONLY if the btHandler != null
             if (btHandler != null)
-            {
-                btHandler.UpdateBT();
-            }
+            { btHandler.UpdateBT(); }
         }
 
         /// <summary>
@@ -113,24 +53,18 @@ namespace WGRF.AI
             if (IsDead || !GetIsAgentActive()) return;
 
             if (armorValue > 0)
-            {
-                armorValue -= damage;
-                TargetFound();
-            }
+            { armorValue -= damage; }
             else
             {
                 entityLife -= damage;
                 if (entityLife <= 0)
-                {
-                    InitiateDeathSequence();
-                }
+                { InitiateDeathSequence(); }
             }
         }
 
         /// <summary>
         /// Invokes:
         /// <para>AgentDeath_LocalSetup()</para>
-        /// <para>AgentDeath_LocalWeaponManagement()</para>
         /// <para>AgentDeath_GlobalNotifiers()</para>
         /// <para>SetIsAgentActive(false value)</para>
         /// </summary>
@@ -138,7 +72,7 @@ namespace WGRF.AI
         {
             AgentDeath_LocalSetup();
 
-            AgentDeath_LocalWeaponManagement();
+            Controller.Access<EnemyWeapon>("eWeapon").ClearWeaponSprite();
 
             AgentDeath_GlobalNotifiers();
 
@@ -156,8 +90,6 @@ namespace WGRF.AI
         {
             IsDead = true;
 
-            OnObserverDeath();
-
             Controller.Access<EnemyAnimations>("eAnimations").PlayDeathAnimation();
 
             agent.isStopped = true;
@@ -168,46 +100,14 @@ namespace WGRF.AI
 
         /// <summary>
         /// Invokes:
-        /// <para>1. InstatiateWeaponOnDeath()</para>
-        /// <para>2. AIEntityWeapon.ClearWeaponSprite()</para>
-        /// </summary>
-        void AgentDeath_LocalWeaponManagement()
-        {
-            GenerateWeaponOnDeath();
-            Controller.Access<EnemyWeapon>("eWeapon").ClearWeaponSprite();
-        }
-
-        /// <summary>
-        /// Call to grab a weapon prefab reference from the weapon pool based and place it in front of the agent.
-        /// <para>Early return if the weapon is of Unarmed category.</para>
-        /// </summary>
-        void GenerateWeaponOnDeath()
-        {
-            if (Controller.Access<EnemyWeapon>("eWeapon").equipedWeapon.WeaponCategory != WeaponCategory.Unarmed)
-            {
-                GameObject toBeDropped = null; //ManagerHub.S.WeaponManager.GetWeaponByType(AIEntityWeapon.equipedWeapon.WeaponType);
-
-                if (toBeDropped != null)
-                {
-                    toBeDropped.transform.position = Controller.Access<EnemyWeapon>("eWeapon").GetFirepointTransform().position;
-                    toBeDropped.transform.rotation = Quaternion.Euler(0, UnityEngine.Random.Range(0f, 360f), 0);
-
-                    toBeDropped.SetActive(true);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Invokes:
         /// <para>GameEventHandler.OnEnemyDeath()</para>
         /// <para>GameEventHandler.CameraShakeOnEnemyDeath(random generated value)</para>
         /// <para>Prints debug message if the GM ref is null.</para>
         /// </summary>
         void AgentDeath_GlobalNotifiers()
         {
-
             ManagerHub.S.GameEventHandler.OnEnemyDeath();
-            float rndShakeStrength = UnityEngine.Random.Range(2f, 7f);
+            float rndShakeStrength = Random.Range(2f, 7f);
             ManagerHub.S.GameEventHandler.CameraShakeOnEnemyDeath(0.5f, rndShakeStrength);
         }
 
@@ -215,15 +115,13 @@ namespace WGRF.AI
         /// Call to get the node data of THIS entity.
         /// </summary>
         public override INodeData GetEntityNodeData()
-        {
-            return enemyNodeData;
-        }
+        { return enemyNodeData; }
 
         /// <summary>
         /// Call to set the enemyNodeData canShoot to false.
         /// </summary>
         public void DisableShootingBehaviour()
-        { enemyNodeData.SetCanShoot(false); }
+        { enemyNodeData.CanShoot = false; }
 
         /// <summary>
         /// Call to set the animator playback speed to the passed value.
@@ -239,7 +137,7 @@ namespace WGRF.AI
             Controller.Access<EnemyAnimations>("eAnimations").SetAnimatorPlaybackSpeed(1f);
 
             //For stop time ability
-            enemyNodeData.SetCanShoot(true);
+            enemyNodeData.CanShoot = true;
         }
 
         /// <summary>
@@ -259,8 +157,5 @@ namespace WGRF.AI
         /// </summary>
         public override void SetIsAgentActive(bool value)
         { isAgentActive = value; }
-
-        protected override void PreDestroy()
-        { onPlayerFound -= TargetFound; }
     }
 }

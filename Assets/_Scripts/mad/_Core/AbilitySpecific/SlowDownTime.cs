@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using WGRF.AI;
 using WGRF.Core;
 
 namespace WGRF.Abilities
@@ -100,17 +101,17 @@ namespace WGRF.Abilities
         /// </summary>
         void AbilitySpecificActions()
         {
-            //CHANGE AFTER TIME MANAGER CREATION
-            /* foreach (EnemyEntity enemy in ManagerHub.S.AIEntityManager.GetEnemyEntityRefs())
+            int ar = ManagerHub.S.ActiveRoom;
+            foreach (EnemyEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
             {
                 if (enemy == null) continue;
 
-                enemy.GetAgent().angularSpeed -= (slowDownPercent / 100) * enemy.GetAgent().angularSpeed;
-                enemy.GetAgent().acceleration -= (slowDownPercent / 100) * enemy.GetAgent().acceleration;
-                enemy.GetAgent().speed -= (slowDownPercent / 100) * enemy.GetAgent().speed;
+                enemy.Agent.angularSpeed -= (slowDownPercent / 100) * enemy.Agent.angularSpeed;
+                enemy.Agent.acceleration -= (slowDownPercent / 100) * enemy.Agent.acceleration;
+                enemy.Agent.speed -= (slowDownPercent / 100) * enemy.Agent.speed;
 
                 enemy.OnPlayerAbilityStart(0.3f);
-            } */
+            }
 
             //ManagerHub.S.GameSoundsHandler.ChangeSoundPitch(0.5f);
         }
@@ -147,12 +148,13 @@ namespace WGRF.Abilities
             //call the external method on ability finish.
             onAbilityFinishCallback();
 
-            /* foreach (EnemyEntity enemy in ManagerHub.S.AIEntityManager.GetEnemyEntityRefs())
+            int ar = ManagerHub.S.ActiveRoom;
+            foreach (EnemyEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
             {
                 if (enemy == null) continue;
 
                 enemy.OnPlayerAbilityFinish();
-            } */
+            }
 
             ManagerHub.S.GameEventHandler.OnAbilityEnd();
 

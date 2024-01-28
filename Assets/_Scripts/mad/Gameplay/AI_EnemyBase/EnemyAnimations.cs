@@ -7,10 +7,10 @@ namespace WGRF.AI
     public class EnemyAnimations : AIEntityAnimations
     {
         protected override void PreAwake()
-        { SetController(GetComponent<Controller>()); }
-
-        private void Start()
-        { enemyAnimator = GetComponent<Animator>(); }
+        {
+            SetController(GetComponent<Controller>());
+            enemyAnimator = GetComponent<Animator>();
+        }
 
         public override void SetAnimatorPlaybackSpeed(float value)
         { enemyAnimator.speed = value; }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 using WGRF.Core;
@@ -14,16 +13,32 @@ namespace WGRF.AI
         NonInteractive = 31,
     }
 
+    /// <summary>
+    /// All the rooms the enemies can be present at.
+    /// </summary>
+    public enum EnemyRoom
+    {
+        Room1,
+        Room2,
+        Room3,
+        Room4,
+        Room5,
+    }
+
     public abstract class AIEntity : Entity
     {
+        [SerializeField, Header("Enemy Room")]
+        protected EnemyRoom enemyRoom;
+        protected int scoreIncrease = 10;
+
         [Header("Occlusion check layers")]
-        public LayerMask occlusionLayers;
+        [SerializeField] protected LayerMask occlusionLayers;
 
         [Header("After death transition")]
         [SerializeField] protected EnemyLayer layerOnDeath;
 
         [Header("Decal on death")]
-        [SerializeField] string bloodDecalPath;
+        [SerializeField] protected string bloodDecalPath;
 
         protected bool isAgentActive;
 
@@ -48,7 +63,7 @@ namespace WGRF.AI
             {
                 if (enemyNodeData != null)
                 {
-                    enemyNodeData.SetIsDead(value);
+                    enemyNodeData.IsDead = value;
                 }
 
                 if (value == true)
@@ -59,6 +74,8 @@ namespace WGRF.AI
                         temp.transform.position = transform.position;
                         temp.transform.rotation = cb.transform.rotation * Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
                     });
+
+                    ManagerHub.S.ScoreHandler.IncreaseRoomScoreBy(scoreIncrease);
                 }
 
 
@@ -67,36 +84,6 @@ namespace WGRF.AI
         }
 
         public NavMeshAgent Agent => agent;
-
-        public event Action onPlayerFound;
-        public void OnPlayerFound()
-        {
-            if (onPlayerFound != null)
-            {
-                onPlayerFound();
-            }
-        }
-
-        public event Action onObserverDeath;
-        public void OnObserverDeath()
-        {
-            if (onObserverDeath != null)
-            {
-                onObserverDeath();
-            }
-        }
-
-        /// <summary>
-        /// Call to cache the necessary entity components.
-        /// </summary>
-        protected abstract void CacheComponents();
-
-        //Called in Start to create the entity BT
-        protected abstract void CreateNodeData();
-        protected abstract void SetupNodeDataFields();
-        protected abstract void CreateBTHandler();
-
-        protected abstract void TargetFound();
 
         public abstract void SetAttackTarget(Transform target);
 

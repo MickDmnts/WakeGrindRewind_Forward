@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+using WGRF.AI;
 using WGRF.Core;
 
 namespace WGRF.Abilities
@@ -70,7 +70,7 @@ namespace WGRF.Abilities
                 return false;
 
             timer = ActiveTime;
-            
+
             //Change the bullet current speed to simulate a stop time feeling.
             ManagerHub.S.InternalTime.ChangeTimeScale(0.0f, ActiveTime);
 
@@ -99,17 +99,18 @@ namespace WGRF.Abilities
         void AbilitySpecificActions()
         {
             //CHANGE AFTER TIME MANAGER CREATION
-            /* foreach (EnemyEntity enemy in GameManager.S.AIEntityManager.GetEnemyEntityRefs())
+            int ar = ManagerHub.S.ActiveRoom;
+            foreach (EnemyEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
             {
                 if (enemy == null) continue;
 
-                enemy.GetAgent().speed = 0;
-                enemy.GetAgent().angularSpeed = 0;
+                enemy.Agent.speed = 0;
+                enemy.Agent.angularSpeed = 0;
 
-                enemy.EnemyAnimation.SetAnimatorPlaybackSpeed(0f);
+                enemy.Controller.Access<EnemyAnimations>("eAnimations").SetAnimatorPlaybackSpeed(0f);
 
                 enemy.DisableShootingBehaviour();
-            } */
+            }
 
             //ManagerHub.S.GameSoundsHandler.SetGameWideSoundtrackState(true);
         }
@@ -142,12 +143,13 @@ namespace WGRF.Abilities
             //call the external method on ability finish.
             onAbilityFinishCallback();
 
-            /* foreach (EnemyEntity enemy in GameManager.S.AIEntityManager.GetEnemyEntityRefs())
+            int ar = ManagerHub.S.ActiveRoom;
+            foreach (EnemyEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
             {
                 if (enemy == null) continue;
 
                 enemy.OnPlayerAbilityFinish();
-            } */
+            }
 
             ManagerHub.S.GameEventHandler.OnAbilityEnd();
 

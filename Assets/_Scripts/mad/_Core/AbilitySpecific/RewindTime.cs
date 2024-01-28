@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+using WGRF.AI;
 using WGRF.BattleSystem;
 using WGRF.Core;
 using WGRF.Player;
@@ -123,17 +123,18 @@ namespace WGRF.Abilities
         /// </summary>
         void AbilitySpecificActions()
         {
-            /* foreach (EnemyEntity enemy in GameManager.S.AIEntityManager.GetEnemyEntityRefs())
+            int ar = ManagerHub.S.ActiveRoom;
+            foreach (EnemyEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
             {
                 if (enemy == null) continue;
 
-                enemy.GetAgent().speed = 0;
-                enemy.GetAgent().angularSpeed = 0;
+                enemy.Agent.speed = 0;
+                enemy.Agent.angularSpeed = 0;
 
-                enemy.EnemyAnimation.SetAnimatorPlaybackSpeed(0f);
+                enemy.Controller.Access<EnemyAnimations>("eAnimations").SetAnimatorPlaybackSpeed(0f);
 
                 enemy.DisableShootingBehaviour();
-            } */
+            }
         }
 
         /// <summary>
@@ -146,16 +147,15 @@ namespace WGRF.Abilities
 
             timer = ActiveTime;
 
-            BulletStatics.CurrentSpeed = BulletStatics.StartingSpeed;
-
             Rewinder.ResetRewinderBehaviour();
 
-            /* foreach (EnemyEntity enemy in GameManager.S.AIEntityManager.GetEnemyEntityRefs())
+            int ar = ManagerHub.S.ActiveRoom;
+            foreach (EnemyEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
             {
                 if (enemy == null) continue;
 
                 enemy.OnPlayerAbilityFinish();
-            } */
+            }
 
             ManagerHub.S.GameEventHandler.OnPlayerRewind(true);
             ManagerHub.S.GameEventHandler.OnAbilityEnd();

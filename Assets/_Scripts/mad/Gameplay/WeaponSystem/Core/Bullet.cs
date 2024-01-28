@@ -40,6 +40,8 @@ namespace WGRF.BattleSystem
                 spawnedFX.transform.rotation = Quaternion.identity;
                 spawnedFX.transform.rotation = transform.rotation * Quaternion.Euler(-90f, 0f, 0f);
             }
+
+            Destroy(gameObject);
         }
 
         /// <summary>

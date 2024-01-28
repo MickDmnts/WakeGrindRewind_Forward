@@ -32,7 +32,7 @@ namespace WGRF.AI
         /// </summary>
         public bool Run()
         {
-            if (!nodeData.GetIsDead())
+            if (!nodeData.IsDead)
             {
                 return child.Run();
             }

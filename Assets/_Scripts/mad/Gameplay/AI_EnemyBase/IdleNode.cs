@@ -14,17 +14,13 @@ namespace WGRF.AI
         EnemyNodeData nodeData;
 
         public IdleNode(EnemyNodeData nodeData)
-        {
-            this.nodeData = nodeData;
-        }
+        { this.nodeData = nodeData; }
 
         /// <summary>
         /// Call to get the node data passed in the creation of the node.
         /// </summary>
         public INodeData GetNodeData()
-        {
-            return nodeData;
-        }
+        { return nodeData; }
 
         /// <summary>
         /// Checks if the AI is a patroller through the NodeData passed.
@@ -32,14 +28,6 @@ namespace WGRF.AI
         /// else returns false.</para>
         /// </summary>
         public bool Run()
-        {
-            if (!nodeData.GetIsPatroller())
-            {
-                nodeData.GetEnemyAnimations().SetWalkStateAnimation(false);
-                return true;
-            }
-
-            return false;
-        }
+        { return true; }
     }
 }

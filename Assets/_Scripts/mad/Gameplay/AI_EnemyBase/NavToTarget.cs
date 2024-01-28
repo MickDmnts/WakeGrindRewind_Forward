@@ -23,8 +23,8 @@ namespace WGRF.AI
         {
             this.nodeData = nodeData;
 
-            this.agent = nodeData.GetNavMeshAgent();
-            this.target = nodeData.GetTarget();
+            this.agent = nodeData.EnemyEntity.Agent;
+            this.target = nodeData.Target;
         }
 
         public INodeData GetNodeData()
@@ -46,7 +46,7 @@ namespace WGRF.AI
             Vector3 pos1 = agent.transform.position;
             Vector3 pos2 = target.position;
 
-            if ((pos1 - pos2).magnitude <= nodeData.GetWeaponRange())
+            if ((pos1 - pos2).magnitude <= nodeData.WeaponRange)
             {
                 agent.isStopped = true;
 
@@ -73,7 +73,7 @@ namespace WGRF.AI
             Vector3 occlLine = agent.transform.position;
 
             RaycastHit hitInfo;
-            if (Physics.Linecast(occlLine, target.position, out hitInfo, nodeData.GetOcclusionLayers()))
+            if (Physics.Linecast(occlLine, target.position, out hitInfo, nodeData.OcclusionLayers))
             {
                 Debug.DrawLine(occlLine, target.position, Color.red);
                 return true;

@@ -31,14 +31,8 @@ namespace WGRF.AI
         public bool Run()
         {
             //This forces the branch to remain active but frozen.
-            if (!nodeData.GetCanShoot()) return true;
-
-            if (nodeData.GetTargetFound())
-            {
-                return chaseTarget.Run();
-            }
-
-            return false;
+            if (!nodeData.CanShoot) return true;
+            return chaseTarget.Run();
         }
     }
 }

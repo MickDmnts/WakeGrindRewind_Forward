@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using WGRF.AI;
 using WGRF.Internal;
 using WGRF.UI;
 
@@ -17,6 +17,12 @@ namespace WGRF.Core
         ///<summary>Toggle to not load the game stages normally</summary>
         [SerializeField, Tooltip("Toggle to not load the game stages normally")]
         bool loadFromBoot;
+
+        ///<summary>The room the player is currently in</summary>
+        EnemyRoom activeRoom;
+
+        ///<summary>The room the player is currently in</summary>
+        public int ActiveRoom => (int)activeRoom;
 
         ///<summary>GameEventsHandler reference</summary>
         GameEventsHandler _gameEventsHandler;
@@ -48,6 +54,8 @@ namespace WGRF.Core
         ScoreHandler _scoreHandler;
         ///<summary>Reference to the HUD handler</summary>
         UserHUDHandler _hudHandler;
+        ///<summary>Reference to the AI Handler</summary>
+        AIHandler _aiHandler;
 
         ///<summary>Returns the GameEventsHandler reference</summary>
         public GameEventsHandler GameEventHandler => _gameEventsHandler;
@@ -79,8 +87,8 @@ namespace WGRF.Core
         public ScoreHandler ScoreHandler => _scoreHandler;
         ///<summary>Returns the reference to the HUD handler</summary>
         public UserHUDHandler HUDHandler => _hudHandler;
-
-        //public AIEntityManager AIEntityManager { get; private set; }
+        ///<summary>Returns the reference to the AI Handler</summary>
+        public AIHandler AIHandler => _aiHandler;
 
         private void Awake()
         {
@@ -112,6 +120,7 @@ namespace WGRF.Core
             _weaponManager = GetComponent<WeaponManager>();
             _abilityManager = GetComponent<AbilityManager>();
             _rewardSelector = GetComponent<RewardSelector>();
+            _aiHandler = GetComponent<AIHandler>();
         }
 
         /// <summary>
@@ -121,7 +130,7 @@ namespace WGRF.Core
         /// <param name="controller">The player's controller</param>
         public void AttachPlayerController(Controller controller)
         { _playerController = controller; }
-            
+
         /// <summary>
         /// * HUD USE ONLY *
         /// Attaches the UserHUDHandler reference to the ManagerHub.
@@ -129,5 +138,11 @@ namespace WGRF.Core
         /// <param name="controller">The player's controller</param>
         public void AttackHudHandler(UserHUDHandler userHUD)
         { _hudHandler = userHUD; }
+
+        /// <summary>
+        /// Sets the active room of the game
+        /// </summary>
+        public void SetActiveRoom(EnemyRoom room)
+        { activeRoom = room; }
     }
 }

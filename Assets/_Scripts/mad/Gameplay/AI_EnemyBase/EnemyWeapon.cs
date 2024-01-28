@@ -9,13 +9,14 @@ namespace WGRF.AI
     public class EnemyWeapon : AIEntityWeapon
     {
         [SerializeField] int damage = 5;
-        //Private variables
+
         bool currentlyAttacking;
 
         protected override void PreAwake()
         {
             SetID("eWeapon");
             SetController(GetComponentInParent<Controller>());
+            enemyWeaponRenderer = GetComponentInChildren<SpriteRenderer>();
         }
 
         private void Start()
@@ -49,9 +50,7 @@ namespace WGRF.AI
             canShoot = true;
 
             if (weapon.WeaponCategory.Equals(WeaponCategory.Ranged))
-            {
-                Controller.Access<EnemyAnimations>("eAnimations").SetHoldingRangedWeaponState(true);
-            }
+            { Controller.Access<EnemyAnimations>("eAnimations").SetHoldingRangedWeaponState(true); }
         }
 
         /// <summary>
@@ -60,7 +59,7 @@ namespace WGRF.AI
         /// </summary>
         public override void ShootSequence()
         {
-            if (!Controller.Access<EnemyEntity>("enemyEntity").GetIsAgentActive()) return;
+            if (!Controller.Access<EnemyEntity>("eEntity").GetIsAgentActive()) return;
 
             if (CanShoot())
             { TypeBasedAttack(); }
@@ -72,9 +71,7 @@ namespace WGRF.AI
         protected override bool CanShoot()
         {
             if (Time.time >= shootDoneTime)
-            {
-                return true;
-            }
+            { return true; }
 
             return false;
         }
@@ -122,7 +119,7 @@ namespace WGRF.AI
             yield return new WaitForSecondsRealtime(0.5f);
 
             //Early exit if the enemy is dead or stunned.
-            if (Controller.Access<EnemyEntity>("enemyEntity").IsDead)
+            if (Controller.Access<EnemyEntity>("eEntity").IsDead)
             {
                 currentlyAttacking = false;
                 yield break;
@@ -197,9 +194,7 @@ namespace WGRF.AI
         protected override void DecreaseSpread()
         {
             if (totalBulletSpread > 0)
-            {
-                totalBulletSpread -= accuracyIncreaseRate;
-            }
+            { totalBulletSpread -= accuracyIncreaseRate; }
         }
 
         /// <summary>
@@ -227,15 +222,11 @@ namespace WGRF.AI
                 tempBullet.SetActive(true);
             }
             else
-            {
-                Debug.Log("BulletPool returned null");
-            }
+            { Debug.Log("BulletPool returned null"); }
 
             projectilesPerShot--;
             if (projectilesPerShot <= 0)
-            {
-                onCooldown = true;
-            }
+            { onCooldown = true; }
         }
 
         /// <summary>
@@ -288,21 +279,15 @@ namespace WGRF.AI
 
         //Base type summary
         public override float GetWeaponRange()
-        {
-            return equipedWeapon.MinShootDistance;
-        }
+        { return equipedWeapon.MinShootDistance; }
 
         //Base type summary
         public override void SetIsShooting(bool value)
-        {
-            isShooting = value;
-        }
+        { isShooting = value; }
 
         //Base type summary
         public override void ClearWeaponSprite()
-        {
-            enemyWeaponRenderer.sprite = null;
-        }
+        { enemyWeaponRenderer.sprite = null; }
 
         //Base type summary
         protected override void OnShootReset()

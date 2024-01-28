@@ -23,8 +23,8 @@ namespace WGRF.AI
             this.nodeData = nodeData;
             this.shootMethod = shootMethod;
 
-            this.agent = nodeData.GetNavMeshAgent();
-            this.target = nodeData.GetTarget();
+            this.agent = nodeData.EnemyEntity.Agent;
+            this.target = nodeData.Target;
         }
 
         public INodeData GetNodeData()

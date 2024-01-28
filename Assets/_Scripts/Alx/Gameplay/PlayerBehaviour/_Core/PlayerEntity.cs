@@ -28,9 +28,6 @@ namespace WGRF.Player
         {
             SetController(transform.root.GetComponent<Controller>());
             ManagerHub.S.AttachPlayerController(Controller);
-
-            //Subscribe to the needed events.
-            ManagerHub.S.GameEventHandler.onPlayerSpawn += MoveToSpawnPoint;
         }
 
         private void Start()
@@ -59,8 +56,6 @@ namespace WGRF.Player
             {
                 isDead = true;
                 isActive = false;
-
-                ManagerHub.S.GameEventHandler.OnPlayerDeath();
 
                 UnityAssets.LoadAsync(bloodDecalPath, false, (decal) =>
                 {
@@ -140,8 +135,5 @@ namespace WGRF.Player
             entityLife += value;
             return entityLife;
         }
-
-        protected override void PreDestroy()
-        { ManagerHub.S.GameEventHandler.onPlayerSpawn -= MoveToSpawnPoint; }
     }
 }

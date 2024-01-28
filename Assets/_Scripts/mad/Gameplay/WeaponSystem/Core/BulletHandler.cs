@@ -25,9 +25,6 @@ namespace WGRF.Core
         [Header("Set in inspector - Bullet default speed")]
         [SerializeField] float startingSpeed;
 
-        private void Start()
-        { BulletStatics.StartingSpeed = startingSpeed; }
-
         /// <summary>
         /// Call to get a Bullet Gameobject reference based on the passed type.
         /// </summary>

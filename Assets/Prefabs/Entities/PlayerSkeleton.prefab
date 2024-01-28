@@ -545,6 +545,7 @@ MonoBehaviour:
   equipedWeapon: {fileID: 0}
   defaultWeapon: {fileID: 11400000, guid: 8652a4471703e164d959c7f510a68ea2, type: 2}
   objThrowPos: {fileID: 0}
+  damage: 5
 --- !u!1 &6015199088552736586
 GameObject:
   m_ObjectHideFlags: 0
