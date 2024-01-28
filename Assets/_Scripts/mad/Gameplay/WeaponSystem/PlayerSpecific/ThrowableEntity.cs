@@ -1,5 +1,5 @@
 using UnityEngine;
-using WGRF.AI.Entities.Hostile.Generic;
+using WGRF.AI;
 using WGRF.Core;
 using WGRF.Interactions;
 
