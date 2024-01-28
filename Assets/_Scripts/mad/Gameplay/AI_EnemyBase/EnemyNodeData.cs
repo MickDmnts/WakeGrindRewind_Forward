@@ -60,7 +60,7 @@ namespace WGRF.AI
         //BEHAVIOU FLOW
         public void SetIsPatroller(bool value) => isPatroller = value;
         public void SetIsDead(bool value) => isDead = value;
-        public void SetIsStunned(bool value) => isStunned = value;
+        //public void SetIsStunned(bool value) => isStunned = value;
         public void SetCanShoot(bool value) => canShoot = value;
 
         //Patrolling
@@ -88,7 +88,7 @@ namespace WGRF.AI
         //BEHAVIOUR FLOW
         public bool GetIsPatroller() => isPatroller;
         public bool GetIsDead() => isDead;
-        public bool GetIsStunned() => isStunned;
+        //public bool GetIsStunned() => isStunned;
         public bool GetCanShoot() => canShoot;
 
         //Patrolling

@@ -1,13 +1,5 @@
 namespace WGRF.AI
 {
-    /* [CLASS DOCUMENTATION]
-     * 
-     * Base abstract class for AI entity behaviour tree creation and handling.
-     * 
-     * [Must know]
-     * 1. Stores the prototype node data of its AI Entity gameObject.
-     * 
-     */
     public abstract class AIEntityBTHandler
     {
         /// <summary>

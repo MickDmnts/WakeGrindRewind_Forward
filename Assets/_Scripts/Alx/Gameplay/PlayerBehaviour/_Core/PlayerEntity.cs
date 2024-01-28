@@ -4,7 +4,7 @@ using UnityEngine;
 using WGRF.Abilities;
 using WGRF.Core;
 
-namespace WGRF.Entities.Player
+namespace WGRF.Player
 {
     [DefaultExecutionOrder(150)]
     public class PlayerEntity : Entity, IRewindable
@@ -45,12 +45,12 @@ namespace WGRF.Entities.Player
         /// <para>If there are rewind ability uses and the player dies then a rewind sequence gets initiated.</para>
         /// <para>If there are not, then the player dies and gets back to the player hub.</para>
         /// </summary>
-        public override void AttackInteraction()
+        public override void AttackInteraction(int damage)
         {
             //Prevents the player from dying from multiple shots when he's already dead.
             if (entityLife <= 0) return;
 
-            entityLife--;
+            entityLife -= damage;
 
             ManagerHub.S.HUDHandler.SetPlayerHealth(entityLife);
 
@@ -90,13 +90,6 @@ namespace WGRF.Entities.Player
 
             yield return null;
         }
-
-        /// <summary>
-        /// Call to initiate the stun interaction of the entity.
-        /// </summary>
-        /// <param name="hitDirection"></param>
-        public override void StunInteraction()
-        { Debug.Log($"{entityName} got stuned"); }
 
         /// <summary>
         /// Subscribed to the onPlayerSpawn event to move the player on the currently loaded scenes' spawn point

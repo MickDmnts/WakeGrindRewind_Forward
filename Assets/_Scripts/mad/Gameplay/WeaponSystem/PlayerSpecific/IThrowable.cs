@@ -1,4 +1,4 @@
-namespace WGRF.Entities.BattleSystem
+namespace WGRF.BattleSystem
 {
     /// <summary>
     /// An interface that can be attached to any object we want to be throwable.

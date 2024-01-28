@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-using WGRF.Entities;
+using WGRF.Core;
 
 namespace WGRF.AI
 {
@@ -14,20 +14,6 @@ namespace WGRF.AI
         NonInteractive = 31,
     }
 
-    /* [CLASS DOCUMENTATION]
-     * 
-     * * This abstract class acts as a base for every AI Entity present in the game.
-     *      Abstraction was used so every AI can have its own unique, but also universal behaviour.
-     * 
-     * Inspector variables: These variables must be set from the inspector
-     * Protected variables: These variables are shared in derived classes and changed throughout the game.
-     * 
-     * [Must know]
-     * 1. Components are cached separately in each entity.
-     * 2. Local events are used primarily from each Entity's FOV manager so info about the world can be transfered through the BehaviourTree.
-     * 3. Each AI entity creates its own BT  handler instance.
-     * 
-     */
     public abstract class AIEntity : Entity
     {
         [Header("Occlusion check layers")]
@@ -36,32 +22,52 @@ namespace WGRF.AI
         [Header("After death transition")]
         [SerializeField] protected EnemyLayer layerOnDeath;
 
-        #region PROTECTED_VARIABLES
+        [Header("Decal on death")]
+        [SerializeField] string bloodDecalPath;
+
         protected bool isAgentActive;
 
         protected Transform attackTarget;
         protected Rigidbody enemyRB;
+        protected EnemyNodeData enemyNodeData;
 
         protected NavMeshAgent agent;
-        #endregion
-
-        #region BEHAVIOUR_CACHING
-        protected AIEntityFOVManager fovManager;
-        public AIEntityFOVManager FOVManager
+        protected bool isDead;
+        /// <summary>
+        /// When set, IsDead automatically updates
+        /// the enemyNodeData equivalent field
+        /// with the passed value.
+        /// </summary>
+        public bool IsDead
         {
-            get { return fovManager; }
-            protected set { fovManager = value; }
+            get
+            {
+                return isDead;
+            }
+            set
+            {
+                if (enemyNodeData != null)
+                {
+                    enemyNodeData.SetIsDead(value);
+                }
+
+                if (value == true)
+                {
+                    UnityAssets.LoadAsync(bloodDecalPath, false, (cb) =>
+                    {
+                        GameObject temp = Instantiate(cb);
+                        temp.transform.position = transform.position;
+                        temp.transform.rotation = cb.transform.rotation * Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
+                    });
+                }
+
+
+                isDead = value;
+            }
         }
 
-        protected AIEntityWeapon aiEntityWeapon;
-        public AIEntityWeapon AIEntityWeapon
-        {
-            get { return aiEntityWeapon; }
-            protected set { aiEntityWeapon = value; }
-        }
-        #endregion
+        public NavMeshAgent Agent => agent;
 
-        #region AI_ENTITY_SPECIFIC_EVENTS
         public event Action onPlayerFound;
         public void OnPlayerFound()
         {
@@ -79,10 +85,7 @@ namespace WGRF.AI
                 onObserverDeath();
             }
         }
-        #endregion
 
-        #region PROTECTED_METHODS
-        //Called in Awake to cache the necessary components
         /// <summary>
         /// Call to cache the necessary entity components.
         /// </summary>
@@ -95,21 +98,11 @@ namespace WGRF.AI
 
         protected abstract void TargetFound();
 
-        protected abstract void SetHealth(int value);
-        protected abstract bool CheckIfDead();
-        #endregion
-
-        #region PUBLIC_METHODS
         public abstract void SetAttackTarget(Transform target);
 
         public abstract void SetIsAgentActive(bool value);
         public abstract bool GetIsAgentActive();
 
-        public abstract bool GetIsDead();
-
         public abstract INodeData GetEntityNodeData();
-
-        public abstract NavMeshAgent GetAgent();
-        #endregion
     }
 }

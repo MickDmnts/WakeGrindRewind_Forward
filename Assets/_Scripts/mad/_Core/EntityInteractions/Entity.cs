@@ -1,9 +1,8 @@
 using UnityEngine;
 
-using WGRF.Core;
 using WGRF.Interactions;
 
-namespace WGRF.Entities
+namespace WGRF.Core
 {
     /// <summary>
     /// Abstract base class to be inherited from every entity of the game.
@@ -26,11 +25,11 @@ namespace WGRF.Entities
         /// <summary>
         /// Call to initiate the attack interaction behaviour of any Entity GameObject
         /// </summary>
-        public abstract void AttackInteraction();
+        public abstract void AttackInteraction(int damage);
 
-        /// <summary>
+        /* /// <summary>
         /// Call to initiate the stun interaction of any Entity GameObject
         /// </summary>
-        public abstract void StunInteraction();
+        public abstract void StunInteraction(); */
     }
 }

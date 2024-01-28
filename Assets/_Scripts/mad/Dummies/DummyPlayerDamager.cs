@@ -1,7 +1,7 @@
 #if UNITY_EDITOR
 using UnityEngine;
 using UnityEngine.InputSystem;
-using WGRF.Entities.Player;
+using WGRF.Player;
 
 public class DummyPlayerDamager : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class DummyPlayerDamager : MonoBehaviour
     {
         if(Keyboard.current.lKey.wasPressedThisFrame)
         {
-            playerEntity.AttackInteraction();
+            playerEntity.AttackInteraction(10);
         }
     }
 }

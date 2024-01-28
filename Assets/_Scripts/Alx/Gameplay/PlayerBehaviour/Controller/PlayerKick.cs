@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using WGRF.Core;
 using WGRF.Interactions;
 
-namespace WGRF.Entities.Player
+namespace WGRF.Player
 {
     public class PlayerKick : CoreBehaviour
     {
@@ -99,12 +99,6 @@ namespace WGRF.Entities.Player
         /// <returns>Null if none of the above apply.</returns>
         private IKickable IsKickable(RaycastHit hit)
         {
-            IInteractable interaction = hit.transform.GetComponent<IInteractable>();
-            if (interaction != null)
-            {
-                interaction.StunInteraction();
-            }
-
             IKickable kickInteraction = hit.transform.GetComponent<IKickable>();
             if (kickInteraction != null)
             {

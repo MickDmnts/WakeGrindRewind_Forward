@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using WGRF.BattleSystem;
 using WGRF.Core;
-using WGRF.Gameplay.BattleSystem;
+using WGRF.Player;
 
 public class DummyWeaponAssigner : MonoBehaviour
 {

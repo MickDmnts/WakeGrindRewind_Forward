@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
 using WGRF.Abilities;
 using WGRF.BattleSystem;
 using WGRF.Core;
-using WGRF.Entities.Player;
+using WGRF.Player;
 
 namespace WGRF.UI
 {

@@ -1,7 +1,5 @@
 using UnityEngine;
 using WGRF.Core;
-using WGRF.Entities;
-using WGRF.Interactions;
 
 namespace WGRF.AI
 {

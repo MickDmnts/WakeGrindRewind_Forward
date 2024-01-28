@@ -10,7 +10,7 @@ namespace WGRF.AI
     /// A class used to transfer inpector given data to the FOV manager in runtime.
     /// </summary>
     [System.Serializable]
-    class DetectorValue
+    struct DetectorValue
     {
         public string detectorName;
         public Vector3 facing;
@@ -20,67 +20,38 @@ namespace WGRF.AI
         public float maxRadius;
     }
 
-    /* [CLASS DOCUMENTATION]
-     * 
-     * Inspector variables: Detector values must be set from the inspector so detectors can be constructed.
-     * Private variables: These variables change throughout the game.
-     * 
-     * [Must know]
-     * 0. Every AI Entity has a separate FOV manager attached to it.
-     * 
-     * 1. The manager creates every detector passed in the inspectorData list and stores it in a dictionary along with its GameObject anchor object
-     *      so we have GameObject - Detector pairs.
-     * 2. Detectors are updated through this manager.
-     * 3. When a detector ray collides with the set target they notify the AIEntity through this manager.
-     */
-    public class AIEntityFOVManager : MonoBehaviour
+    public class AIEntityFOVManager : CoreBehaviour
     {
         [Header("Set in inspector")]
         [SerializeField] List<DetectorValue> inspectorData;
 
-        public bool IsDetectorActive { get; private set; }
+        bool isDetectorActive;
 
-        #region PRIVATE_VARIABLES
-        AIEntity enemyEntity;
+        public bool IsDetectorActive => isDetectorActive;
 
         Dictionary<GameObject, DetectorValue> gameObjectDetectors;
-
         List<AIEntityFOVDetector> detectors;
-        #endregion
 
-        private void Awake()
+        protected override void PreAwake()
         {
-            enemyEntity = GetComponentInParent<AIEntity>();
+            SetController(GetComponentInParent<Controller>());
             gameObjectDetectors = new Dictionary<GameObject, DetectorValue>();
         }
 
         private void Start()
         {
             //Sub to the ai entity events.
-            if (enemyEntity != null)
-            {
-                enemyEntity.onPlayerFound += DeactivateAllDetectors;
-                enemyEntity.onObserverDeath += DeactivateAllDetectors;
-            }
+            Controller.Access<AIEntity>("enemyController").onPlayerFound += DeactivateAllDetectors;
+            Controller.Access<AIEntity>("enemyController").onObserverDeath += DeactivateAllDetectors;
 
             //Initialize the detectors list
             detectors = new List<AIEntityFOVDetector>();
 
             InitializeHoldersAndDetectors();
-
-            //Used for detector testing.
-            //If we are running the game as intented, get the detector target from the GM...
-            if (ManagerHub.S != null)
-            {
-                SetTargetAllDetectors(ManagerHub.S.PlayerController.transform);
-            }
-            else //...else just create temporary fov target gameObjects so we get no errors.
-            {
-                SetTargetAllDetectors(new GameObject("TempFovTarget").transform);
-            }
+            SetTargetAllDetectors(ManagerHub.S.PlayerController.transform);
 
             //Mark the detectors as active.
-            IsDetectorActive = true;
+            isDetectorActive = true;
         }
 
         /// <summary>
@@ -141,7 +112,7 @@ namespace WGRF.AI
                 detector.IsEnabled(false);
             }
 
-            IsDetectorActive = false;
+            isDetectorActive = false;
         }
 
         /// <summary>
@@ -150,14 +121,14 @@ namespace WGRF.AI
         /// </summary>
         public void ActivateAllDetectors()
         {
-            if (enemyEntity.GetIsDead()) return;
+            if (Controller.Access<AIEntity>("enemyController").IsDead) return;
 
             foreach (AIEntityFOVDetector detector in detectors)
             {
                 detector.IsEnabled(true);
             }
 
-            IsDetectorActive = true;
+            isDetectorActive = true;
         }
 
         //Detector updating
@@ -185,7 +156,7 @@ namespace WGRF.AI
         /// </summary>
         /// <returns></returns>
         public AIEntity GetEnemyEntity()
-        { return enemyEntity; }
+        { return Controller.Access<AIEntity>("enemyController"); }
 
         #region VISUALIZATION
 #if UNITY_EDITOR
@@ -239,13 +210,11 @@ namespace WGRF.AI
 #endif
         #endregion
 
-        private void OnDestroy()
+        protected override void PreDestroy()
         {
-            if (enemyEntity != null)
-            {
-                enemyEntity.onPlayerFound -= DeactivateAllDetectors;
-                enemyEntity.onObserverDeath -= DeactivateAllDetectors;
-            }
+            Controller.Access<AIEntity>("enemyController").onPlayerFound -= DeactivateAllDetectors;
+            Controller.Access<AIEntity>("enemyController").onObserverDeath -= DeactivateAllDetectors;
+            Controller.Access<AIEntity>("enemyController").onObserverDeath -= DeactivateAllDetectors;
         }
     }
 }

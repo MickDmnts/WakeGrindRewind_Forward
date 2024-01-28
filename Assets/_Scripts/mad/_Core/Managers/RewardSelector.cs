@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WGRF.BattleSystem;
-using WGRF.Entities.Player;
+using WGRF.Player;
 
 namespace WGRF.Core
 {

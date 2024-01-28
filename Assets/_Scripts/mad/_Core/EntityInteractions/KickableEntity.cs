@@ -1,7 +1,7 @@
 using UnityEngine;
 using WGRF.Interactions;
 
-namespace WGRF.Entities
+namespace WGRF.Core
 {   
     /// <summary>
     /// Attach this script to any game object you want to be kickable from the player

@@ -3,20 +3,9 @@ using UnityEditor;
 
 namespace WGRF.AI
 {
-    /* [CLASS DOCUMENTATION]
-     * 
-     * Every variable present in the class is private.
-     * 
-     * [Must know]
-     * 1. Each detector is handled from its AIEntityFOVManager instance.
-     * 2. Multiple detectors can be constructed in a gameObject.
-     * 3. Every detector value can be set in its creation, further modification is not currently present.
-     *      A. External modifications will be available in future updates.
-     */
     [System.Serializable]
     public class AIEntityFOVDetector
     {
-        #region PRIVATE_VARIABLES
         Transform target;
         float maxAngle;
         float maxRadius;
@@ -27,7 +16,6 @@ namespace WGRF.AI
         Transform detector;
         Color radiusColor;
         Color frustrumColor;
-        #endregion
 
         /// <summary>
         /// Call to construct an AI Detector.

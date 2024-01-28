@@ -1,23 +1,15 @@
 using UnityEngine;
 using WGRF.BattleSystem;
-using WGRF.Entities.BattleSystem;
 
 namespace WGRF.AI
 {
-    /* [CLASS DOCUMENTATION]
-     * 
-     * Inspector variables: These variables must be set from the inspector
-     * Protected variables: Cached and changed throughout the game
-     * 
-     *  These class acts as a base attacking handler for each AI Entity in the game.
-     */
     public abstract class AIEntityWeapon : Shooter
     {
         [Header("Set in inspector\nEnemy Specific")]
         [SerializeField] protected int projectilesPerShot;
         [SerializeField] protected float shotCooldownInterval;
 
-        #region Private_Variables
+        protected AIEntity aIEntity;
         protected SpriteRenderer enemyWeaponRenderer;
 
         protected bool onCooldown = false;
@@ -26,9 +18,9 @@ namespace WGRF.AI
 
         protected int projectilePerShotCache;
         protected float totalBulletSpread;
-        #endregion
 
-        #region PROTECTED_METHODS
+        public AIEntity AIEntity => aIEntity;
+
         /// <summary>
         /// Called in start to set weapon management defaults.
         /// </summary>
@@ -52,13 +44,6 @@ namespace WGRF.AI
         protected abstract void OnShootReset();
 
         protected abstract bool CanShoot();
-        #endregion
-
-        #region PUBLIC_METHODS
-        /// <summary>
-        /// Call to get the AIEntity of THIS EnemyWeapon script.
-        /// </summary>
-        public abstract AIEntity GetAIEntity();
 
         /// <summary>
         /// Call to get the firePoint transform of THIS enemy.
@@ -78,7 +63,6 @@ namespace WGRF.AI
         /// <param name="value">bool state</param>
         public abstract void SetIsShooting(bool value);
 
-
         public abstract void ShootSequence();
         public abstract override void Shoot();
 
@@ -86,6 +70,5 @@ namespace WGRF.AI
         /// Call to set the weaponSprite to null
         /// </summary>
         public abstract void ClearWeaponSprite();
-        #endregion
     }
 }

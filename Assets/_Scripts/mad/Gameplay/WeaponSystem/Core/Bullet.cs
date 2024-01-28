@@ -19,6 +19,7 @@ namespace WGRF.BattleSystem
         [Header("Set in inspector")]
         [SerializeField] string bloodImpactFX_Path;
         [SerializeField] float bulletSpeed;
+        [SerializeField] int damage = 5;
 
 
         private void Update()
@@ -31,7 +32,7 @@ namespace WGRF.BattleSystem
         {
             if (other.TryGetComponent<IInteractable>(out IInteractable nteraction))
             {
-                nteraction.AttackInteraction();
+                nteraction.AttackInteraction(damage);
 
                 //Spawn the blood impact FX when the bullet hits an entity
                 GameObject spawnedFX = Instantiate(UnityAssets.Load(bloodImpactFX_Path, false));

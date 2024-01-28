@@ -2,24 +2,20 @@ using System.Collections.Generic;
 
 namespace WGRF.AI
 {
-    /*
-     * This class file handles the creation and caching of the Enemy
-     * Behaviour Tree.
-     */
-    [System.Serializable]
     public class EnemyBTHandler : AIEntityBTHandler
     {
-        public EnemyNodeData nodeData;
-
         EnemyEntity enemyEntity;
+        EnemyNodeData enemyNodeData;
 
         BehaviourTree mainBehaviour;
-        BehaviourTree patrolBehaviour;
-        BehaviourTree chaseBehaviour;
+        /* BehaviourTree patrolBehaviour;
+        BehaviourTree chaseBehaviour; */
+
+        public EnemyNodeData NodeData => enemyNodeData;
 
         public EnemyBTHandler(EnemyNodeData nodeData, EnemyEntity enemyEntity)
         {
-            this.nodeData = nodeData;
+            this.enemyNodeData = nodeData;
             this.enemyEntity = enemyEntity;
 
             CreateBehaviourTree();
@@ -28,52 +24,45 @@ namespace WGRF.AI
         //Base type summary
         protected override void CreateBehaviourTree()
         {
-            #region IDLE
-            IdleNode idle = new IdleNode(nodeData);
-            #endregion
+            /*             IdleNode idle = new IdleNode(NodeData);
 
-            #region PATROL
-            IdleOnArrival idleOnArrival = new IdleOnArrival(nodeData);
-            PatrolCheckDistance patrolCheckDistance = new PatrolCheckDistance(nodeData, idleOnArrival);
-            PatrolNavigateTo patrolNavigateTo = new PatrolNavigateTo(nodeData);
-            PatrolNavToActivator navToActivator = new PatrolNavToActivator(nodeData, patrolNavigateTo);
-            PatrolNode patrolNode = new PatrolNode(nodeData, patrolCheckDistance, navToActivator);
+                        IdleOnArrival idleOnArrival = new IdleOnArrival(NodeData);
+                        PatrolCheckDistance patrolCheckDistance = new PatrolCheckDistance(NodeData, idleOnArrival);
+                        PatrolNavigateTo patrolNavigateTo = new PatrolNavigateTo(NodeData);
+                        PatrolNavToActivator navToActivator = new PatrolNavToActivator(NodeData, patrolNavigateTo);
+                        PatrolNode patrolNode = new PatrolNode(NodeData, patrolCheckDistance, navToActivator);
 
-            //Create the patrol BT
-            patrolBehaviour = new BehaviourTree(patrolNode, nodeData);
-            #endregion
+                        //Create the patrol BT
+                        patrolBehaviour = new BehaviourTree(patrolNode, NodeData);
 
-            #region CHASE_ATTACK
-            AttackTargetAction attackTargetAction = new AttackTargetAction(nodeData, enemyEntity.AIEntityWeapon.ShootSequence);
-            NavToTarget navToTarget = new NavToTarget(nodeData);
+                        AttackTargetAction attackTargetAction = new AttackTargetAction(NodeData, enemyEntity.Controller.Access<EnemyWeapon>("eWeapon").ShootSequence);
+                        NavToTarget navToTarget = new NavToTarget(NodeData);
 
-            ChaseAttackSelector chaseTarget = new ChaseAttackSelector(nodeData, navToTarget, attackTargetAction);
-            ChaseTargetActivator chaseActivator = new ChaseTargetActivator(nodeData, chaseTarget);
+                        ChaseAttackSelector chaseTarget = new ChaseAttackSelector(NodeData, navToTarget, attackTargetAction);
+                        ChaseTargetActivator chaseActivator = new ChaseTargetActivator(NodeData, chaseTarget);
 
-            //Create the chase BT
-            chaseBehaviour = new BehaviourTree(chaseActivator, nodeData);
-            #endregion
+                        //Create the chase BT
+                        chaseBehaviour = new BehaviourTree(chaseActivator, NodeData);
 
-            #region MAIN_BT
-            List<INode> childrenActivator = new List<INode>()
-            {
-                patrolBehaviour, chaseBehaviour, idle
-            };
+                        List<INode> childrenActivator = new List<INode>()
+                        {
+                            patrolBehaviour, chaseBehaviour, idle
+                        }; */
 
             //Create the node activator
-            IdlePatrolChaseActivator idlePatrolActivator = new IdlePatrolChaseActivator(nodeData, childrenActivator);
+            IdlePatrolChaseActivator idlePatrolActivator = new IdlePatrolChaseActivator(NodeData, null);//childrenActivator);
 
-            NavToOriginalPos navToOriginalPos = new NavToOriginalPos(nodeData, idlePatrolActivator);
+            /* NavToOriginalPos navToOriginalPos = new NavToOriginalPos(NodeData, idlePatrolActivator);
 
-            StunedAction stunedAction = new StunedAction(nodeData);
+            StunedAction stunedAction = new StunedAction(NodeData);
 
-            CheckIfStunned isStunned = new CheckIfStunned(nodeData, stunedAction, navToOriginalPos);
+            CheckIfStunned isStunned = new CheckIfStunned(NodeData, stunedAction, navToOriginalPos); */
 
-            CheckIfDead isDead = new CheckIfDead(nodeData, isStunned);
+            //Connect with idle, attack, fallback selector
+            CheckIfDead isDead = new CheckIfDead(NodeData, null);//isStunned);
 
             //Create the Main Behaviour tree
-            mainBehaviour = new BehaviourTree(isDead, nodeData);
-            #endregion
+            mainBehaviour = new BehaviourTree(isDead, NodeData);
         }
 
         //Base type summary.

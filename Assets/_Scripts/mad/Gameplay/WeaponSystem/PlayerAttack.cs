@@ -4,17 +4,16 @@ using UnityEngine.InputSystem;
 
 using WGRF.BattleSystem;
 using WGRF.Core;
-using WGRF.Entities.BattleSystem;
-using WGRF.Entities.Player;
 using WGRF.Interactions;
 
-namespace WGRF.Gameplay.BattleSystem
+namespace WGRF.Player
 {
     public class PlayerAttack : Shooter
     {
         [Header("Player specific")]
         [SerializeField] Weapon defaultWeapon;
         [SerializeField] Transform objThrowPos;
+        [SerializeField] int damage = 5;
 
         //Private variables
         Weapon currentRoomWeapon;
@@ -222,7 +221,7 @@ namespace WGRF.Gameplay.BattleSystem
                             if (interaction != null)
                             {
                                 //Call the Entity AttackInteraction().
-                                interaction.AttackInteraction();
+                                interaction.AttackInteraction(damage);
 
                                 //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.PunchSound);
                             }

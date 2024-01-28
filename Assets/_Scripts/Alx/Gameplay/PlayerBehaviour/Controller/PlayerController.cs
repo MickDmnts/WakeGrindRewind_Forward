@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using WGRF.Core;
 
-namespace WGRF.Entities.Player
+namespace WGRF.Player
 {
     public class PlayerController : CoreBehaviour
     {

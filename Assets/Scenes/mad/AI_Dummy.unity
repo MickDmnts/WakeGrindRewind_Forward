@@ -1230,10 +1230,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 621951264236656697, guid: 10892dbc2f159614e807a3d3989e76eb, type: 3}
-      propertyPath: occlusionLayers.m_Bits
-      value: 17536
-      objectReference: {fileID: 0}
     - target: {fileID: 621951264236656698, guid: 10892dbc2f159614e807a3d3989e76eb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1278,8 +1274,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AI_SimpleEnemy
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7739794422714148151, guid: 10892dbc2f159614e807a3d3989e76eb, type: 3}
+    - target: {fileID: 6103300140450688697, guid: 10892dbc2f159614e807a3d3989e76eb, type: 3}
+      propertyPath: _id
+      value: eController
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

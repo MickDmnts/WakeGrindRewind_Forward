@@ -1,15 +1,17 @@
 using UnityEngine;
+
 using WGRF.AI;
 using WGRF.Core;
 using WGRF.Interactions;
 
-namespace WGRF.Entities.BattleSystem
+namespace WGRF.BattleSystem
 {
     public class ThrowableEntity : CoreBehaviour, IThrowable
     {
         [Header("Set in inspector")]
         [SerializeField] float throwForSeconds;
         [SerializeField] float throwSpeed;
+        [SerializeField] int damage;
         [SerializeField] LayerMask detectionLayers;
 
         bool wasThrown;
@@ -83,12 +85,10 @@ namespace WGRF.Entities.BattleSystem
 
             if (Physics.Raycast(forwardRay, out hitInfo, 1f, detectionLayers))
             {
-                IInteractable interaction = (IInteractable)hitInfo.collider.GetComponent<EnemyEntity>();
+                IInteractable interaction = hitInfo.collider.GetComponent<EnemyEntity>();
 
                 if (interaction != null)
-                {
-                    interaction.StunInteraction();
-                }
+                { interaction.AttackInteraction(damage); }
 
                 ResetThrow();
             }

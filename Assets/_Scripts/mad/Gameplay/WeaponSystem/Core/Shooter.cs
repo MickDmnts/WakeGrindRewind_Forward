@@ -1,9 +1,8 @@
 using UnityEngine;
 
-using WGRF.BattleSystem;
 using WGRF.Core;
 
-namespace WGRF.Entities.BattleSystem
+namespace WGRF.BattleSystem
 {
     public abstract class Shooter : CoreBehaviour, IShooter
     {

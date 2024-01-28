@@ -3,7 +3,7 @@ using UnityEngine;
 
 using WGRF.BattleSystem;
 using WGRF.Core;
-using WGRF.Entities.Player;
+using WGRF.Player;
 
 namespace WGRF.Abilities
 {

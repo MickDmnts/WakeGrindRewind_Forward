@@ -1,18 +1,12 @@
 using UnityEngine;
+using WGRF.Core;
 
 namespace WGRF.AI
 {
-    /* [CLASS DOCUMENTATION]
-     *
-     * Base abstract class for AI Entity animation controlling.
-     */
-    public abstract class AIEntityAnimations : MonoBehaviour
+    public abstract class AIEntityAnimations : CoreBehaviour
     {
-        /// <summary>
-        /// Call to get THIS AI entity animator reference.
-        /// </summary>
-        /// <returns></returns>
-        public abstract Animator GetAnimator();
+        protected Animator enemyAnimator;
+        public Animator Animator  => enemyAnimator;
 
         /// <summary>
         /// Call to set THIS animators' playback speed to the passed value.

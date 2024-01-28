@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WGRF.Gameplay.BattleSystem
+namespace WGRF.BattleSystem
 {
     /* [Class documentation]
      *  

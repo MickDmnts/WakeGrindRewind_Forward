@@ -3,7 +3,7 @@ using UnityEngine;
 using WGRF.BattleSystem;
 using WGRF.Core;
 
-namespace WGRF.Entities.Player
+namespace WGRF.Player
 {
     public class PlayerAnimations : CoreBehaviour
     {

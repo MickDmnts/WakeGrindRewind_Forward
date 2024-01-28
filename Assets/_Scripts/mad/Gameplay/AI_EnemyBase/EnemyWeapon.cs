@@ -8,20 +8,15 @@ namespace WGRF.AI
 {
     public class EnemyWeapon : AIEntityWeapon
     {
+        [SerializeField] int damage = 5;
         //Private variables
-        EnemyEntity enemyEntity;
         bool currentlyAttacking;
 
-        private void Awake()
+        protected override void PreAwake()
         {
-            CacheComponents();
+            SetID("eWeapon");
+            SetController(GetComponentInParent<Controller>());
         }
-
-        /// <summary>
-        /// Call cache the needed components.
-        /// </summary>
-        void CacheComponents()
-        { enemyEntity = GetComponentInParent<EnemyEntity>(); }
 
         private void Start()
         {
@@ -55,7 +50,7 @@ namespace WGRF.AI
 
             if (weapon.WeaponCategory.Equals(WeaponCategory.Ranged))
             {
-                enemyEntity.EnemyAnimation.SetHoldingRangedWeaponState(true);
+                Controller.Access<EnemyAnimations>("eAnimations").SetHoldingRangedWeaponState(true);
             }
         }
 
@@ -65,12 +60,10 @@ namespace WGRF.AI
         /// </summary>
         public override void ShootSequence()
         {
-            if (!enemyEntity.GetIsAgentActive()) return;
+            if (!Controller.Access<EnemyEntity>("enemyEntity").GetIsAgentActive()) return;
 
             if (CanShoot())
-            {
-                TypeBasedAttack();
-            }
+            { TypeBasedAttack(); }
         }
 
         /// <summary>
@@ -107,7 +100,6 @@ namespace WGRF.AI
             }
         }
 
-        #region UNARMED_SPECIFIC
         /// <summary>
         /// Call to calculate the distance from THIS enemy to the PlayerEntity
         /// and check if the enemy can attack him based on an offset set from
@@ -130,14 +122,14 @@ namespace WGRF.AI
             yield return new WaitForSecondsRealtime(0.5f);
 
             //Early exit if the enemy is dead or stunned.
-            if (enemyEntity.IsDead || enemyEntity.IsStunned)
+            if (Controller.Access<EnemyEntity>("enemyEntity").IsDead)
             {
                 currentlyAttacking = false;
                 yield break;
             }
 
             //Play an attack animation based on equiped weapon weapon type.
-            enemyEntity.EnemyAnimation.PlayMeleeAnimation(equipedWeapon.WeaponType);
+            Controller.Access<EnemyAnimations>("eAnimations").PlayMeleeAnimation(equipedWeapon.WeaponType);
 
             Ray meleeRay = new Ray(transform.position, transform.forward);
             RaycastHit[] hits = new RaycastHit[10];
@@ -155,7 +147,7 @@ namespace WGRF.AI
 
                             if (interaction != null)
                             {
-                                interaction.AttackInteraction();
+                                interaction.AttackInteraction(damage);
 
                                 //ManagerHub.S.GameSoundsHandler.PlayOneShot();
                             }
@@ -169,9 +161,7 @@ namespace WGRF.AI
             currentlyAttacking = false;
             OnShootReset();
         }
-        #endregion
 
-        #region SHOOTING_SPECIFIC
         public override void Shoot()
         {
             //Shoot on cooldown update
@@ -195,13 +185,9 @@ namespace WGRF.AI
             CalculateBulletSpread();
 
             if (!equipedWeapon.WeaponType.Equals(WeaponType.Shotgun))
-            {
-                EnableBullet(false);
-            }
+            { EnableBullet(false); }
             else
-            {
-                EnableBullet(true);
-            }
+            { EnableBullet(true); }
 
             //Weapon SFX.
             PlayWeaponSFX();
@@ -228,7 +214,7 @@ namespace WGRF.AI
                 return;
             }
 
-            GameObject tempBullet = null; //ManagerHub.S.BulletPool.GetPooledBulletByType(BulletType.Enemy);
+            GameObject tempBullet = ManagerHub.S.BulletPool.GetBullet();
 
             float randomFloat = Random.Range(-totalBulletSpread, totalBulletSpread);
 
@@ -261,7 +247,7 @@ namespace WGRF.AI
 
             for (int i = 0; i < 6; i++)
             {
-                pellets[i] = null; //ManagerHub.S.BulletPool.GetPooledBulletByType(BulletType.Enemy);
+                pellets[i] = ManagerHub.S.BulletPool.GetBullet();
             }
 
             foreach (GameObject pellet in pellets)
@@ -295,14 +281,6 @@ namespace WGRF.AI
             {
                 totalBulletSpread = maxBulletSpread;
             }
-        }
-        #endregion
-
-        #region UTILITIES
-        //Base type summary
-        public override AIEntity GetAIEntity()
-        {
-            return enemyEntity;
         }
 
         //Base type summary
@@ -349,6 +327,5 @@ namespace WGRF.AI
                 //ManagerHub.S.GameSoundsHandler.PlayOneShot(equipedWeapon.gunShootSound[0]);
             }*/
         }
-        #endregion
     }
 }

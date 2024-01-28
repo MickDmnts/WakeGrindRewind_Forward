@@ -1,38 +1,20 @@
 using UnityEngine;
 using WGRF.BattleSystem;
-//using WGRF.BattleSystem;
+using WGRF.Core;
 
 namespace WGRF.AI
 {
-    /* [CLASS DOCUMENTATION]
-     * 
-     * Only one private variable present in the file.
-     * 
-     * Base type: AIEntityAnimations
-     * 
-     * This class is used from the EnemyEntity script to control the agent animations.
-     */
     public class EnemyAnimations : AIEntityAnimations
     {
-        //Animator cache
-        Animator enemyAnimator;
+        protected override void PreAwake()
+        { SetController(GetComponent<Controller>()); }
 
         private void Start()
-        {
-            enemyAnimator = GetComponent<Animator>();
-        }
-
-        public override Animator GetAnimator()
-        {
-            return enemyAnimator;
-        }
+        { enemyAnimator = GetComponent<Animator>(); }
 
         public override void SetAnimatorPlaybackSpeed(float value)
-        {
-            enemyAnimator.speed = value;
-        }
+        { enemyAnimator.speed = value; }
 
-        #region ENEMY_ENTITY_SPECIFIC
         /// <summary>
         /// Call to set the walking animation acitve state.
         /// </summary>
@@ -56,8 +38,6 @@ namespace WGRF.AI
         /// <param name="state"></param>
         public void SetHoldingRangedWeaponState(bool state)
         {
-            if (enemyAnimator == null) enemyAnimator = GetComponent<Animator>();
-
             enemyAnimator.SetBool("isHoldingGun", state);
 
             if (state.Equals(true))
@@ -95,6 +75,5 @@ namespace WGRF.AI
         {
             enemyAnimator.SetBool("isStunned", state);
         }
-        #endregion
     }
 }
