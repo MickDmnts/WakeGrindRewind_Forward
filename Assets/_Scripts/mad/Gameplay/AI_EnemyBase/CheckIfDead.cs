@@ -6,9 +6,9 @@ namespace WGRF.AI
 
         INode child;
 
-        public CheckIfDead(EnemyNodeData nodeData, INode child)
+        public CheckIfDead(INodeData nodeData, INode child)
         {
-            this.nodeData = nodeData;
+            this.nodeData = (EnemyNodeData)nodeData;
             this.child = child;
         }
 

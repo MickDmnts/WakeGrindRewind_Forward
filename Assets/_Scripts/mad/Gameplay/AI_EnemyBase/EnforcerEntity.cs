@@ -6,13 +6,13 @@ using WGRF.Core;
 
 namespace WGRF.AI
 {
-    public class EnemyEntity : AIEntity
+    public class EnforcerEntity : AIEntity
     {
         [Header("Set Armor value IF any")]
         [SerializeField] float armorValue;
 
         ///<summary>The behaviour tree handler of the agent</summary>
-        EnemyBTHandler btHandler;
+        EnforcerBTHandler btHandler;
 
         ///<summary>Returns the target of this agent.</summary>
         public Transform Target => attackTarget;
@@ -24,8 +24,7 @@ namespace WGRF.AI
         /// </summary>
         public override void SetIsAgentActive(bool value)
         {
-            ((EnemyNodeData)enemyNodeData).CanAttack = true;
-            ((EnemyNodeData)enemyNodeData).CanShoot = true;
+            ((EnforcerNodeData)enemyNodeData).CanProtect = true;
             isAgentActive = value;
         }
 
@@ -45,8 +44,8 @@ namespace WGRF.AI
         private void Start()
         {
             IsDead = false;
-            enemyNodeData = new EnemyNodeData(this);
-            btHandler = new EnemyBTHandler((EnemyNodeData)enemyNodeData, this);
+            enemyNodeData = new EnforcerNodeData(this);
+            btHandler = new EnforcerBTHandler((EnforcerNodeData)enemyNodeData, this);
             attackTarget = ManagerHub.S.PlayerController.gameObject.transform;
             ManagerHub.S.AIHandler.RegisterAgent(enemyRoom, this);
         }
@@ -132,27 +131,16 @@ namespace WGRF.AI
         }
 
         /// <summary>
-        /// Call to set the enemyNodeData canShoot to false.
-        /// </summary>
-        public void DisableShootingBehaviour()
-        { ((EnemyNodeData)enemyNodeData).CanShoot = false; }
-
-        /// <summary>
         /// Call to set the animator playback speed to the passed value.
         /// </summary>
         public void OnPlayerAbilityStart(float animatorPlaybackSpeed)
-        { Controller.Access<EnemyAnimations>("eAnimations").SetAnimatorPlaybackSpeed(animatorPlaybackSpeed); }
+        { Controller.Access<EnforcerAnimations>("eAnimations").SetAnimatorPlaybackSpeed(animatorPlaybackSpeed); }
 
         /// <summary>
         /// Called from each ability when the ability behaviour has finished executing to reset the agent values.
         /// </summary>
         public void OnPlayerAbilityFinish()
-        {
-            Controller.Access<EnemyAnimations>("eAnimations").SetAnimatorPlaybackSpeed(1f);
-
-            //For stop time ability
-            ((EnemyNodeData)enemyNodeData).CanShoot = true;
-        }
+        { Controller.Access<EnforcerAnimations>("eAnimations").SetAnimatorPlaybackSpeed(1f); }
 
         /// <summary>
         /// Call to initiate the new position searching and agent moving to it.

@@ -13,10 +13,9 @@ namespace WGRF.AI
         EnemyNodeData nodeData;
         List<INode> children;
 
-        public BehaviourSelector(EnemyNodeData nodeData, List<INode> children)
+        public BehaviourSelector(INodeData nodeData, List<INode> children)
         {
-            this.nodeData = nodeData;
-
+            this.nodeData = (EnemyNodeData)nodeData;
             this.children = children;
         }
 

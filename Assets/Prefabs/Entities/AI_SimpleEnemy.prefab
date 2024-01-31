@@ -57,7 +57,7 @@ MonoBehaviour:
   bulletSpreadRate: 1
   accuracyIncreaseRate: 0.4
   equipedWeapon: {fileID: 11400000, guid: 9eade4af57363e64b9ee8273e3aaca3e, type: 2}
-  projectilesPerShot: 0
+  projectilesPerShot: 5
   shotCooldownInterval: 0
   damage: 5
 --- !u!1 &621951263579200710
@@ -342,7 +342,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 17536
   layerOnDeath: 31
-  bloodDecalPath: sfx/blooddecal
+  bloodDecalPath: gfx/blooddecal
   armorValue: 20
 --- !u!114 &7667644552581911552
 MonoBehaviour:

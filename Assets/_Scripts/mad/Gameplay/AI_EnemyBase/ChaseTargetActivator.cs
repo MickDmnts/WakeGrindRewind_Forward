@@ -9,11 +9,11 @@ namespace WGRF.AI
      */
     public class ChaseTargetActivator : INode
     {
-        INodeData nodeData;
+        EnemyNodeData nodeData;
 
         ChaseAttackSelector chaseTarget;
 
-        public ChaseTargetActivator(INodeData nodeData, ChaseAttackSelector chaseTarget)
+        public ChaseTargetActivator(EnemyNodeData nodeData, ChaseAttackSelector chaseTarget)
         {
             this.nodeData = nodeData;
             this.chaseTarget = chaseTarget;

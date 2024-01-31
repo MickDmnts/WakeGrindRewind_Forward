@@ -11,7 +11,6 @@ namespace WGRF.AI
         public AIEntityAnimations EnemyAnimations { get; }
         public LayerMask OcclusionLayers { get; }
         public bool IsDead { get; set; }
-        public bool CanShoot { get; set; }
         public Transform Target { get; }
         public float WeaponRange { get; }
     }

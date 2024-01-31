@@ -44,7 +44,7 @@ namespace WGRF.AI
 
         protected Transform attackTarget;
         protected Rigidbody enemyRB;
-        protected EnemyNodeData enemyNodeData;
+        protected INodeData enemyNodeData;
 
         protected NavMeshAgent agent;
         ///<summary>The dead state of the agent</summary>

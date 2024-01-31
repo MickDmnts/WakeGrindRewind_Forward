@@ -6,8 +6,8 @@ namespace WGRF.AI
     {
         EnemyNodeData nodeData;
 
-        public FallbackAction(EnemyNodeData nodeData)
-        { this.nodeData = nodeData; }
+        public FallbackAction(INodeData nodeData)
+        { this.nodeData = (EnemyNodeData)nodeData; }
 
         /// <summary>
         /// Call to get the node data passed in the creation of the node.

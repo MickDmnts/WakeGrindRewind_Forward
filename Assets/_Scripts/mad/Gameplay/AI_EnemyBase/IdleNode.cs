@@ -15,8 +15,8 @@ namespace WGRF.AI
     {
         EnemyNodeData nodeData;
 
-        public IdleNode(EnemyNodeData nodeData)
-        { this.nodeData = nodeData; }
+        public IdleNode(INodeData nodeData)
+        { this.nodeData = (EnemyNodeData)nodeData; }
 
         /// <summary>
         /// Call to get the node data passed in the creation of the node.
