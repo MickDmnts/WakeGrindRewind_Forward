@@ -4,17 +4,11 @@ using UnityEngine.AI;
 
 namespace WGRF.AI
 {
-    /* [Node documentation]
-     * 
-     * [Must know]
-     *  INodeData compatible.
-     */
     public class AttackTargetAction : INode
     {
         INodeData nodeData;
 
         NavMeshAgent agent;
-        Transform target;
 
         Action shootMethod;
 
@@ -24,7 +18,6 @@ namespace WGRF.AI
             this.shootMethod = shootMethod;
 
             this.agent = nodeData.EnemyEntity.Agent;
-            this.target = nodeData.Target;
         }
 
         public INodeData GetNodeData()
@@ -38,11 +31,12 @@ namespace WGRF.AI
         /// </summary>
         public bool Run()
         {
-            Quaternion rotation = Quaternion.LookRotation(target.position - agent.transform.position);
+            Quaternion rotation = Quaternion.LookRotation(nodeData.Target.position - agent.transform.position);
             agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, rotation, 10f * Time.deltaTime);
 
             //Call the passed method
             shootMethod();
+            Debug.Log("Attack action");
             return true;
         }
     }

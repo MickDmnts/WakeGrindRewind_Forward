@@ -59,7 +59,7 @@ namespace WGRF.AI
         /// </summary>
         public override void ShootSequence()
         {
-            if (!Controller.Access<EnemyEntity>("eEntity").GetIsAgentActive()) return;
+            //if (!Controller.Access<EnemyEntity>("eEntity").IsAgentActive) return;
 
             if (CanShoot())
             { TypeBasedAttack(); }
@@ -161,6 +161,7 @@ namespace WGRF.AI
 
         public override void Shoot()
         {
+            Debug.Log("Shooting");
             //Shoot on cooldown update
             if (onCooldown)
             {
@@ -203,13 +204,15 @@ namespace WGRF.AI
         /// </summary>
         void EnableBullet(bool shotgunShot)
         {
+            Debug.Log("Bullet");
             if (shotgunShot)
             {
                 StartCoroutine(ShotgunShot());
                 return;
             }
 
-            GameObject tempBullet = ManagerHub.S.BulletPool.GetBullet();
+            GameObject tempBullet = Instantiate(ManagerHub.S.BulletPool.GetBullet());
+            tempBullet.GetComponent<Bullet>().SetBulletType(BulletType.Player);
 
             float randomFloat = Random.Range(-totalBulletSpread, totalBulletSpread);
 

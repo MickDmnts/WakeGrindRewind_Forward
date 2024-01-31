@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace WGRF.AI
 {
     /* [Node documentation]
@@ -30,8 +32,10 @@ namespace WGRF.AI
         /// <returns></returns>
         public bool Run()
         {
+            Debug.Log("Activator");
             //This forces the branch to remain active but frozen.
             if (!nodeData.CanShoot) return true;
+
             return chaseTarget.Run();
         }
     }

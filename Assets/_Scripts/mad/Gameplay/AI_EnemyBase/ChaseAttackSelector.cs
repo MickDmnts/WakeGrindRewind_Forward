@@ -1,4 +1,6 @@
-﻿namespace WGRF.AI
+﻿using UnityEngine;
+
+namespace WGRF.AI
 {
     /* [Node documentation]
      * 
@@ -35,6 +37,7 @@
         {
             if (!navToTarget.Run())
             {
+                Debug.Log("Attack");
                 return attackTarget.Run();
             }
 

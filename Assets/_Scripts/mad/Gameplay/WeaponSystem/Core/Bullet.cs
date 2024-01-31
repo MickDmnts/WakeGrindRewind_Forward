@@ -21,7 +21,6 @@ namespace WGRF.BattleSystem
         [SerializeField] float bulletSpeed;
         [SerializeField] int damage = 5;
 
-
         private void Update()
         {
             //Move the bullet to its local forward. 
@@ -30,9 +29,9 @@ namespace WGRF.BattleSystem
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<IInteractable>(out IInteractable nteraction))
+            if (other.TryGetComponent<IInteractable>(out IInteractable interaction))
             {
-                nteraction.AttackInteraction(damage);
+                interaction.AttackInteraction(damage);
 
                 //Spawn the blood impact FX when the bullet hits an entity
                 GameObject spawnedFX = Instantiate(UnityAssets.Load(bloodImpactFX_Path, false));
@@ -51,7 +50,7 @@ namespace WGRF.BattleSystem
         /// <para>Player: Collides with the AIEntities and not the player.</para>
         /// </summary>
         public void SetBulletType(BulletType type)
-        { gameObject.layer = (int)type; }
+        { transform.root.gameObject.layer = (int)type; }
 
         /// <summary>
         /// Resets bullet variables when the bullet gets enabled.

@@ -2,20 +2,11 @@ using UnityEngine;
 
 namespace WGRF.AI
 {
-    /* [Node documentation]
-     * 
-     * [Custom Action]
-     *  If the AI is not a patroller automatically disables their walk animation.
-     * 
-     * [Must know]
-     *  EnemyNodeData compatible.
-     *  Passed to the IdlePatrolChaseSelector as a INode child.
-     */
-    public class IdleNode : INode
+    public class FallbackAction : INode
     {
         EnemyNodeData nodeData;
 
-        public IdleNode(EnemyNodeData nodeData)
+        public FallbackAction(EnemyNodeData nodeData)
         { this.nodeData = nodeData; }
 
         /// <summary>
@@ -31,8 +22,20 @@ namespace WGRF.AI
         /// </summary>
         public bool Run()
         {
-            Debug.Log("Idle");
-            return !nodeData.CanAttack;
+            if (!(nodeData.EnemyEntity.EntityLife <= 10f / 100f * nodeData.EnemyEntity.EntityLife))
+            { return false; }
+
+            if (Random.Range(0f, 1f) <= 0.3f)
+            {
+                EnemyEntity entity = (EnemyEntity)nodeData.EnemyEntity;
+                entity.InitiateFallback(10);
+
+                //This pseudo-deactivates the agents BT from updating.
+                nodeData.IsDead = true;
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -47,12 +47,10 @@ namespace WGRF.AI
         protected EnemyNodeData enemyNodeData;
 
         protected NavMeshAgent agent;
+        ///<summary>The dead state of the agent</summary>
         protected bool isDead;
-        /// <summary>
-        /// When set, IsDead automatically updates
-        /// the enemyNodeData equivalent field
-        /// with the passed value.
-        /// </summary>
+
+        ///<summary>The dead state of the agent</summary>
         public bool IsDead
         {
             get
@@ -61,12 +59,7 @@ namespace WGRF.AI
             }
             set
             {
-                if (enemyNodeData != null)
-                {
-                    enemyNodeData.IsDead = value;
-                }
-
-                if (value == true)
+                if (value)
                 {
                     UnityAssets.LoadAsync(bloodDecalPath, false, (cb) =>
                     {
@@ -85,10 +78,7 @@ namespace WGRF.AI
 
         public NavMeshAgent Agent => agent;
 
-        public abstract void SetAttackTarget(Transform target);
-
         public abstract void SetIsAgentActive(bool value);
-        public abstract bool GetIsAgentActive();
 
         public abstract INodeData GetEntityNodeData();
     }

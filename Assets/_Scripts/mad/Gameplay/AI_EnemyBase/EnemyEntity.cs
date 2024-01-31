@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,6 +16,24 @@ namespace WGRF.AI
 
         ///<summary>Returns the target of this agent.</summary>
         public Transform Target => attackTarget;
+        ///<summary>Returns the active state of the agent</summary>
+        public bool IsAgentActive => isAgentActive;
+
+        /// <summary>
+        /// Call to set the agent is active to the passed value.
+        /// </summary>
+        public override void SetIsAgentActive(bool value)
+        {
+            enemyNodeData.CanAttack = true;
+            enemyNodeData.CanShoot = true;
+            isAgentActive = value;
+        }
+
+        /// <summary>
+        /// Call to get the node data of THIS entity.
+        /// </summary>
+        public override INodeData GetEntityNodeData()
+        { return enemyNodeData; }
 
         protected override void PreAwake()
         {
@@ -26,8 +45,9 @@ namespace WGRF.AI
         private void Start()
         {
             IsDead = false;
-            enemyNodeData = new EnemyNodeData();
+            enemyNodeData = new EnemyNodeData(this);
             btHandler = new EnemyBTHandler(enemyNodeData, this);
+            attackTarget = ManagerHub.S.PlayerController.gameObject.transform;
             ManagerHub.S.AIHandler.RegisterAgent(enemyRoom, this);
         }
 
@@ -50,7 +70,7 @@ namespace WGRF.AI
         public override void AttackInteraction(int damage)
         {
             //Continue only if the enemy is not dead.
-            if (IsDead || !GetIsAgentActive()) return;
+            if (IsDead || !isAgentActive) return;
 
             if (armorValue > 0)
             { armorValue -= damage; }
@@ -112,12 +132,6 @@ namespace WGRF.AI
         }
 
         /// <summary>
-        /// Call to get the node data of THIS entity.
-        /// </summary>
-        public override INodeData GetEntityNodeData()
-        { return enemyNodeData; }
-
-        /// <summary>
         /// Call to set the enemyNodeData canShoot to false.
         /// </summary>
         public void DisableShootingBehaviour()
@@ -141,21 +155,45 @@ namespace WGRF.AI
         }
 
         /// <summary>
-        /// Called from the EnemyEntityManager at startup to update the target of THIS enemy.
+        /// Call to initiate the new position searching and agent moving to it.
         /// </summary>
-        public override void SetAttackTarget(Transform target)
-        { attackTarget = target; }
+        /// <param name="range">The maximum range to search a position.</param>
+        public void InitiateFallback(float range)
+        {
+            StopAllCoroutines();
+            StartCoroutine(SearchPosition(transform.position, range));
+        }
 
-        /// <summary>
-        /// Call to get the agents' current state.
-        /// </summary>
-        public override bool GetIsAgentActive()
-        { return isAgentActive; }
+        IEnumerator SearchPosition(Vector3 center, float range)
+        {
+            int reps = 30;
+            Vector3 possiblePos = Vector3.zero;
 
-        /// <summary>
-        /// Call to set the agent is active to the passed value.
-        /// </summary>
-        public override void SetIsAgentActive(bool value)
-        { isAgentActive = value; }
+            for (int i = 0; i < reps; i++)
+            {
+                //Translate XY to XZ
+                Vector2 randomHit = Random.insideUnitCircle;
+                Vector3 xzTranslation = new Vector3(randomHit.x, 0f, randomHit.y);
+
+                //set random point
+                Vector3 randomPoint = center + xzTranslation * range;
+
+                NavMeshHit hit;
+                if (NavMesh.SamplePosition(randomPoint, out hit, Agent.height * 2, NavMesh.AllAreas))
+                {
+                    if ((hit.position - transform.position).magnitude >= range / 1.5f)
+                    { possiblePos = hit.position; }
+                }
+
+                yield return null;
+            }
+
+            if (possiblePos == Vector3.zero)
+            { possiblePos = transform.position; }
+
+            //Continue to jump sequence when position sampling gets finished
+            Agent.SetDestination(possiblePos);
+            StopAllCoroutines();
+        }
     }
 }

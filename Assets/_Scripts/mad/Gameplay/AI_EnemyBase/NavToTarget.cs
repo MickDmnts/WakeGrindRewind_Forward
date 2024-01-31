@@ -17,14 +17,12 @@ namespace WGRF.AI
         INodeData nodeData;
 
         NavMeshAgent agent;
-        Transform target;
 
         public NavToTarget(INodeData nodeData)
         {
             this.nodeData = nodeData;
 
             this.agent = nodeData.EnemyEntity.Agent;
-            this.target = nodeData.Target;
         }
 
         public INodeData GetNodeData()
@@ -41,10 +39,11 @@ namespace WGRF.AI
         /// </summary>
         public bool Run()
         {
-            agent.SetDestination(target.position);
+            Debug.Log("NavToTarget");
+            agent.SetDestination(nodeData.Target.position);
 
             Vector3 pos1 = agent.transform.position;
-            Vector3 pos2 = target.position;
+            Vector3 pos2 = nodeData.Target.position;
 
             if ((pos1 - pos2).magnitude <= nodeData.WeaponRange)
             {
@@ -73,9 +72,9 @@ namespace WGRF.AI
             Vector3 occlLine = agent.transform.position;
 
             RaycastHit hitInfo;
-            if (Physics.Linecast(occlLine, target.position, out hitInfo, nodeData.OcclusionLayers))
+            if (Physics.Linecast(occlLine, nodeData.Target.position, out hitInfo, nodeData.OcclusionLayers))
             {
-                Debug.DrawLine(occlLine, target.position, Color.red);
+                Debug.DrawLine(occlLine, nodeData.Target.position, Color.red);
                 return true;
             }
             return false;

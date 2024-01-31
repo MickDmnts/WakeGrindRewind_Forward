@@ -12,7 +12,7 @@ namespace WGRF.AI
         public LayerMask OcclusionLayers { get; }
         public bool IsDead { get; set; }
         public bool CanShoot { get; set; }
-        public Transform Target { get; set; }
+        public Transform Target { get; }
         public float WeaponRange { get; }
     }
 }

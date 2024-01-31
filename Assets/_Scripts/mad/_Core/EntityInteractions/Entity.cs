@@ -15,10 +15,12 @@ namespace WGRF.Core
         [SerializeField, Tooltip("The entity name")] protected string entityName;
         ///<summary>The entity max life</summary>
         [SerializeField, Tooltip("The entity max life")] protected int maxLife;
-        ///<summary>The entity base life</summary>
-        [SerializeField, Tooltip("The entity base life")] protected int entityLife;
+        ///<summary>The entity current life</summary>
+        [SerializeField, Tooltip("The entity current life")] protected int entityLife;
         #endregion
 
+        ///<summary>The entity current life</summary>
+        public int EntityLife => entityLife;
         ///<summary>The player max health</summary>
         public int MaxHealth => maxLife;
 

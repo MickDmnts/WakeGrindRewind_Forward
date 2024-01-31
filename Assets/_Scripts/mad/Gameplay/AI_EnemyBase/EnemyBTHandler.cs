@@ -4,13 +4,21 @@ namespace WGRF.AI
 {
     public class EnemyBTHandler : AIEntityBTHandler
     {
+        ///<summary>The entity of this behaviour tree</summary>
         EnemyEntity enemyEntity;
+        ///<summary>The AI node data of this behaviour tree</summary>
         EnemyNodeData enemyNodeData;
 
+        ///<summary>Main behaviour tree (entry)</summary>
         BehaviourTree mainBehaviour;
-        /* BehaviourTree patrolBehaviour;
-        BehaviourTree chaseBehaviour; */
+        ///<summary>Idle behaviour (first phase)</summary>
+        BehaviourTree idleBehaviour;
+        ///<summary>Attack behaviour (second phase)</summary>
+        BehaviourTree attackBehaviour;
+        ///<summary>Fallback behaviour (final phase)</summary>
+        BehaviourTree fallbackBehaviour;
 
+        ///<summary>The assigned AIs node data</summary>
         public EnemyNodeData NodeData => enemyNodeData;
 
         public EnemyBTHandler(EnemyNodeData nodeData, EnemyEntity enemyEntity)
@@ -24,42 +32,22 @@ namespace WGRF.AI
         //Base type summary
         protected override void CreateBehaviourTree()
         {
-            /*             IdleNode idle = new IdleNode(NodeData);
+            FallbackAction fallbackAction = new FallbackAction(NodeData);
+            fallbackBehaviour = new BehaviourTree(fallbackAction, NodeData);
 
-                        IdleOnArrival idleOnArrival = new IdleOnArrival(NodeData);
-                        PatrolCheckDistance patrolCheckDistance = new PatrolCheckDistance(NodeData, idleOnArrival);
-                        PatrolNavigateTo patrolNavigateTo = new PatrolNavigateTo(NodeData);
-                        PatrolNavToActivator navToActivator = new PatrolNavToActivator(NodeData, patrolNavigateTo);
-                        PatrolNode patrolNode = new PatrolNode(NodeData, patrolCheckDistance, navToActivator);
+            AttackTargetAction attackTargetAction = new AttackTargetAction(NodeData, enemyEntity.Controller.Access<EnemyWeapon>("eWeapon").ShootSequence);
+            NavToTarget navToTarget = new NavToTarget(NodeData);
+            ChaseAttackSelector chaseTarget = new ChaseAttackSelector(NodeData, navToTarget, attackTargetAction);
+            ChaseTargetActivator chaseActivator = new ChaseTargetActivator(NodeData, chaseTarget);
+            attackBehaviour = new BehaviourTree(chaseActivator, NodeData);
 
-                        //Create the patrol BT
-                        patrolBehaviour = new BehaviourTree(patrolNode, NodeData);
+            IdleNode idleNode = new IdleNode(NodeData);
+            idleBehaviour = new BehaviourTree(idleNode, NodeData);
 
-                        AttackTargetAction attackTargetAction = new AttackTargetAction(NodeData, enemyEntity.Controller.Access<EnemyWeapon>("eWeapon").ShootSequence);
-                        NavToTarget navToTarget = new NavToTarget(NodeData);
-
-                        ChaseAttackSelector chaseTarget = new ChaseAttackSelector(NodeData, navToTarget, attackTargetAction);
-                        ChaseTargetActivator chaseActivator = new ChaseTargetActivator(NodeData, chaseTarget);
-
-                        //Create the chase BT
-                        chaseBehaviour = new BehaviourTree(chaseActivator, NodeData);
-
-                        List<INode> childrenActivator = new List<INode>()
-                        {
-                            patrolBehaviour, chaseBehaviour, idle
-                        }; */
-
-            //Create the node activator
-            IdlePatrolChaseActivator idlePatrolActivator = new IdlePatrolChaseActivator(NodeData, null);//childrenActivator);
-
-            /* NavToOriginalPos navToOriginalPos = new NavToOriginalPos(NodeData, idlePatrolActivator);
-
-            StunedAction stunedAction = new StunedAction(NodeData);
-
-            CheckIfStunned isStunned = new CheckIfStunned(NodeData, stunedAction, navToOriginalPos); */
+            BehaviourSelector idleAttackFallbackSelector = new BehaviourSelector(NodeData, new List<INode>() { fallbackBehaviour, attackBehaviour, idleBehaviour });
 
             //Connect with idle, attack, fallback selector
-            CheckIfDead isDead = new CheckIfDead(NodeData, null);//isStunned);
+            CheckIfDead isDead = new CheckIfDead(NodeData, idleAttackFallbackSelector);
 
             //Create the Main Behaviour tree
             mainBehaviour = new BehaviourTree(isDead, NodeData);

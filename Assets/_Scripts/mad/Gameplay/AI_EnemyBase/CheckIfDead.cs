@@ -1,13 +1,5 @@
 namespace WGRF.AI
 {
-    /* [Node Documentation]
-     * 
-     * [Custom switch]
-     * If the agent is not marked as dead through the node data, update the INode passed.
-     * 
-     * [Must know]
-     * EnemyNodeData compatible.
-     */
     public class CheckIfDead : INode
     {
         EnemyNodeData nodeData;
