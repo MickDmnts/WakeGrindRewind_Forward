@@ -13,10 +13,7 @@ namespace WGRF.AI
         }
 
         void EntrySetup()
-        {
-            enemyRB = GetComponent<Rigidbody>();
-            //stunTimerCache = stunTimer;
-        }
+        { enemyRB = GetComponent<Rigidbody>(); }
 
         /// <summary>
         /// Call to push the enemy gameobject to the opposite of the passed vector.
@@ -29,41 +26,7 @@ namespace WGRF.AI
 
             enemyRB.velocity = oppositeDir * kickForce;
 
-            kicked = true;
-            //canStun = true;
-
             //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.PunchSound);
-        }
-
-        protected void Update()
-        {
-            /* if (!kicked | !stunOnCollision) return;
-
-            //Deactivates the door stun ability after a short interval.
-            if (canStun)
-            {
-                stunTimer -= Time.deltaTime;
-                if (stunTimer <= 0f)
-                {
-                    canStun = false;
-                    kicked = false;
-                    stunTimer = stunTimerCache;
-                }
-            } */
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            //Call the enemy stun interaction of collided enemies if the enemy got recently kicked.
-            /* if (canStun)
-            {
-                IInteractable interaction = collision.gameObject.GetComponent<AIEntity>();
-
-                if (interaction != null)
-                {
-                    interaction.StunInteraction();
-                }
-            } */
         }
     }
 }

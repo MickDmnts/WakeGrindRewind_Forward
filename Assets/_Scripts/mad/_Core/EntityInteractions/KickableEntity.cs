@@ -17,8 +17,6 @@ namespace WGRF.Core
         #region PRIVATE_VARIABLES
         ///<summary>The attached rigidbody of the gameObject</summary>
         protected Rigidbody entityRB;
-        ///<summary>Is the object kicked now?</summary>
-        protected bool kicked = false;
         ///<summary>Caches the direction the object got kicked from</summary>
         protected Vector3 oppositeDir;
         #endregion
@@ -36,8 +34,6 @@ namespace WGRF.Core
             oppositeDir = (transform.position - incomingDir).normalized;
 
             entityRB.velocity = oppositeDir * kickForce;
-
-            kicked = true;
         }
     }
 }

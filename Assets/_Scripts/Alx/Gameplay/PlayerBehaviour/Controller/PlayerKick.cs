@@ -80,7 +80,7 @@ namespace WGRF.Player
             if (Physics.Raycast(ray, out hit, maxDistance))
             {
                 objToKick = IsKickable(hit);
-                if (objToKick != null) //check if the hit is kickable
+                if (objToKick != null)
                 {
                     objToKick.SimulateKnockback(transform.position);
                     objToKick = null;
@@ -98,15 +98,7 @@ namespace WGRF.Player
         /// </summary>
         /// <returns>Null if none of the above apply.</returns>
         private IKickable IsKickable(RaycastHit hit)
-        {
-            IKickable kickInteraction = hit.transform.GetComponent<IKickable>();
-            if (kickInteraction != null)
-            {
-                return kickInteraction;
-            }
-
-            return null;
-        }
+        { return hit.transform.GetComponent<IKickable>(); }
         #endregion
 
 #if UNITY_EDITOR
