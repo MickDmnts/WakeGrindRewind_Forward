@@ -15,6 +15,7 @@ public class ScreenShake : CoreBehaviour
     protected override void  PreAwake()
     {
         vcamera = GetComponent<CinemachineVirtualCamera>();
+        ManagerHub.S.GameEventHandler.cameraShakeOnEnemyDeath += ShakeCamera;
     }
 
     // Update is called once per frame
@@ -54,7 +55,11 @@ public class ScreenShake : CoreBehaviour
             }
           
         }
-       
+    }
+
+    protected override void PreDestroy()
+    {
+        ManagerHub.S.GameEventHandler.cameraShakeOnEnemyDeath -= ShakeCamera;
     }
 }
 
