@@ -129,7 +129,9 @@ namespace WGRF.Player
             RaycastHit hit;
             if(Physics.Raycast(ray.origin, ray.direction, out hit))
             {
-                Debug.Log(hit.collider.name);
+                Vector3 dir = hit.point - transform.position;
+                float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
             }
         }
 
