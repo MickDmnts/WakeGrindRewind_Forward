@@ -8,8 +8,10 @@ namespace WGRF.UI
 {
     public class ScorePanelController : MonoBehaviour
     {
-        [SerializeField] TextMeshProUGUI totalScoreTxt;
+        [SerializeField] TextMeshProUGUI killsText;
+        [SerializeField] TextMeshProUGUI timeText;
         [SerializeField] TextMeshProUGUI currentScoreTxt;
+        [SerializeField] TextMeshProUGUI totalScoreTxt;
         [SerializeField] Slider closePanelSlider;
         [SerializeField] float maxCloseTime;
 
@@ -19,6 +21,8 @@ namespace WGRF.UI
 
             closePanelSlider.gameObject.SetActive(false);
 
+            killsText.SetText($"Kills x {ManagerHub.S.AIHandler.GetRoomAgentCount(ManagerHub.S.ActiveRoom)}");
+            timeText.SetText($"Time x {ManagerHub.S.InternalTime.RoomTime}");
             currentScoreTxt.SetText("Room Score: " + ManagerHub.S.ScoreHandler.CurrentScore.ToString());
             totalScoreTxt.SetText("Total Score: " + ManagerHub.S.ScoreHandler.TotalScore.ToString());
 

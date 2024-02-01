@@ -13,6 +13,8 @@ namespace WGRF.Interactions
         {
             if (other.CompareTag("Player"))
             {
+                ManagerHub.S.InternalTime.ResetRoomTimer();
+                ManagerHub.S.InternalTime.StartRoomTimer();
                 ManagerHub.S.SetActiveRoom(currentRoom);
                 ManagerHub.S.AIHandler.ActivateAgents(currentRoom);
             }

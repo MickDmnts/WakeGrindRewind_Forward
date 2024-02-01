@@ -44,5 +44,12 @@ namespace WGRF.Core
         /// </summary>
         public void RemoveAgent(EnemyRoom room, AIEntity agent)
         { registeredAgents[(int)room].Remove(agent); }
+           
+        /// <summary>
+        /// Returns the passed room agent count
+        /// </summary>
+        /// <param name="room">The requested room</param>
+        public int GetRoomAgentCount(int room)
+        { return registeredAgents[(int)room].Count;}
     }
 }

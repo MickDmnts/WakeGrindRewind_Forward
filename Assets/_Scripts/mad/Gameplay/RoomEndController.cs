@@ -8,6 +8,7 @@ namespace WGRF.Core
         {
             if (other.CompareTag("Player"))
             {
+                ManagerHub.S.InternalTime.StopRoomTimer();
                 ManagerHub.S.HUDHandler.OpenScoreUI();
                 ManagerHub.S.InternalTime.ChangeTimeScale(0f);
             }

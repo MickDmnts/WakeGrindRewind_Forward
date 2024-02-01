@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace WGRF.Core
@@ -8,13 +10,18 @@ namespace WGRF.Core
     /// This class is responsivble for handling the internal time scale of the game.
     /// All time changes will and must happen here.
     /// </summary>
-    [DisallowMultipleComponent]
     public sealed class InternalTime
     {
         ///<summary>The handler of the internal timer</summary>
         MonoBehaviour handler;
         ///<summary>The cached fixed delta time</summary>
         float fixedDeltaTime;
+        ///<summary>The current room time</summary>
+        long roomTime;
+
+        CancellationTokenSource cts;
+
+        public string RoomTime => TimeSpan.FromMilliseconds(roomTime).ToString("{0:%m}m");
 
         ///<summary>Subscribe to this event to get notified when the time scale changes</summary>
         public event Action onTimeScaleChange;
@@ -37,6 +44,8 @@ namespace WGRF.Core
         {
             this.fixedDeltaTime = Time.fixedDeltaTime;
             this.handler = handler;
+
+            cts = new CancellationTokenSource();
         }
 
         /// <summary>
@@ -44,7 +53,7 @@ namespace WGRF.Core
         /// </summary>
         /// <param name="newTimeScale">Can not be greater than 1f and smaller than 0f</param>
         public void ChangeTimeScale(float newTimeScale)
-        { 
+        {
             if (newTimeScale <= 0f)
             { newTimeScale = 0.1f; }
             else if (newTimeScale >= 1.0f)
@@ -85,6 +94,29 @@ namespace WGRF.Core
             Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
 
             cb();
+        }
+
+        public void StartRoomTimer()
+        {
+            Task.Run(() => RoomTimer(cts.Token), cts.Token);
+        }
+
+        void RoomTimer(CancellationToken ct)
+        {
+            while (!ct.IsCancellationRequested)
+            {
+                Task.Delay(1000, ct);
+                roomTime += 1000;
+            }
+        }
+
+        public void StopRoomTimer()
+        { cts.Cancel(); }
+
+        public void ResetRoomTimer()
+        {
+            cts.Cancel();
+            roomTime = 0;
         }
     }
 }
