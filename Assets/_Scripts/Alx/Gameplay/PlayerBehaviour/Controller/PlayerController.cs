@@ -50,10 +50,10 @@ namespace WGRF.Player
         }
 
         private void OnEnable()
-        {playerInput.Enable();}
+        { playerInput.Enable(); }
 
         private void OnDisable()
-        {playerInput.Disable();}
+        { playerInput.Disable(); }
 
         void SetControllerIsActive(bool value)
         { controllerIsActive = value; }
@@ -125,9 +125,12 @@ namespace WGRF.Player
 
         private void OnCursorMoved(InputAction.CallbackContext value)
         {
-            Vector3 lookDirection = playerRB.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            float angle = Mathf.Atan2(lookDirection.z, lookDirection.x) * Mathf.Rad2Deg + 90f;
-            playerRB.rotation = Quaternion.Euler(0, -angle, 0);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if(Physics.Raycast(ray.origin, ray.direction, out hit))
+            {
+                Debug.Log(hit.collider.name);
+            }
         }
 
         private void OnDashPerformed(InputAction.CallbackContext value)
@@ -144,9 +147,9 @@ namespace WGRF.Player
         void ControlIsWalkingAnimation(Vector3 playerVelocity)
         {
             if (playerVelocity != Vector3.zero)
-            {Controller.Access<PlayerAnimations>("pAnimations").SetWalkAnimationState(true);}
+            { Controller.Access<PlayerAnimations>("pAnimations").SetWalkAnimationState(true); }
             else
-            {Controller.Access<PlayerAnimations>("pAnimations").SetWalkAnimationState(false);}
+            { Controller.Access<PlayerAnimations>("pAnimations").SetWalkAnimationState(false); }
         }
 
         /// <summary>
