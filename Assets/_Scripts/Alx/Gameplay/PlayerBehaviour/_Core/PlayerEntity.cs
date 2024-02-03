@@ -132,7 +132,8 @@ namespace WGRF.Player
         /// <returns>The increased player's health</returns>
         public int IncreaseHealthBy(int value)
         {
-            entityLife += value;
+            maxLife += value;
+            entityLife = maxLife;
             return entityLife;
         }
     }

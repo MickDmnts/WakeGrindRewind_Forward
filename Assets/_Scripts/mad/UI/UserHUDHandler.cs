@@ -28,9 +28,13 @@ namespace WGRF.UI
         [Header("Score UI")]
         [SerializeField] GameObject scorePanel;
 
+        [Header("Updates UI")]
+        [SerializeField] GameObject updatesPanel;
+
         void Awake()
         {
             ManagerHub.S.AttackHudHandler(this);
+            updatesPanel.SetActive(false);
             CloseScoreUI();
         }
 
@@ -93,5 +97,9 @@ namespace WGRF.UI
         ///<summary>Closes the score UI</summary>
         public void CloseScoreUI()
         { scorePanel.SetActive(false); }
+
+        ///<summary>Opens the update UI</summary>
+        public void OpenUpdatesUI()
+        { updatesPanel.SetActive(true); }
     }
 }

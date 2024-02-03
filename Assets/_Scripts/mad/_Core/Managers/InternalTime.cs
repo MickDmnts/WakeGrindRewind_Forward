@@ -21,7 +21,8 @@ namespace WGRF.Core
 
         CancellationTokenSource cts;
 
-        public string RoomTime => TimeSpan.FromMilliseconds(roomTime).ToString("{0:%m}m");
+        public string RoomTime => ConvertMillisecondsToHMS(roomTime);
+        public int RoomTimeInt => Mathf.FloorToInt((float)roomTime / 1000f);
 
         ///<summary>Subscribe to this event to get notified when the time scale changes</summary>
         public event Action onTimeScaleChange;
@@ -117,6 +118,19 @@ namespace WGRF.Core
         {
             cts.Cancel();
             roomTime = 0;
+        }
+
+        string ConvertMillisecondsToHMS(long milliseconds)
+        {
+            long totalSeconds = Mathf.FloorToInt(milliseconds / 1000f);
+
+            int hours = (int)(totalSeconds / 3600);
+            int minutes = (int)((totalSeconds % 3600) / 60);
+            int seconds = (int)(totalSeconds % 60);
+
+            string formattedTime = string.Format("{0:D2}:{1:D2}:{2:D2}", hours, minutes, seconds);
+
+            return formattedTime;
         }
     }
 }

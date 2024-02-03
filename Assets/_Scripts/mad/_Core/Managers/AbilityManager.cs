@@ -165,7 +165,7 @@ namespace WGRF.Core
         }
 
         /// <summary>
-        /// This method is added as a listener to the Ability update button in the PlayerHub.
+        /// 
         /// </summary>
         /// <param name="type">The ability type you want to update.</param>
         public void UpdateAbilityTier(AbilityType type)
@@ -251,7 +251,10 @@ namespace WGRF.Core
         public int IncreaseTotalAbilityUsesPerRoom()
         {
             totalAbilitiesPerRoom = abilitiesPerRoom += 1;
+            ManagerHub.S.HUDHandler.SetAbilityUses(totalAbilitiesPerRoom);
             return totalAbilitiesPerRoom;
         }
+
+        public Sprite NextAbilitySprite(int idx) => abilities[idx].AbilitySprite;
     }
 }

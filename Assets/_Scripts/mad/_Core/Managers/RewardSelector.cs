@@ -54,6 +54,18 @@ namespace WGRF.Core
         }
 
         /// <summary>
+        /// Returns the next weapon sprite
+        /// </summary>
+        /// <returns></returns>
+        public Sprite GetNextWeaponSprite()
+        {
+            if (weaponRewards.Count <= 0)
+            { return null; }
+
+            return weaponRewards[0].WeaponSprite;
+        }
+
+        /// <summary>
         /// Resets the rewards handler
         /// </summary>
         public void ResetRewards()

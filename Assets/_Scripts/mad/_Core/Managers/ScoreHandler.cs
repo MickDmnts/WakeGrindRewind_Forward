@@ -3,7 +3,7 @@ namespace WGRF.Core
     public class ScoreHandler
     {
         ///<summary>The current score</summary>
-        int currentScore = 1000;
+        int currentScore;
         ///<summary>Total run score</summary>
         int totalScore;
 

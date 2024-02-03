@@ -44,8 +44,6 @@ namespace WGRF.Core
         Controller _playerController;
         ///<summary>Reference to the bullet handler of the game</summary>
         BulletHandler _bulletHandler;
-        ///<summary>Reference to the weapon manager</summary>
-        WeaponManager _weaponManager;
         ///<summary>Reference to the ability manager</summary>
         AbilityManager _abilityManager;
         ///<summary>Reference to the reward selector</summary>
@@ -77,8 +75,6 @@ namespace WGRF.Core
         public Controller PlayerController => _playerController;
         ///<summary>Returns the reference to the bullet handler</summary>
         public BulletHandler BulletPool => _bulletHandler;
-        ///<summary>Returns the reference to the Weapon manager</summary>
-        public WeaponManager WeaponManager => _weaponManager;
         ///<summary>Reruns the reference to the ability manager</summary>
         public AbilityManager AbilityManager => _abilityManager;
         ///<summary>Returns the reference to the rewards selector</summary>
@@ -117,7 +113,6 @@ namespace WGRF.Core
 
             _gameSoundsHandler = GetComponent<GameSoundsHandler>();
             _bulletHandler = GetComponent<BulletHandler>();
-            _weaponManager = GetComponent<WeaponManager>();
             _abilityManager = GetComponent<AbilityManager>();
             _rewardSelector = GetComponent<RewardSelector>();
             _aiHandler = GetComponent<AIHandler>();

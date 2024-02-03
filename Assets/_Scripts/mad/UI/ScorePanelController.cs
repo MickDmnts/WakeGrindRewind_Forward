@@ -20,17 +20,30 @@ namespace WGRF.UI
             ManagerHub.S.AbilityManager.AbilitiesCanActivate = false;
 
             closePanelSlider.gameObject.SetActive(false);
+            killsText.gameObject.SetActive(false);
+            timeText.gameObject.SetActive(false);
+            currentScoreTxt.gameObject.SetActive(false);
+            totalScoreTxt.gameObject.SetActive(false);
 
-            killsText.SetText($"Kills x {ManagerHub.S.AIHandler.GetRoomAgentCount(ManagerHub.S.ActiveRoom)}");
-            timeText.SetText($"Time x {ManagerHub.S.InternalTime.RoomTime}");
-            currentScoreTxt.SetText("Room Score: " + ManagerHub.S.ScoreHandler.CurrentScore.ToString());
-            totalScoreTxt.SetText("Total Score: " + ManagerHub.S.ScoreHandler.TotalScore.ToString());
-
-            StartCoroutine(AddScore());
+            StartCoroutine(ShowTexts());
         }
 
-        IEnumerator AddScore()
+        IEnumerator ShowTexts()
         {
+            yield return new WaitForSecondsRealtime(1f);
+            killsText.gameObject.SetActive(true);
+            killsText.SetText($"Kills x {ManagerHub.S.AIHandler.GetRoomAgentCount(ManagerHub.S.ActiveRoom)}");
+            yield return new WaitForSecondsRealtime(1f);
+            timeText.gameObject.SetActive(true);
+            timeText.SetText($"Time - {ManagerHub.S.InternalTime.RoomTime}");
+            yield return new WaitForSecondsRealtime(1f);
+            currentScoreTxt.gameObject.SetActive(true);
+            currentScoreTxt.SetText("Room Score: " + ManagerHub.S.ScoreHandler.CurrentScore.ToString());
+            yield return new WaitForSecondsRealtime(1f);
+            totalScoreTxt.gameObject.SetActive(true);
+            totalScoreTxt.SetText("Total Score: " + ManagerHub.S.ScoreHandler.TotalScore.ToString());
+            yield return new WaitForSecondsRealtime(1f);
+
             int roomScore = ManagerHub.S.ScoreHandler.CurrentScore;
 
             while (roomScore >= 1)
@@ -43,7 +56,7 @@ namespace WGRF.UI
                 currentScoreTxt.SetText("Room Score: " + ManagerHub.S.ScoreHandler.CurrentScore.ToString());
                 totalScoreTxt.SetText("Total Score: " + ManagerHub.S.ScoreHandler.TotalScore.ToString());
 
-                yield return new WaitForSecondsRealtime(0.01f);
+                yield return new WaitForSecondsRealtime(0.001f);
             }
 
             float timer = 0f;
