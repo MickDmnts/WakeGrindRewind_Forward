@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace WGRF.Internal
             Task.Run(() =>
             {
                 string path = ManagerHub.S.Globals.AppDataPath;
-                
+
                 //Setup
                 dbPath = GenerateDatabasePath(path);
 
@@ -121,6 +122,71 @@ namespace WGRF.Internal
                 await connection.CloseAsync();
                 await connection.DisposeAsync();
             }
+        }
+
+        ///<summary>Returns the current amount of player records present in the database</summary>
+        public int GetPlayerRecordCount()
+        {
+            using (SqliteConnection connection = new SqliteConnection(dbConnectionPath))
+            {
+                connection.Open();
+
+                using (SqliteCommand command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.Text;
+
+                    command.CommandText = @"SELECT COUNT(*) FROM highscores";
+
+                    int result = -1;
+                    SqliteDataReader reader = command.ExecuteReader();
+
+                    if (reader[0].GetType() != typeof(DBNull))
+                    {
+                        while (reader.Read())
+                        {
+                            result = reader.GetInt32(0);
+                        }
+
+                        return result;
+                    }
+
+                    connection.Clone();
+                    connection.Dispose();
+
+                    return -1;
+                }
+            }
+        }
+
+        public PlayerRecord[] GetAllPlayerRecords()
+        {
+            List<PlayerRecord> records = new List<PlayerRecord>();
+
+            using (SqliteConnection connection = new SqliteConnection(dbConnectionPath))
+            {
+                connection.Open();
+
+                IDbCommand dbCommand = connection.CreateCommand();
+                dbCommand.CommandText = $"SELECT * FROM highscores;";
+
+                IDataReader reader = dbCommand.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    // Access the columns by field name or index
+                    int rank = reader.GetInt32(reader.GetOrdinal("_rank"));
+                    string name = reader.GetString(reader.GetOrdinal("_name"));
+                    int score = reader.GetInt32(reader.GetOrdinal("_score"));
+
+                    PlayerRecord temp = new PlayerRecord() { Rank = rank, Name = name, Score = score };
+                    records.Add(temp);
+                }
+
+                // Close the reader when done
+                reader.Close();
+            }
+
+            return records.ToArray();
         }
 
         ///<summary>Creates a table to hold the high scores of the game.</summary>
