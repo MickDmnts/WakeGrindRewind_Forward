@@ -695,18 +695,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7044077294091727501, guid: 1422cbd802a6b6a4da19cc049e3bbb8e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8571588248626096312, guid: 1422cbd802a6b6a4da19cc049e3bbb8e, type: 3}
-      propertyPath: messagePanel
-      value: 
-      objectReference: {fileID: 1883917875}
-    - target: {fileID: 8571588248626096312, guid: 1422cbd802a6b6a4da19cc049e3bbb8e, type: 3}
-      propertyPath: scoreboardPanel
-      value: 
-      objectReference: {fileID: 408941556}
     - target: {fileID: 9189277734311595039, guid: 1422cbd802a6b6a4da19cc049e3bbb8e, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -720,11 +708,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1422cbd802a6b6a4da19cc049e3bbb8e, type: 3}
---- !u!1 &408941556 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4810431351299457663, guid: 1422cbd802a6b6a4da19cc049e3bbb8e, type: 3}
-  m_PrefabInstance: {fileID: 408941555}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &818303275
 GameObject:
   m_ObjectHideFlags: 0
@@ -2309,11 +2292,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.23, y: 5, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &1883917875 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7044077294091727501, guid: 1422cbd802a6b6a4da19cc049e3bbb8e, type: 3}
-  m_PrefabInstance: {fileID: 408941555}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1959778533
 GameObject:
   m_ObjectHideFlags: 0
