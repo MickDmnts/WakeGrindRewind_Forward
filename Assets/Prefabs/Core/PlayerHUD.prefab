@@ -3046,7 +3046,8 @@ MonoBehaviour:
   remainingBullets: {fileID: 195928111599330599}
   scorePanel: {fileID: 6157041089306031365}
   updatesPanel: {fileID: 6615758367845649185}
-  scoreboardPanel: {fileID: 0}
+  scoreboardPanel: {fileID: 4810431351299457663}
+  messagePanel: {fileID: 7044077294091727501}
 --- !u!1 &4061685370709821214
 GameObject:
   m_ObjectHideFlags: 0
@@ -5597,7 +5598,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2922093427502957079
 RectTransform:
   m_ObjectHideFlags: 0
