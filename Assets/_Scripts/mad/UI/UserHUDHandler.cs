@@ -34,6 +34,9 @@ namespace WGRF.UI
         [Header("Scoreboard UI")]
         [SerializeField] GameObject scoreboardPanel;
 
+        [Header("Message UI")]
+        [SerializeField] GameObject messagePanel;
+
         void Awake()
         {
             ManagerHub.S.AttackHudHandler(this);
@@ -112,5 +115,12 @@ namespace WGRF.UI
         ///<summary>Closes the scoreboard UI</summary>
         public void CloseScoreboardUI()
         { scoreboardPanel.SetActive(false); }
+
+        ///<summary>Opens the scoreboard UI</summary>
+        public void OpenMessageUI(string msg)
+        {
+            messagePanel.GetComponent<EndMessageController>().SetMessageText(msg);
+            messagePanel.SetActive(true);
+        }
     }
 }

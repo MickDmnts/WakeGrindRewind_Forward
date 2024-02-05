@@ -75,9 +75,8 @@ namespace WGRF.Player
         IEnumerator DeathSequence()
         {
             Controller.Access<PlayerAnimations>("pAnimations").PlayDeathAnimation();
-
-            //UI System still WIP
-            //ManagerHub.S.HUDHandler.ChangeWeaponInfo(null);
+            isActive = false;
+            ManagerHub.S.HUDHandler.OpenMessageUI("You are dead!");
 
             yield return new WaitForSeconds(2f);
 

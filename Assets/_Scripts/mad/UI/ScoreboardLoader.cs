@@ -41,5 +41,11 @@ namespace WGRF.UI
                 yield return new WaitForSecondsRealtime(0.05f);
             }
         }
+
+        void OnDisable()
+        {
+            for (int i = 0; i < cachedContents.Length; i++)
+            { Destroy(cachedContents[i]); }
+        }
     }
 }
