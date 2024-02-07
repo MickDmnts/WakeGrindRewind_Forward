@@ -133,20 +133,20 @@ namespace WGRF.AI
         /// <summary>
         /// Call to set the animator playback speed to the passed value.
         /// </summary>
-        public void OnPlayerAbilityStart(float animatorPlaybackSpeed)
+        public override void OnPlayerAbilityStart(float animatorPlaybackSpeed)
         { Controller.Access<EnforcerAnimations>("eAnimations").SetAnimatorPlaybackSpeed(animatorPlaybackSpeed); }
 
         /// <summary>
         /// Called from each ability when the ability behaviour has finished executing to reset the agent values.
         /// </summary>
-        public void OnPlayerAbilityFinish()
+        public override void OnPlayerAbilityFinish()
         { Controller.Access<EnforcerAnimations>("eAnimations").SetAnimatorPlaybackSpeed(1f); }
 
         /// <summary>
         /// Call to initiate the new position searching and agent moving to it.
         /// </summary>
         /// <param name="range">The maximum range to search a position.</param>
-        public void InitiateFallback(float range)
+        public override void InitiateFallback(float range)
         {
             StopAllCoroutines();
             StartCoroutine(SearchPosition(transform.position, range));

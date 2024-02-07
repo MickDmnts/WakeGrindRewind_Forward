@@ -1,14 +1,15 @@
+using UnityEngine;
+
 namespace WGRF.AI
 {
     public class CheckIfDead : INode
     {
-        EnemyNodeData nodeData;
-
+        INodeData nodeData;
         INode child;
 
         public CheckIfDead(INodeData nodeData, INode child)
         {
-            this.nodeData = (EnemyNodeData)nodeData;
+            this.nodeData = nodeData;
             this.child = child;
         }
 

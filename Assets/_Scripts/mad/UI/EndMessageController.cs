@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -34,7 +33,11 @@ namespace WGRF.UI
             PlayerRecord record = new PlayerRecord() { Rank = ManagerHub.S.Database.GetPlayerRecordCount() + 1, Name = nameField.text, Score = score };
             ManagerHub.S.Database.AddPlayerRecord(record);
 
-            ManagerHub.S.StageHandler.LoadFromBoot();
+            ManagerHub.S.HUDHandler.CloseMessageUI();
+            ManagerHub.S.HUDHandler.OpenScoreboardUI();
         }
+
+        public void LoadMenu()
+        { ManagerHub.S.StageHandler.LoadFromBoot(); }
     }
 }

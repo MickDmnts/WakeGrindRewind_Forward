@@ -161,7 +161,6 @@ namespace WGRF.AI
 
         public override void Shoot()
         {
-            Debug.Log("Shooting");
             //Shoot on cooldown update
             if (onCooldown)
             {
@@ -204,7 +203,6 @@ namespace WGRF.AI
         /// </summary>
         void EnableBullet(bool shotgunShot)
         {
-            Debug.Log("Bullet");
             if (shotgunShot)
             {
                 StartCoroutine(ShotgunShot());

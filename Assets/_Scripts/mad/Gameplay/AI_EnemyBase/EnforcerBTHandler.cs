@@ -14,7 +14,7 @@ namespace WGRF.AI
         ///<summary>Idle behaviour (first phase)</summary>
         BehaviourTree idleBehaviour;
         ///<summary>Attack behaviour (second phase)</summary>
-        BehaviourTree attackBehaviour;
+        BehaviourTree protectBehaviour;
         ///<summary>Fallback behaviour (final phase)</summary>
         BehaviourTree fallbackBehaviour;
 
@@ -35,21 +35,17 @@ namespace WGRF.AI
             FallbackAction fallbackAction = new FallbackAction(NodeData);
             fallbackBehaviour = new BehaviourTree(fallbackAction, NodeData);
 
-            /*  AttackTargetAction attackTargetAction = new AttackTargetAction(NodeData, enemyEntity.Controller.Access<EnemyWeapon>("eWeapon").ShootSequence);
-             NavToTarget navToTarget = new NavToTarget(NodeData);
-             ChaseAttackSelector chaseTarget = new ChaseAttackSelector(NodeData, navToTarget, attackTargetAction);
-             ChaseTargetActivator chaseActivator = new ChaseTargetActivator(NodeData, chaseTarget);
-             attackBehaviour = new BehaviourTree(chaseActivator, NodeData); */
+            ProtectVulnerable protectVulnerable = new ProtectVulnerable(NodeData);
+            FindMostVulnerable findMostVulnerable = new FindMostVulnerable(NodeData);
+            ProtectionSelector selector = new ProtectionSelector(findMostVulnerable, protectVulnerable, NodeData);
+            protectBehaviour = new BehaviourTree(selector, NodeData);
 
-            IdleNode idleNode = new IdleNode(NodeData);
+            EnforcerIdleNode idleNode = new EnforcerIdleNode(NodeData);
             idleBehaviour = new BehaviourTree(idleNode, NodeData);
 
-            BehaviourSelector idleAttackFallbackSelector = new BehaviourSelector(NodeData, new List<INode>() { fallbackBehaviour, null, idleBehaviour });
-
-            //Connect with idle, attack, fallback selector
+            BehaviourSelector idleAttackFallbackSelector = new BehaviourSelector(NodeData, new List<INode>() { fallbackBehaviour, protectBehaviour, idleBehaviour });
             CheckIfDead isDead = new CheckIfDead(NodeData, idleAttackFallbackSelector);
-
-            //Create the Main Behaviour tree
+            //Creates the Main Behaviour tree
             mainBehaviour = new BehaviourTree(isDead, NodeData);
         }
 

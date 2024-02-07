@@ -112,15 +112,19 @@ namespace WGRF.UI
         public void OpenScoreboardUI()
         { scoreboardPanel.SetActive(true); }
 
-        ///<summary>Closes the scoreboard UI</summary>
-        public void CloseScoreboardUI()
-        { scoreboardPanel.SetActive(false); }
-
         ///<summary>Opens the scoreboard UI</summary>
         public void OpenMessageUI(string msg)
         {
             messagePanel.GetComponent<EndMessageController>().SetMessageText(msg);
             messagePanel.SetActive(true);
         }
+
+        ///<summary>Closes the scoreboard UI</summary>
+        public void CloseScoreboardUI()
+        { scoreboardPanel.SetActive(false); }
+
+        ///<summary>Closes the scoreboard UI</summary>
+        public void CloseMessageUI()
+        { messagePanel.SetActive(false); }
     }
 }

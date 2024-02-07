@@ -77,6 +77,7 @@ namespace WGRF.Player
             Controller.Access<PlayerAnimations>("pAnimations").PlayDeathAnimation();
             isActive = false;
             ManagerHub.S.HUDHandler.OpenMessageUI("You are dead!");
+            ManagerHub.S.AIHandler.DeactivateAllAgents();
 
             yield return new WaitForSeconds(2f);
 

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace WGRF.AI
 {
     /* [Node documentation]
@@ -30,9 +28,6 @@ namespace WGRF.AI
         /// else returns false.</para>
         /// </summary>
         public bool Run()
-        {
-            Debug.Log("Idle");
-            return !nodeData.CanAttack;
-        }
+        { return !nodeData.CanAttack; }
     }
 }

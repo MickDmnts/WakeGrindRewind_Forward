@@ -158,6 +158,9 @@ namespace WGRF.Internal
             }
         }
 
+        /// <summary>
+        /// Returns all the player records present in the database.
+        /// </summary>
         public PlayerRecord[] GetAllPlayerRecords()
         {
             List<PlayerRecord> records = new List<PlayerRecord>();

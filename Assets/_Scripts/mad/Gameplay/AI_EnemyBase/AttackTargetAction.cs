@@ -36,7 +36,6 @@ namespace WGRF.AI
 
             //Call the passed method
             shootMethod();
-            Debug.Log("Attack action");
             return true;
         }
     }

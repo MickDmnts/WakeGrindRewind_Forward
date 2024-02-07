@@ -37,7 +37,6 @@ namespace WGRF.AI
         {
             if (!navToTarget.Run())
             {
-                Debug.Log("Attack");
                 return attackTarget.Run();
             }
 

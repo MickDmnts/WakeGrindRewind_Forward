@@ -50,6 +50,8 @@ namespace WGRF.AI
         ///<summary>The dead state of the agent</summary>
         protected bool isDead;
 
+        public EnemyRoom EnemyRoom => enemyRoom;
+
         ///<summary>The dead state of the agent</summary>
         public bool IsDead
         {
@@ -81,5 +83,9 @@ namespace WGRF.AI
         public abstract void SetIsAgentActive(bool value);
 
         public abstract INodeData GetEntityNodeData();
+
+        public abstract void InitiateFallback(float range);
+        public abstract void OnPlayerAbilityStart(float animatorPlaybackSpeed);
+        public abstract void OnPlayerAbilityFinish();
     }
 }

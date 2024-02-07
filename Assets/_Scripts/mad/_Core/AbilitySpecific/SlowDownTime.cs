@@ -102,14 +102,9 @@ namespace WGRF.Abilities
         void AbilitySpecificActions()
         {
             int ar = ManagerHub.S.ActiveRoom;
-            foreach (EnemyEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
+            foreach (AIEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
             {
                 if (enemy == null) continue;
-
-                enemy.Agent.angularSpeed -= (slowDownPercent / 100) * enemy.Agent.angularSpeed;
-                enemy.Agent.acceleration -= (slowDownPercent / 100) * enemy.Agent.acceleration;
-                enemy.Agent.speed -= (slowDownPercent / 100) * enemy.Agent.speed;
-
                 enemy.OnPlayerAbilityStart(0.3f);
             }
 

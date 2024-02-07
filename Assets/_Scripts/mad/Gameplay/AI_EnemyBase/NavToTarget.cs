@@ -39,7 +39,6 @@ namespace WGRF.AI
         /// </summary>
         public bool Run()
         {
-            Debug.Log("NavToTarget");
             agent.SetDestination(nodeData.Target.position);
 
             Vector3 pos1 = agent.transform.position;

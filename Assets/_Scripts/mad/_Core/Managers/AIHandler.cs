@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using WGRF.AI;
 
 namespace WGRF.Core
@@ -28,6 +29,22 @@ namespace WGRF.Core
         {
             foreach (AIEntity agent in registeredAgents[(int)room])
             { agent.SetIsAgentActive(true); }
+
+            Debug.Log(registeredAgents[(int)room].Count);
+        }
+
+        /// <summary>
+        /// Deactivates the agents of the passed room.
+        /// </summary>
+        public void DeactivateAllAgents()
+        {
+            foreach (KeyValuePair<int, List<AIEntity>> pair in registeredAgents)
+            {
+                for (int i = 0; i < pair.Value.Count; i++)
+                {
+                    pair.Value[i].SetIsAgentActive(false);
+                }
+            }
         }
 
         public List<AIEntity> GetRoomAgents(int room)
@@ -44,12 +61,28 @@ namespace WGRF.Core
         /// </summary>
         public void RemoveAgent(EnemyRoom room, AIEntity agent)
         { registeredAgents[(int)room].Remove(agent); }
-           
+
         /// <summary>
         /// Returns the passed room agent count
         /// </summary>
         /// <param name="room">The requested room</param>
         public int GetRoomAgentCount(int room)
-        { return registeredAgents[(int)room].Count;}
+        { return registeredAgents[(int)room].Count; }
+
+        /// <summary>
+        /// Returns the alive agent count from the passed room index.
+        /// </summary>
+        public int GetAliveAgentCount(int room)
+        {
+            int cnt = 0;
+
+            for (int i = 0; i < registeredAgents[(int)room].Count; i++)
+            {
+                if (!registeredAgents[(int)room][i].IsDead)
+                { cnt++; }
+            }
+
+            return cnt;
+        }
     }
 }

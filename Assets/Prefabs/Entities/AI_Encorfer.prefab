@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6213681154322410978}
   - component: {fileID: 6031523674073910595}
   - component: {fileID: 77990747358845274}
+  - component: {fileID: 9018063436428362537}
   m_Layer: 7
   m_Name: AI_Encorfer
   m_TagString: Enemy
@@ -171,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07e7f18b40f843419e61211fcbfacee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: eEntity
+  _id: eEnforcer
   entityName: Enforcer
   maxLife: 200
   entityLife: 200
@@ -182,6 +183,19 @@ MonoBehaviour:
   layerOnDeath: 31
   bloodDecalPath: gfx/blooddecal
   armorValue: 100
+--- !u!114 &9018063436428362537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571269152954601729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 909df42041496c2418c25973840aa709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kickForce: 15
 --- !u!1 &631160186723235473
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +253,7 @@ Transform:
   m_GameObject: {fileID: 2171479774552026482}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0.05}
+  m_LocalPosition: {x: 0, y: 1, z: 0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
