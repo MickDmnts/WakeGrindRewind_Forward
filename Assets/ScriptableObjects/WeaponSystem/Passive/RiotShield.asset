@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88367dbe1e680d549a5c83d05105a04b, type: 3}
+  m_Name: RiotShield
+  m_EditorClassIdentifier: 
+  WeaponName: RiotShield
+  WeaponCategory: 0
+  WeaponType: -1
+  WeaponSprite: {fileID: 0}
+  weaponGrayedSprite: {fileID: 0}
+  weaponAmmoSprite: {fileID: 0}
+  weaponEquipedSprite: {fileID: 0}
+  IntervalBetweenShots: 0.3
+  DefaultMagazine: 999999
+  MaxBulletSpread: 0
+  MinShootDistance: 1.4
