@@ -159,5 +159,8 @@ namespace WGRF.UI
                 ManagerHub.S.InternalTime.ChangeTimeScale(0.1f);
             }
         }
+
+        public void LoadMenu()
+        { ManagerHub.S.StageHandler.LoadFromBoot(); }
     }
 }

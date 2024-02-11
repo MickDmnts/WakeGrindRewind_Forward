@@ -1461,9 +1461,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WGRF.UI.EndMessageController, Assembly-CSharp
-        m_MethodName: FinalizeScore
+      - m_Target: {fileID: 8571588248626096312}
+        m_TargetAssemblyTypeName: WGRF.UI.UserHUDHandler, Assembly-CSharp
+        m_MethodName: LoadMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
