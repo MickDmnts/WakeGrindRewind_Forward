@@ -83,8 +83,76 @@ MonoBehaviour:
   masterAudioValue: 1
   ostSource: {fileID: 4977542361024674901}
   sfxSource: {fileID: 6548534552858164973}
-  levelWideClips: []
-  sfxClips: []
+  audioData:
+  - gameAudioClip: 0
+    clips:
+    - {fileID: 8300000, guid: 1663461aeb1a07148bb1bd46d4929a5a, type: 3}
+  - gameAudioClip: 1
+    clips:
+    - {fileID: 8300000, guid: 26286e6c0df86284da71c936fc0a6d32, type: 3}
+  - gameAudioClip: 2
+    clips:
+    - {fileID: 8300000, guid: 4df1d0b17ba02c94dbeafa4d3bc0e041, type: 3}
+  - gameAudioClip: 3
+    clips:
+    - {fileID: 8300000, guid: ed1aab7cfe2816744a18e9b63333346b, type: 3}
+  - gameAudioClip: 4
+    clips:
+    - {fileID: 8300000, guid: 057393163627506419c2eda20e7bfd24, type: 3}
+  - gameAudioClip: 5
+    clips:
+    - {fileID: 8300000, guid: b51d4cb043b0b3d4eb1cbf280d3798ea, type: 3}
+  - gameAudioClip: 6
+    clips:
+    - {fileID: 8300000, guid: f6820c74bec47cc4aae8160d6eaa7598, type: 3}
+  - gameAudioClip: 7
+    clips:
+    - {fileID: 8300000, guid: a2da687db530827439283bb77b335795, type: 3}
+    - {fileID: 8300000, guid: beda64e50537fdd4582b0f47596bf08e, type: 3}
+    - {fileID: 8300000, guid: c73b5a95bf38a1749a112a2e8d4fcbd3, type: 3}
+    - {fileID: 8300000, guid: 1c7b0e7729978c246b3a75b7590940c1, type: 3}
+  - gameAudioClip: 8
+    clips:
+    - {fileID: 8300000, guid: 536d90d595399db409cb3005649ef05f, type: 3}
+    - {fileID: 8300000, guid: f2bcae3b6a3611d4b901962d91175059, type: 3}
+  - gameAudioClip: 9
+    clips:
+    - {fileID: 8300000, guid: 865b24e0d5b0fc74e9922edf60be6699, type: 3}
+    - {fileID: 8300000, guid: 612fbaa8c6b64494db9cd093c9355943, type: 3}
+    - {fileID: 8300000, guid: ca4fec4ad7ea4f34ead7010bb8e25fb5, type: 3}
+  - gameAudioClip: 10
+    clips:
+    - {fileID: 8300000, guid: c34240e42b38def45bee471afb4c9b9a, type: 3}
+  - gameAudioClip: 11
+    clips:
+    - {fileID: 8300000, guid: a5e300e1201773e4c8a3332995d658b8, type: 3}
+  - gameAudioClip: 12
+    clips:
+    - {fileID: 8300000, guid: d3b7f814d9efeff4e8169f41bfb138b7, type: 3}
+  - gameAudioClip: 13
+    clips:
+    - {fileID: 8300000, guid: 978955aae441efa4bbc730053828e7b1, type: 3}
+  - gameAudioClip: 14
+    clips:
+    - {fileID: 8300000, guid: 7dd925d2da47e3e499f8e50c64069d0a, type: 3}
+  - gameAudioClip: 15
+    clips:
+    - {fileID: 8300000, guid: 389c63d54ef68b7489fb3b644f5f45db, type: 3}
+  - gameAudioClip: 16
+    clips:
+    - {fileID: 8300000, guid: 84759889275017e4592590aaa2cfdc29, type: 3}
+  - gameAudioClip: 17
+    clips:
+    - {fileID: 8300000, guid: ef037c38fe710fc418b547b90f5838ec, type: 3}
+  - gameAudioClip: 18
+    clips:
+    - {fileID: 8300000, guid: f6800b3cd4a26f64b8f87aaf1bec658b, type: 3}
+  - gameAudioClip: 19
+    clips:
+    - {fileID: 8300000, guid: 1027a10a7465a864cbc488abbea9104c, type: 3}
+  - gameAudioClip: 20
+    clips:
+    - {fileID: 8300000, guid: 07e07cd411952754983c02b114504428, type: 3}
 --- !u!114 &2618696383725250960
 MonoBehaviour:
   m_ObjectHideFlags: 0

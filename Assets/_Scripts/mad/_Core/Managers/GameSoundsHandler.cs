@@ -1,10 +1,42 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace WGRF.Core
 {
+    ///<summary>Every available audio sound</summary>
     public enum GameAudioClip
     {
-        //@TODO:
+        DoorHit,
+        GameplayLoop,
+        EmptyGun,
+        PickUp,
+        Pistol,
+        Uzi,
+        Shotgun,
+        Hit,
+        KnifeCut,
+        Punch,
+        Static,
+        VHSClose,
+        VHSOpen,
+        VHSSlideIn,
+        VHSSlideOut,
+        Pause,
+        Unpause,
+        SlowDownTime,
+        PressRewind,
+        Rewind,
+        StopTime,
+    }
+
+    [Serializable]
+    public struct AudioData
+    {
+        ///<summary>The audio type</summary>
+        public GameAudioClip gameAudioClip;
+        ///<summary>The associated audio clips of the type</summary>
+        public AudioClip[] clips;
     }
 
     /// <summary>
@@ -20,19 +52,32 @@ namespace WGRF.Core
         [SerializeField, Tooltip("The soundtrack audio source")] AudioSource ostSource;
         ///<summary>The SFX audio source</summary>
         [SerializeField, Tooltip("The SFX audio source")] AudioSource sfxSource;
+        ///<summary>The audio clips per sound type</summary>
+        [SerializeField, Tooltip("The audio clips per sound type")] AudioData[] audioData;
 
-        ///<summary>An array containing all of the game wide audio clips</summary>
-        [Header("Audio clips")]
-        [SerializeField, Tooltip("A list containing all of the game wide audio clips")]
-        AudioClip[] levelWideClips;
-
-        ///<summary>An array containing all of the SFX clips of the game</summary>
-        [SerializeField, Tooltip("An array containing all of the SFX clips of the game")]
-        AudioClip[] sfxClips;
+        ///<summary>The sound audio clips per sound type pairs</summary>
+        Dictionary<int, List<AudioClip>> clipsPerSoundType;
 
         protected override void PreAwake()
         {
             ConfigureAudioSources(ref ostSource, ref sfxSource);
+            GroupAudioClips();
+        }
+
+        ///<summary>Fills the clipsPerSoundType dictionary cache with the audioData pairs</summary>
+        void GroupAudioClips()
+        {
+            clipsPerSoundType = new Dictionary<int, List<AudioClip>>();
+            for (int i = 0; i < Enum.GetNames(typeof(GameAudioClip)).Length; i++)
+            { clipsPerSoundType.Add(i, new List<AudioClip>()); }
+
+            for (int i = 0; i < audioData.Length; i++)
+            {
+                for (int j = 0; j < audioData[i].clips.Length; j++)
+                {
+                    clipsPerSoundType[(int)audioData[i].gameAudioClip].Add(audioData[i].clips[j]);
+                }
+            }
         }
 
         private void Start()
@@ -162,7 +207,13 @@ namespace WGRF.Core
         /// <param name="sound">The SFX to play</param>
         public void PlayOneShotSFX(GameAudioClip sound)
         {
-            sfxSource.PlayOneShot(sfxClips[(int)sound]);
+            List<AudioClip> clips = clipsPerSoundType[(int)sound];
+            AudioClip audio = clips[0];
+
+            if (clips.Count > 1)
+            { audio = clips[UnityEngine.Random.Range(0, clips.Count)]; }
+
+            sfxSource.PlayOneShot(audio);
         }
         #endregion
     }
