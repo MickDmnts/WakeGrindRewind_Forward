@@ -28,7 +28,9 @@ namespace WGRF.Core
         PressRewind,
         Rewind,
         StopTime,
-        Hurt
+        Hurt,
+        Menu,
+        Hub
     }
 
     [Serializable]
@@ -109,7 +111,7 @@ namespace WGRF.Core
         /// Updates the audio source volumes from the passed loaded settings package.
         /// </summary>
         /// <param name="loadedSettings"></param>
-        void SetLoadedSettings(UserSettings loadedSettings)
+        public void SetLoadedSettings(UserSettings loadedSettings)
         {
             masterAudioValue = loadedSettings.masterVolume;
 
@@ -215,6 +217,30 @@ namespace WGRF.Core
             { audio = clips[UnityEngine.Random.Range(0, clips.Count)]; }
 
             sfxSource.PlayOneShot(audio);
+        }
+
+        ///<summary>Plays the gameplay loop</summary>
+        public void PlayLoop()
+        {
+            ostSource.clip = clipsPerSoundType[(int)GameAudioClip.GameplayLoop][0];
+            ostSource.loop = true;
+            ostSource.Play();
+        }
+
+        ///<summary>Plays the gameplay loop</summary>
+        public void PlayMenu()
+        {
+            ostSource.clip = clipsPerSoundType[(int)GameAudioClip.Menu][0];
+            ostSource.loop = true;
+            ostSource.Play();
+        }
+
+        ///<summary>Plays the gameplay loop</summary>
+        public void PlayHubSFX()
+        {
+            ostSource.clip = clipsPerSoundType[(int)GameAudioClip.Hub][0];
+            ostSource.loop = true;
+            ostSource.Play();
         }
         #endregion
     }

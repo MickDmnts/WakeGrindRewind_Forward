@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3892095417363432841}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WGRF.UI.EndMessageController, Assembly-CSharp
         m_MethodName: FinalizeScore
         m_Mode: 1
@@ -3798,7 +3798,7 @@ MonoBehaviour:
   updatesPanel: {fileID: 6615758367845649185}
   scoreboardPanel: {fileID: 4810431351299457663}
   messagePanel: {fileID: 7044077294091727501}
-  pausePanel: {fileID: 0}
+  pausePanel: {fileID: 8101373145014500481}
 --- !u!114 &54192061627415439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7462,7 +7462,6 @@ GameObject:
   - component: {fileID: 8412907727306686118}
   - component: {fileID: 4101666409786172982}
   - component: {fileID: 5727934785576883409}
-  - component: {fileID: 3892095417363432841}
   m_Layer: 5
   m_Name: PausePanel
   m_TagString: Untagged
@@ -7528,21 +7527,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3892095417363432841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8101373145014500481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71dc9b9e1eda781429ce47f97daddd46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  messageText: {fileID: 0}
-  totalScoreText: {fileID: 0}
-  nameField: {fileID: 0}
 --- !u!1 &8132896683382620868
 GameObject:
   m_ObjectHideFlags: 0

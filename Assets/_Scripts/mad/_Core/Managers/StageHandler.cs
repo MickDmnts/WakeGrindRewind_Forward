@@ -50,6 +50,7 @@ namespace WGRF.Core
         public void LoadRun()
         {
             UnityAssets.LoadSceneAsync(gameScenePaths[2], LoadSceneMode.Single);
+            ManagerHub.S.GameSoundsHandler.PlayHubSFX();
         }
     }
 }

@@ -144,13 +144,17 @@ namespace WGRF.UI
         {
             pausePanel.SetActive(!pausePanel.activeSelf);
 
-            if (pausePanel.activeInHierarchy)
+            if (!pausePanel.activeInHierarchy)
             {
+                ManagerHub.S.GameSoundsHandler.ForceOSTVolume(1f);
+                ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Unpause);
                 ManagerHub.S.SetGameState(GameState.Running);
                 ManagerHub.S.InternalTime.ChangeTimeScale(1f);
             }
             else
             {
+                ManagerHub.S.GameSoundsHandler.ForceOSTVolume(0f);
+                ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Pause);
                 ManagerHub.S.SetGameState(GameState.Paused);
                 ManagerHub.S.InternalTime.ChangeTimeScale(0.1f);
             }

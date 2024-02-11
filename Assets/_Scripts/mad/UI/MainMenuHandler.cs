@@ -20,6 +20,7 @@ namespace WGRF.UI
         {
             mmPanel.SetActive(true);
             settingsPanel.SetActive(false);
+            ManagerHub.S.GameSoundsHandler.PlayMenu();
         }
 
         ///<summary>Loads the run scene</summary>
@@ -33,6 +34,7 @@ namespace WGRF.UI
             { controller.WriteToSettings(); }
 
             ManagerHub.S.SettingsHandler.UpdateUserSettings(ManagerHub.S.SettingsHandler.UserSettings);
+            ManagerHub.S.GameSoundsHandler.SetLoadedSettings(ManagerHub.S.SettingsHandler.UserSettings);
         }
 
         ///<summary>Toggles the settings panel ON/OFF</summary>

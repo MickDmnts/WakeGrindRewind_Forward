@@ -32,7 +32,7 @@ namespace WGRF.Player
         void Update()
         {
             //Early exit if the kick functionality is not enabled
-            if (!isKickEnabled) return;
+            if (!isKickEnabled || ManagerHub.S.GameState == GameState.Paused) return;
 
             if (CanKick(kickCooldown))
             { IsKicking = false; }
@@ -76,6 +76,7 @@ namespace WGRF.Player
 
             IsKicking = true;
             Controller.Access<PlayerAnimations>("pAnimations").PlayKickAnimation();
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Punch);
 
             if (Physics.Raycast(ray, out hit, maxDistance))
             {

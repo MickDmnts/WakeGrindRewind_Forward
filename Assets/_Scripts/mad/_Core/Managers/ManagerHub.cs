@@ -7,8 +7,8 @@ namespace WGRF.Core
 {
     public enum GameState
     {
+        Running,
         Paused,
-        Running
     }
 
     /// <summary>

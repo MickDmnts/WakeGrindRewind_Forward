@@ -13,6 +13,9 @@ namespace WGRF.Interactions
         {
             if (other.CompareTag("Player"))
             {
+                if (currentRoom == EnemyRoom.Room1)
+                { ManagerHub.S.GameSoundsHandler.PlayLoop(); }
+
                 ManagerHub.S.InternalTime.ResetRoomTimer();
                 ManagerHub.S.InternalTime.StartRoomTimer();
                 ManagerHub.S.SetActiveRoom(currentRoom);
