@@ -79,7 +79,7 @@ namespace WGRF.Abilities
             startRewind = true;
 
             ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").Animator.speed = 0f;
-            //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.Rewind);
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Rewind);
         }
 
         private void FixedUpdate()
@@ -121,7 +121,6 @@ namespace WGRF.Abilities
             startRewind = false;
 
             ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").Animator.speed = 1f;
-            //ManagerHub.S.GameSoundsHandler.ChangeSoundPitch(1f);
         }
     }
 }

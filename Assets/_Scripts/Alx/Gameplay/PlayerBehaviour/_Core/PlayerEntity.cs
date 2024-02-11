@@ -50,6 +50,7 @@ namespace WGRF.Player
             entityLife -= damage;
 
             ManagerHub.S.HUDHandler.SetPlayerHealth(entityLife);
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Hurt);
 
             //Should check for rewind availability here
             if (entityLife <= 0)
@@ -75,6 +76,7 @@ namespace WGRF.Player
         IEnumerator DeathSequence()
         {
             Controller.Access<PlayerAnimations>("pAnimations").PlayDeathAnimation();
+            Controller.Access<PlayerController>("pController").enabled = false;
             isActive = false;
             ManagerHub.S.HUDHandler.OpenMessageUI("You are dead!");
             ManagerHub.S.AIHandler.DeactivateAllAgents();

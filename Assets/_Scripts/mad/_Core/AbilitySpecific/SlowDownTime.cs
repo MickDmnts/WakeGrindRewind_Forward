@@ -93,7 +93,7 @@ namespace WGRF.Abilities
         ///<summary>Play this ability's SFX</summary>
         protected override void PlayAbilitySound()
         {
-            //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.PressPlay);
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.SlowDownTime);
         }
 
         /// <summary>
@@ -107,8 +107,6 @@ namespace WGRF.Abilities
                 if (enemy == null) continue;
                 enemy.OnPlayerAbilityStart(0.3f);
             }
-
-            //ManagerHub.S.GameSoundsHandler.ChangeSoundPitch(0.5f);
         }
 
         /// <summary>
@@ -119,9 +117,6 @@ namespace WGRF.Abilities
         {
             //the timer will be used in the UI timer reference
             timer -= Time.deltaTime;
-
-            //Notify any subscriber of onAbilityUse
-            //ManagerHub.S.GameEventHandler.OnAbilityUse(ThrowableSpeeds.SlowDownSpeed, ThrowableSpeeds.SlowDownRotation, false);
 
             if (timer <= 0f)
             {
@@ -152,8 +147,6 @@ namespace WGRF.Abilities
             }
 
             ManagerHub.S.GameEventHandler.OnAbilityEnd();
-
-            //ManagerHub.S.GameSoundsHandler.ChangeSoundPitch(1f);
         }
 
         /// <summary>

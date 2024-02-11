@@ -80,8 +80,7 @@ namespace WGRF.Abilities
 
         protected override void PlayAbilitySound()
         {
-            //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.PressPlay);
-            //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.PressRewind);
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.PressRewind);
         }
 
         public override void UpdateAbilityTick()

@@ -28,6 +28,7 @@ namespace WGRF.Core
         PressRewind,
         Rewind,
         StopTime,
+        Hurt
     }
 
     [Serializable]

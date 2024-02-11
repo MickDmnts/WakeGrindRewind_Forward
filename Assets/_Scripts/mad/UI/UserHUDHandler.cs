@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 using WGRF.Abilities;
@@ -36,6 +37,9 @@ namespace WGRF.UI
 
         [Header("Message UI")]
         [SerializeField] GameObject messagePanel;
+
+        [Header("Pause UI")]
+        [SerializeField] GameObject pausePanel;
 
         void Awake()
         {
@@ -126,5 +130,30 @@ namespace WGRF.UI
         ///<summary>Closes the scoreboard UI</summary>
         public void CloseMessageUI()
         { messagePanel.SetActive(false); }
+
+        void Update()
+        {
+            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                TogglePauseMenu();
+            }
+        }
+
+        ///<summary>Toggles the state of the pause menu</summary>
+        public void TogglePauseMenu()
+        {
+            pausePanel.SetActive(!pausePanel.activeSelf);
+
+            if (pausePanel.activeInHierarchy)
+            {
+                ManagerHub.S.SetGameState(GameState.Running);
+                ManagerHub.S.InternalTime.ChangeTimeScale(1f);
+            }
+            else
+            {
+                ManagerHub.S.SetGameState(GameState.Paused);
+                ManagerHub.S.InternalTime.ChangeTimeScale(0.1f);
+            }
+        }
     }
 }

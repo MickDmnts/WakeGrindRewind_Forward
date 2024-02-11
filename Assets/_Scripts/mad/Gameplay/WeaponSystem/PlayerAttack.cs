@@ -220,19 +220,30 @@ namespace WGRF.Player
 
                             if (interaction != null)
                             {
-                                //Call the Entity AttackInteraction().
                                 interaction.AttackInteraction(damage);
 
-                                //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.PunchSound);
+                                ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Punch);
                             }
                         }
                     }
                 }
             }
 
-            //Play the equiped weapon random SFX
-            /* int rndSfx = Random.Range(0, equipedWeapon.gunShootSound.Length);
-            ManagerHub.S.GameSoundsHandler.PlayOneShot(equipedWeapon.gunShootSound[rndSfx]); */
+            GameAudioClip sfx = (GameAudioClip)(-1);
+            switch (equipedWeapon.WeaponType)
+            {
+                case WeaponType.Knife:
+                    sfx = GameAudioClip.KnifeCut;
+                    break;
+                case WeaponType.BaseballBat:
+                    sfx = GameAudioClip.Punch;
+                    break;
+                case WeaponType.Punch:
+                    sfx = GameAudioClip.Punch;
+                    break;
+            }
+
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(sfx);
         }
         #endregion
 
@@ -283,12 +294,26 @@ namespace WGRF.Player
             //Check if the gun is empty.
             if (bulletsPerMag <= 0)
             {
-                //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.EmptyGunSound);
+                ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.EmptyGun);
                 return;
             }
 
             //Play the equiped weapon shoot sound.
-            PlayWeaponShootSound();
+            GameAudioClip sfx = (GameAudioClip)(-1);
+            switch (equipedWeapon.WeaponType)
+            {
+                case WeaponType.Pistol:
+                    sfx = GameAudioClip.Pistol;
+                    break;
+                case WeaponType.SemiAutomatic:
+                    sfx = GameAudioClip.Uzi;
+                    break;
+                case WeaponType.Shotgun:
+                    sfx = GameAudioClip.Shotgun;
+                    break;
+            }
+
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(sfx);
 
             if (shotgunShot && bulletsPerMag != 0)
             {
@@ -358,22 +383,6 @@ namespace WGRF.Player
             }
         }
 
-        /// <summary>
-        /// Call to play a random weapon shoot sound from the equiped weapon scriptable object.
-        /// </summary>
-        void PlayWeaponShootSound()
-        {
-            /* if (equipedWeapon.gunShootSound.Length > 1)
-            {
-                int rndSfx = Random.Range(0, equipedWeapon.gunShootSound.Length);
-                GameManager.S.GameSoundsHandler.PlayOneShot(equipedWeapon.gunShootSound[rndSfx]);
-            }
-            else
-            {
-                GameManager.S.GameSoundsHandler.PlayOneShot(equipedWeapon.gunShootSound[0]);
-            } */
-        }
-
         IEnumerator ReloadAfter(float seconds)
         {
             yield return new WaitForSeconds(seconds);
@@ -406,7 +415,6 @@ namespace WGRF.Player
                 throwable.InitiateThrow();
 
                 ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").PlayThrowAnimation();
-                //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.WeaponThrow);
             }
         }
 

@@ -116,7 +116,7 @@ namespace WGRF.Core
         private void Update()
         {
             //Prevents the player from using his abilities in MainMenu + PlayerHub scenes.
-            if (!AbilitiesCanActivate) return; //|| ManagerHub.S.UIManager.IsPaused) return;
+            if (!AbilitiesCanActivate || ManagerHub.S.GameState == GameState.Paused) return;
 
             if (AbilitiesCanCycle)
             {
@@ -149,12 +149,12 @@ namespace WGRF.Core
             //UI UPDATES
             ManagerHub.S.HUDHandler.ChangeSelectedAbilityIcon(activeAbility);
 
-            //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.VHSSlideIn);
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.VHSSlideIn);
         }
 
         private void FixedUpdate()
         {
-            //if (ManagerHub.S.UIManager.IsPaused) return;
+            if (ManagerHub.S.GameState == GameState.Paused) return;
 
             //If the player activated any ability...
             if (activatedAnAbility)
@@ -183,7 +183,7 @@ namespace WGRF.Core
                     break;
             }
 
-            //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.VHSOpen);
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.VHSOpen);
         }
 
         /// <summary>

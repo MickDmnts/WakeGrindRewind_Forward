@@ -6,7 +6,6 @@ namespace WGRF.Core
     /// <summary>
     /// A class housing all global game events.
     /// </summary>
-    [Obsolete("This class will slowly get partially or fully obsolete while the project moves away from this much event driven programming.")]
     public class GameEventsHandler
     {
         /// <summary>

@@ -89,8 +89,7 @@ namespace WGRF.Abilities
         ///<summary>Play this ability's SFX</summary>
         protected override void PlayAbilitySound()
         {
-            //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.PressPlay);
-            //ManagerHub.S.GameSoundsHandler.PlayOneShot(GameAudioClip.StopActivate);
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.StopTime);
         }
 
         /// <summary>
@@ -111,8 +110,6 @@ namespace WGRF.Abilities
 
                 enemy.DisableShootingBehaviour();
             }
-
-            //ManagerHub.S.GameSoundsHandler.SetGameWideSoundtrackState(true);
         }
 
         /// <summary>
@@ -152,8 +149,6 @@ namespace WGRF.Abilities
             }
 
             ManagerHub.S.GameEventHandler.OnAbilityEnd();
-
-            //ManagerHub.S.GameSoundsHandler.SetGameWideSoundtrackState(false);
         }
 
         /// <summary>

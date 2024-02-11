@@ -5,6 +5,12 @@ using WGRF.UI;
 
 namespace WGRF.Core
 {
+    public enum GameState
+    {
+        Paused,
+        Running
+    }
+
     /// <summary>
     /// In the ManagerHub every handler instance is created and cached.
     /// </summary>
@@ -20,9 +26,13 @@ namespace WGRF.Core
 
         ///<summary>The room the player is currently in</summary>
         EnemyRoom activeRoom;
+        ///<summary>The current game state</summary>
+        GameState gameState;
 
         ///<summary>The room the player is currently in</summary>
         public int ActiveRoom => (int)activeRoom;
+        ///<summary>The current game state</summary>
+        public GameState GameState => gameState;
 
         ///<summary>GameEventsHandler reference</summary>
         GameEventsHandler _gameEventsHandler;
@@ -139,5 +149,12 @@ namespace WGRF.Core
         /// </summary>
         public void SetActiveRoom(EnemyRoom room)
         { activeRoom = room; }
+
+        /// <summary>
+        /// Sets the current game state
+        /// </summary>
+        /// <param name="state">The new state</param>
+        public void SetGameState(GameState state)
+        {gameState = state;}
     }
 }
