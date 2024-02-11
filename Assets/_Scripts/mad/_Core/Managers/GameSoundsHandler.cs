@@ -30,7 +30,9 @@ namespace WGRF.Core
         StopTime,
         Hurt,
         Menu,
-        Hub
+        Hub,
+        ElevatorRing,
+        Reloading
     }
 
     [Serializable]

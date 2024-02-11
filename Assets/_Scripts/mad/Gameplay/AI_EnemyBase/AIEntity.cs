@@ -23,6 +23,8 @@ namespace WGRF.AI
         Room3,
         Room4,
         Room5,
+        Room6,
+        Room7,
     }
 
     public abstract class AIEntity : Entity

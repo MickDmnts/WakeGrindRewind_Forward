@@ -162,6 +162,9 @@ MonoBehaviour:
   - gameAudioClip: 23
     clips:
     - {fileID: 8300000, guid: 823ad7f2477355d4eba7f7577b92d872, type: 3}
+  - gameAudioClip: 24
+    clips:
+    - {fileID: 8300000, guid: b4d495e4419922a48ae2a03bf6d60e2d, type: 3}
 --- !u!114 &2618696383725250960
 MonoBehaviour:
   m_ObjectHideFlags: 0

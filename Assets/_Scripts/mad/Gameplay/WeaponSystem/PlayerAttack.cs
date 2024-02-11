@@ -163,10 +163,7 @@ namespace WGRF.Player
         void TypeBasedAttack()
         {
             if (isReloading)
-            {
-                //Play a click click sounds here
-                return;
-            }
+            { return; }
 
             switch (equipedWeapon.WeaponCategory)
             {
@@ -270,8 +267,10 @@ namespace WGRF.Player
 
             bulletsPerMag = bulletsPerMag > 0 ? --bulletsPerMag : 0;
 
-            if (bulletsPerMag <= 0)
+            if (bulletsPerMag <= 0 && !isReloading)
             {
+                ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.EmptyGun);
+                ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Reloading);
                 isReloading = true;
                 StartCoroutine(ReloadAfter(1.5f));
                 return;
@@ -385,9 +384,15 @@ namespace WGRF.Player
 
         IEnumerator ReloadAfter(float seconds)
         {
-            yield return new WaitForSeconds(seconds);
+            yield return new WaitForSeconds(seconds / 2);
+
+            int halfMag = equipedWeapon.DefaultMagazine / 2;
+            ManagerHub.S.HUDHandler.ChangeBulletsLeft(halfMag);
+
+            yield return new WaitForSeconds(seconds / 2);
 
             bulletsPerMag = equipedWeapon.DefaultMagazine;
+            ManagerHub.S.HUDHandler.ChangeBulletsLeft(bulletsPerMag);
             isReloading = false;
         }
         #endregion
@@ -416,14 +421,6 @@ namespace WGRF.Player
 
                 ManagerHub.S.PlayerController.Access<PlayerAnimations>("pAnimations").PlayThrowAnimation();
             }
-        }
-
-        /// <summary>
-        /// Call to set the bullet and bulletsLeft UI elements to null and String.Empty respectivaly.
-        /// </summary>
-        void ClearWeaponsUI()
-        {
-            ManagerHub.S.HUDHandler.ChangeBulletsLeft(0);
         }
         #endregion
 

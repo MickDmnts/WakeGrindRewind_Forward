@@ -1,14 +1,36 @@
 using System.Collections;
 using UnityEngine;
+using WGRF.AI;
+using WGRF.Core;
 
 namespace WGRF.Interactions
 {
+    public enum DoorRoom
+    {
+        Room1,
+        Room2,
+        Room3,
+        Room4,
+        Room5,
+        Room6,
+        Room7,
+    }
+
     public class Breakable : MonoBehaviour, IKickable
     {
+        [SerializeField] bool nextRoomDoor;
+        [SerializeField] DoorRoom doorRoom;
         [SerializeField] float kickForce = 10;
+
+        bool isLocked = false;
+
+        void Start()
+        { isLocked = nextRoomDoor; }
 
         public void SimulateKnockback(Vector3 incomingDir)
         {
+            if (isLocked) { return; }
+
             StartCoroutine(Throwback(incomingDir));
         }
 
@@ -30,6 +52,20 @@ namespace WGRF.Interactions
             yield return null;
 
             Destroy(gameObject);
+        }
+
+        void LateUpdate()
+        {
+            if (nextRoomDoor)
+            {
+                int cnt = ManagerHub.S.AIHandler.GetAliveAgentCount((int)doorRoom);
+                if (cnt <= 0)
+                {
+                    isLocked = false;
+                    nextRoomDoor = false;
+                    ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.ElevatorRing);
+                }
+            }
         }
     }
 }
