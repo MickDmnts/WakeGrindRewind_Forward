@@ -134,9 +134,7 @@ namespace WGRF.UI
         void Update()
         {
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
-            {
-                TogglePauseMenu();
-            }
+            { TogglePauseMenu(); }
         }
 
         ///<summary>Toggles the state of the pause menu</summary>

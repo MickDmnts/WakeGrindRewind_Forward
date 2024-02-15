@@ -13,6 +13,8 @@ namespace WGRF.AI
 
         ///<summary>The behaviour tree handler of the agent</summary>
         EnemyBTHandler btHandler;
+        ///<summary>The player sprite renderer</summary>
+        SpriteRenderer spriteRenderer;
 
         ///<summary>Returns the target of this agent.</summary>
         public Transform Target => attackTarget;
@@ -40,6 +42,7 @@ namespace WGRF.AI
             SetController(GetComponent<Controller>());
             agent = GetComponent<NavMeshAgent>();
             enemyRB = GetComponent<Rigidbody>();
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
 
         private void Start()
@@ -54,7 +57,7 @@ namespace WGRF.AI
         private void Update()
         {
             //Dont update if the agent is marked as inactive.
-            if (!isAgentActive) return;
+            if (!isAgentActive || ManagerHub.S.GameState == GameState.Paused) return;
 
             //Run the updateBT method ONLY if the btHandler != null
             if (btHandler != null)
@@ -70,7 +73,10 @@ namespace WGRF.AI
         public override void AttackInteraction(int damage)
         {
             //Continue only if the enemy is not dead.
-            if (IsDead || !isAgentActive) return;
+            if (IsDead) return;
+
+            if (!ManagerHub.S.SettingsHandler.UserSettings.goreVFX)
+            { StartCoroutine(TurnRed()); }
 
             if (armorValue > 0)
             { armorValue -= damage; }
@@ -80,6 +86,13 @@ namespace WGRF.AI
                 if (entityLife <= 0)
                 { InitiateDeathSequence(); }
             }
+        }
+
+        IEnumerator TurnRed()
+        {
+            spriteRenderer.color = Color.red;
+            yield return new WaitForSecondsRealtime(0.5f);
+            spriteRenderer.color = Color.white;
         }
 
         /// <summary>

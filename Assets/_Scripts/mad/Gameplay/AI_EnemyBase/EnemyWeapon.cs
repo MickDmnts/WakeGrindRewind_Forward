@@ -146,7 +146,7 @@ namespace WGRF.AI
                             {
                                 interaction.AttackInteraction(damage);
 
-                                //ManagerHub.S.GameSoundsHandler.PlayOneShot();
+                                ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.ForcePunch);
                             }
                         }
                     }

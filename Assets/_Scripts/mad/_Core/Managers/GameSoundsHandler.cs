@@ -32,7 +32,8 @@ namespace WGRF.Core
         Menu,
         Hub,
         ElevatorRing,
-        Reloading
+        Reloading,
+        ForcePunch
     }
 
     [Serializable]

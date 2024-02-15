@@ -16,13 +16,12 @@ namespace WGRF.Core
         MonoBehaviour handler;
         ///<summary>The cached fixed delta time</summary>
         float fixedDeltaTime;
-        ///<summary>The current room time</summary>
-        long roomTime;
 
-        CancellationTokenSource cts;
+        Timer timer;
+        TimeSpan elapsedTime;
 
-        public string RoomTime => ConvertMillisecondsToHMS(roomTime);
-        public int RoomTimeInt => Mathf.FloorToInt((float)roomTime / 1000f);
+        public string RoomTime => elapsedTime.ToString("hh\\:mm\\:ss");
+        //public int RoomTimeInt => Mathf.FloorToInt((float)roomTime / 1000f);
 
         ///<summary>Subscribe to this event to get notified when the time scale changes</summary>
         public event Action onTimeScaleChange;
@@ -46,7 +45,8 @@ namespace WGRF.Core
             this.fixedDeltaTime = Time.fixedDeltaTime;
             this.handler = handler;
 
-            cts = new CancellationTokenSource();
+            timer = new Timer((obj) => elapsedTime = elapsedTime.Add(TimeSpan.FromSeconds(1)), null, Timeout.Infinite, Timeout.Infinite);
+            elapsedTime = TimeSpan.Zero;
         }
 
         /// <summary>
@@ -99,26 +99,14 @@ namespace WGRF.Core
 
         public void StartRoomTimer()
         {
-            Task.Run(() => RoomTimer(cts.Token), cts.Token);
-        }
-
-        void RoomTimer(CancellationToken ct)
-        {
-            while (!ct.IsCancellationRequested)
-            {
-                Task.Delay(1000, ct);
-                roomTime += 1000;
-            }
+            timer.Change(0, 1000);
         }
 
         public void StopRoomTimer()
-        { cts.Cancel(); }
+        { timer.Change(Timeout.Infinite, Timeout.Infinite); }
 
         public void ResetRoomTimer()
-        {
-            cts.Cancel();
-            roomTime = 0;
-        }
+        { elapsedTime = TimeSpan.Zero; }
 
         string ConvertMillisecondsToHMS(long milliseconds)
         {

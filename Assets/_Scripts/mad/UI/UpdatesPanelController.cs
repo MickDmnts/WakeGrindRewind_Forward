@@ -15,11 +15,18 @@ namespace WGRF.UI
 
         void OnEnable()
         {
+            ManagerHub.S.InternalTime.ChangeTimeScale(0f);
+
             weaponSprite.sprite = ManagerHub.S.RewardSelector.GetNextWeaponSprite();
 
             nextAbilityIdx++;
             nextAbilityIdx = nextAbilityIdx % 3;
             abilitySprite.sprite = ManagerHub.S.AbilityManager.NextAbilitySprite(nextAbilityIdx);
+        }
+
+        void OnDisable()
+        {
+            ManagerHub.S.InternalTime.ChangeTimeScale(1f);
         }
 
         public void UpdateWeapon()
@@ -38,7 +45,6 @@ namespace WGRF.UI
         public void UpdatePlayerStat()
         {
             int rnd = Random.Range(0, 2);
-            Debug.Log(rnd);
 
             switch (rnd)
             {

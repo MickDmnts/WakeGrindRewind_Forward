@@ -18,6 +18,8 @@ namespace WGRF.Player
         bool isActive = false;
         ///<summary>Is the player dead?</summary>
         bool isDead;
+        ///<summary>The player sprite renderer</summary>
+        SpriteRenderer spriteRenderer;
 
         ///<summary>Returns the is dead state of the player</summary>
         public bool IsDead => isDead;
@@ -28,6 +30,8 @@ namespace WGRF.Player
         {
             SetController(transform.root.GetComponent<Controller>());
             ManagerHub.S.AttachPlayerController(Controller);
+
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
 
         private void Start()
@@ -52,21 +56,34 @@ namespace WGRF.Player
             ManagerHub.S.HUDHandler.SetPlayerHealth(entityLife);
             ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Hurt);
 
+            if (!ManagerHub.S.SettingsHandler.UserSettings.goreVFX)
+            { StartCoroutine(TurnRed()); }
+
             //Should check for rewind availability here
             if (entityLife <= 0)
             {
                 isDead = true;
                 isActive = false;
 
-                UnityAssets.LoadAsync(bloodDecalPath, false, (decal) =>
+                if (ManagerHub.S.SettingsHandler.UserSettings.goreVFX)
                 {
-                    GameObject temp = Instantiate(decal);
-                    temp.transform.position = transform.position;
-                    temp.transform.rotation = temp.transform.rotation * Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
-                });
+                    UnityAssets.LoadAsync(bloodDecalPath, false, (decal) =>
+                    {
+                        GameObject temp = Instantiate(decal);
+                        temp.transform.position = transform.position;
+                        temp.transform.rotation = temp.transform.rotation * Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
+                    });
+                }
 
                 StartCoroutine(DeathSequence());
             }
+        }
+
+        IEnumerator TurnRed()
+        {
+            spriteRenderer.color = Color.red;
+            yield return new WaitForSecondsRealtime(0.5f);
+            spriteRenderer.color = Color.white;
         }
 
         /// <summary>
@@ -76,7 +93,7 @@ namespace WGRF.Player
         IEnumerator DeathSequence()
         {
             Controller.Access<PlayerAnimations>("pAnimations").PlayDeathAnimation();
-            Controller.Access<PlayerController>("pController").enabled = false;
+            Controller.Access<PlayerController>("pInputController").enabled = false;
             isActive = false;
             ManagerHub.S.HUDHandler.OpenMessageUI("You are dead!");
             ManagerHub.S.AIHandler.DeactivateAllAgents();
@@ -136,6 +153,7 @@ namespace WGRF.Player
         {
             maxLife += value;
             entityLife = maxLife;
+            ManagerHub.S.HUDHandler.SetPlayerHealthInfo(this);
             return entityLife;
         }
     }

@@ -1,7 +1,9 @@
+using System.Collections;
 using UnityEngine;
-
+using WGRF.AI;
 using WGRF.Core;
 using WGRF.Interactions;
+using WGRF.Player;
 
 namespace WGRF.BattleSystem
 {
@@ -33,11 +35,14 @@ namespace WGRF.BattleSystem
             {
                 interaction.AttackInteraction(damage);
 
-                //Spawn the blood impact FX when the bullet hits an entity
-                GameObject spawnedFX = Instantiate(UnityAssets.Load(bloodImpactFX_Path, false));
-                spawnedFX.transform.position = other.transform.position;
-                spawnedFX.transform.rotation = Quaternion.identity;
-                spawnedFX.transform.rotation = transform.rotation * Quaternion.Euler(-90f, 0f, 0f);
+                if (ManagerHub.S.SettingsHandler.UserSettings.goreVFX)
+                {
+                    //Spawn the blood impact FX when the bullet hits an entity
+                    GameObject spawnedFX = Instantiate(UnityAssets.Load(bloodImpactFX_Path, false));
+                    spawnedFX.transform.position = other.transform.position;
+                    spawnedFX.transform.rotation = Quaternion.identity;
+                    spawnedFX.transform.rotation = transform.rotation * Quaternion.Euler(-90f, 0f, 0f);
+                }
             }
 
             Destroy(gameObject);

@@ -335,7 +335,7 @@ MonoBehaviour:
   entityName: Player
   maxLife: 100
   entityLife: 100
-  bloodDecalPath: sfx/blooddecal
+  bloodDecalPath: gfx/blooddecal
 --- !u!114 &2706696686325513107
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -29,8 +29,6 @@ namespace WGRF.Core
         {
             foreach (AIEntity agent in registeredAgents[(int)room])
             { agent.SetIsAgentActive(true); }
-
-            Debug.Log(registeredAgents[(int)room].Count);
         }
 
         /// <summary>

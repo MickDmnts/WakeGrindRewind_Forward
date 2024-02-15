@@ -55,10 +55,10 @@ MonoBehaviour:
     m_Bits: 17408
   firePoint: {fileID: 621951264106873862}
   bulletSpreadRate: 1
-  accuracyIncreaseRate: 0.4
-  equipedWeapon: {fileID: 11400000, guid: 9eade4af57363e64b9ee8273e3aaca3e, type: 2}
+  accuracyIncreaseRate: 1
+  equipedWeapon: {fileID: 11400000, guid: 8652a4471703e164d959c7f510a68ea2, type: 2}
   projectilesPerShot: 5
-  shotCooldownInterval: 0
+  shotCooldownInterval: 1
   damage: 5
 --- !u!1 &621951263579200710
 GameObject:
@@ -86,7 +86,7 @@ Transform:
   m_GameObject: {fileID: 621951263579200710}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 1, z: 0.05}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -397,7 +397,7 @@ Transform:
   m_GameObject: {fileID: 621951264960689000}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

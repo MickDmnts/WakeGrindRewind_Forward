@@ -65,12 +65,15 @@ namespace WGRF.AI
             {
                 if (value)
                 {
-                    UnityAssets.LoadAsync(bloodDecalPath, false, (cb) =>
+                    if (ManagerHub.S.SettingsHandler.UserSettings.goreVFX)
                     {
-                        GameObject temp = Instantiate(cb);
-                        temp.transform.position = transform.position;
-                        temp.transform.rotation = cb.transform.rotation * Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
-                    });
+                        UnityAssets.LoadAsync(bloodDecalPath, false, (cb) =>
+                        {
+                            GameObject temp = Instantiate(cb);
+                            temp.transform.position = transform.position;
+                            temp.transform.rotation = cb.transform.rotation * Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
+                        });
+                    }
 
                     ManagerHub.S.ScoreHandler.IncreaseRoomScoreBy(scoreIncrease);
                 }

@@ -124,9 +124,10 @@ namespace WGRF.Core
                 {
                     userSettings = await ReadSettingsFile(temp);
                 }
-                catch (Exception e)
+                catch
                 {
-                    UnityEngine.Debug.Log(e);
+                    File.Delete(SettingsFilePath);
+                    HandleSettingsFileOnConstruction(_settingsFolderPath);
                 }
 
             }

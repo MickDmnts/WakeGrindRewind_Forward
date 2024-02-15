@@ -219,8 +219,10 @@ namespace WGRF.Player
                             {
                                 interaction.AttackInteraction(damage);
 
-                                ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Punch);
+                                ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.ForcePunch);
                             }
+                            else
+                            {ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Punch);}
                         }
                     }
                 }
