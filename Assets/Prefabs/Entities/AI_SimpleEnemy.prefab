@@ -336,15 +336,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: eEntity
   entityName: enemy
-  maxLife: 90
-  entityLife: 90
+  maxLife: 50
+  entityLife: 50
   enemyRoom: 0
   occlusionLayers:
     serializedVersion: 2
     m_Bits: 17536
   layerOnDeath: 31
   bloodDecalPath: gfx/blooddecal
-  armorValue: 20
+  armorValue: 0
 --- !u!114 &7667644552581911552
 MonoBehaviour:
   m_ObjectHideFlags: 0

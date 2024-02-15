@@ -174,15 +174,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: eEnforcer
   entityName: Enforcer
-  maxLife: 200
-  entityLife: 200
+  maxLife: 100
+  entityLife: 100
   enemyRoom: 0
   occlusionLayers:
     serializedVersion: 2
     m_Bits: 17536
   layerOnDeath: 31
   bloodDecalPath: gfx/blooddecal
-  armorValue: 100
+  armorValue: 20
 --- !u!114 &9018063436428362537
 MonoBehaviour:
   m_ObjectHideFlags: 0

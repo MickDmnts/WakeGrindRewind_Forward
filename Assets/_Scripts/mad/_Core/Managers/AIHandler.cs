@@ -82,5 +82,11 @@ namespace WGRF.Core
 
             return cnt;
         }
+
+        void LateUpdate()
+        {
+            if (GetRoomAgentCount((int)EnemyRoom.Room7) <= 0)
+            { ManagerHub.S.HUDHandler.OpenScoreUI(); }
+        }
     }
 }
