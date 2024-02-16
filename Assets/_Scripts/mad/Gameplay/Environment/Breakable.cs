@@ -27,7 +27,7 @@ namespace WGRF.Interactions
         void Start()
         { isLocked = nextRoomDoor; }
 
-        void OnCollisionEnter(Collision other)
+        void OnColliderEnter(Collision other)
         {
             if (other.gameObject.GetComponent<AIEntity>())
             { SimulateKnockback(other.transform.position); }

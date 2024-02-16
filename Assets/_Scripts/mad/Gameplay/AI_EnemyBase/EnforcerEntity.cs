@@ -123,7 +123,7 @@ namespace WGRF.AI
         {
             IsDead = true;
 
-            Controller.Access<EnemyAnimations>("eAnimations").PlayDeathAnimation();
+            Controller.Access<EnforcerAnimations>("eAnimations").PlayDeathAnimation();
 
             agent.isStopped = true;
 

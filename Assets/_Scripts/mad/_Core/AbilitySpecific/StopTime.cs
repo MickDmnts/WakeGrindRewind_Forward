@@ -99,7 +99,7 @@ namespace WGRF.Abilities
         {
             //CHANGE AFTER TIME MANAGER CREATION
             int ar = ManagerHub.S.ActiveRoom;
-            foreach (EnemyEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
+            foreach (AIEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
             {
                 if (enemy == null) continue;
 
@@ -108,7 +108,7 @@ namespace WGRF.Abilities
 
                 enemy.Controller.Access<EnemyAnimations>("eAnimations").SetAnimatorPlaybackSpeed(0f);
 
-                enemy.DisableShootingBehaviour();
+                //enemy.DisableShootingBehaviour();
             }
         }
 

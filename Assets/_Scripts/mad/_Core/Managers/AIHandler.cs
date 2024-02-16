@@ -86,7 +86,7 @@ namespace WGRF.Core
         void LateUpdate()
         {
             if (GetRoomAgentCount((int)EnemyRoom.Room7) <= 0)
-            { ManagerHub.S.HUDHandler.OpenScoreUI(); }
+            { ManagerHub.S.HUDHandler?.OpenScoreUI(); }
         }
     }
 }
