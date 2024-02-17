@@ -27,15 +27,13 @@ namespace WGRF.UI
         ///<summary>Stores the ui controllers of the main menu</summary>
         IUIController[] uiControllers;
 
-        void Awake()
-        { uiControllers = GetComponentsInChildren<IUIController>(); }
-
         void Start()
         {
             shutdownPanel.SetActive(false);
             mmPanel.SetActive(false);
             settingsPanel.SetActive(false);
             ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Bootup);
+            ManagerHub.S.GameSoundsHandler.StopMenu();
         }
 
         ///<summary>Loads the run scene</summary>
@@ -59,6 +57,7 @@ namespace WGRF.UI
         ///<summary>Updates and writes the configurated settings from the settings panel</summary>
         public void SaveSettings()
         {
+            uiControllers = GetComponentsInChildren<IUIController>();
             foreach (IUIController controller in uiControllers)
             { controller.WriteToSettings(); }
 
