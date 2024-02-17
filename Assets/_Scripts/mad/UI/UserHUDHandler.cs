@@ -47,6 +47,7 @@ namespace WGRF.UI
         Volume postProcessVolume;
         Bloom bloom;
         float initialIntensity;
+        bool otherPanelOpen = false;
 
         void Awake()
         {
@@ -116,34 +117,53 @@ namespace WGRF.UI
 
         ///<summary>Opens the score UI</summary>
         public void OpenScoreUI()
-        { scorePanel.SetActive(true); }
-
-        ///<summary>Closes the score UI</summary>
-        public void CloseScoreUI()
-        { scorePanel.SetActive(false); }
+        {
+            SetIsOtherPanelOpen(true);
+            scorePanel.SetActive(true);
+        }
 
         ///<summary>Opens the update UI</summary>
         public void OpenUpdatesUI()
-        { updatesPanel.SetActive(true); }
+        {
+            SetIsOtherPanelOpen(true);
+            updatesPanel.SetActive(true);
+        }
 
         ///<summary>Opens the scoreboard UI</summary>
         public void OpenScoreboardUI()
-        { scoreboardPanel.SetActive(true); }
+        {
+            SetIsOtherPanelOpen(true);
+            scoreboardPanel.SetActive(true);
+        }
 
         ///<summary>Opens the scoreboard UI</summary>
         public void OpenMessageUI(string msg)
         {
+            SetIsOtherPanelOpen(true);
             messagePanel.GetComponent<EndMessageController>().SetMessageText(msg);
             messagePanel.SetActive(true);
         }
 
-        ///<summary>Closes the scoreboard UI</summary>
-        public void CloseScoreboardUI()
-        { scoreboardPanel.SetActive(false); }
+        ///<summary>Closes the score UI</summary>
+        public void CloseScoreUI()
+        {
+            SetIsOtherPanelOpen(false);
+            scorePanel.SetActive(false);
+        }
 
         ///<summary>Closes the scoreboard UI</summary>
+        public void CloseScoreboardUI()
+        {
+            SetIsOtherPanelOpen(false);
+            scoreboardPanel.SetActive(false);
+        }
+
+        ///<summary>Closes the message UI</summary>
         public void CloseMessageUI()
-        { messagePanel.SetActive(false); }
+        {
+            SetIsOtherPanelOpen(false);
+            messagePanel.SetActive(false);
+        }
 
         public void BloomOnKill()
         { StartCoroutine(ChangeBloomIntensity()); }
@@ -169,6 +189,12 @@ namespace WGRF.UI
             bloom.intensity.value = initialIntensity;
         }
 
+        /// <summary>
+        /// If set to true, the pause menu wont be able to toggle on, otherwise the pause panel can be enabled.
+        /// </summary>
+        public void SetIsOtherPanelOpen(bool value)
+        { otherPanelOpen = value; }
+
         void Update()
         {
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
@@ -182,7 +208,7 @@ namespace WGRF.UI
 
             if (!pausePanel.activeInHierarchy)
             {
-                ManagerHub.S.GameSoundsHandler.ForceOSTVolume(1f);
+                ManagerHub.S.GameSoundsHandler.ForceOSTVolume(ManagerHub.S.SettingsHandler.UserSettings.ostVolume);
                 ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Unpause);
                 ManagerHub.S.SetGameState(GameState.Running);
                 ManagerHub.S.InternalTime.ChangeTimeScale(1f);
@@ -201,7 +227,7 @@ namespace WGRF.UI
             ManagerHub.S.SetGameState(GameState.Running);
             ManagerHub.S.InternalTime.ChangeTimeScale(1f);
 
-            ManagerHub.S.GameSoundsHandler.ForceOSTVolume(1f);
+            ManagerHub.S.GameSoundsHandler.ForceOSTVolume(ManagerHub.S.SettingsHandler.UserSettings.ostVolume);
             ManagerHub.S.StageHandler.LoadFromBoot();
             ManagerHub.S.RewardSelector.ResetRewards();
             ManagerHub.S.ScoreHandler.ResetTotalScore();

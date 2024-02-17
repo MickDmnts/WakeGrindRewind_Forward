@@ -11,6 +11,8 @@ public class ScreenShake : MonoBehaviour
 
     CinemachineVirtualCamera vcamera;
 
+    bool isShaking = false;
+
     void Awake()
     {
         vcamera = GetComponent<CinemachineVirtualCamera>();
@@ -38,6 +40,8 @@ public class ScreenShake : MonoBehaviour
     /// <param name="timer">The duration of the shake</param>
     private void ShakeCamera(float intensity, float timer)
     {
+        if (isShaking) { return; }
+
         if (timer > 0)
         {
             CinemachineBasicMultiChannelPerlin perlin = vcamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -45,6 +49,8 @@ public class ScreenShake : MonoBehaviour
             shakeTimer = timer;
             shakeTimerTotal = timer;
             startIntensity = intensity;
+
+            isShaking = true;
         }
     }
 

@@ -268,6 +268,8 @@ namespace WGRF.Core
         {
             for (int i = 0; i < abilities.Count; i++)
             { abilities[i].ResetAbilityUses(); }
+
+            totalAbilitiesPerRoom = 2;
         }
     }
 }

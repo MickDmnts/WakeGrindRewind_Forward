@@ -44,6 +44,8 @@ namespace WGRF.Interactions
         {
             if (isLocked) { return; }
 
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.ForcePunch);
+
             StartCoroutine(IncreaseChromatic());
             StartCoroutine(Throwback(incomingDir));
         }

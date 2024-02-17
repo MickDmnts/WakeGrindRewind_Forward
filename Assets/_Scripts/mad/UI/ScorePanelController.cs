@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using WGRF.AI;
 using WGRF.Core;
 
 namespace WGRF.UI
@@ -90,6 +91,9 @@ namespace WGRF.UI
             }
 
             ManagerHub.S.HUDHandler.CloseScoreUI();
+
+            if (ManagerHub.S.ActiveRoom == (int)EnemyRoom.Room7)
+            { ManagerHub.S.HUDHandler.OpenMessageUI("Congratulations!\nYou won!"); }
         }
 
         void OnDisable()

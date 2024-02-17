@@ -103,12 +103,10 @@ namespace WGRF.Abilities
             {
                 if (enemy == null) continue;
 
-                enemy.Agent.speed = 0;
-                enemy.Agent.angularSpeed = 0;
+                /* enemy.Agent.speed = 0;
+                enemy.Agent.angularSpeed = 0; */
 
-                // enemy.Controller.Access<EnemyAnimations>("eAnimations").SetAnimatorPlaybackSpeed(0f);
-
-                //enemy.DisableShootingBehaviour();
+                enemy.DisableShootingBehaviour();
             }
         }
 
