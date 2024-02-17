@@ -5,12 +5,12 @@ namespace WGRF.UI
 {
     public class ScoreDataController : MonoBehaviour
     {
-        [SerializeField] TextMeshProUGUI rankTxt;
+        //[SerializeField] TextMeshProUGUI rankTxt;
         [SerializeField] TextMeshProUGUI nameTxt;
         [SerializeField] TextMeshProUGUI scoreTxt;
 
-        public void SetRank(int rank)
-        { rankTxt.SetText(rank.ToString()); }
+        /* public void SetRank(int rank)
+        { rankTxt.SetText(rank.ToString()); } */
 
         public void SetName(string name)
         { nameTxt.SetText(name); }

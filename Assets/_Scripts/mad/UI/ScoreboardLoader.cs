@@ -33,7 +33,7 @@ namespace WGRF.UI
 
                 ScoreDataController sdc = temp.GetComponent<ScoreDataController>();
                 sdc.SetName(records[i].Name);
-                sdc.SetRank(records[i].Rank);
+                //sdc.SetRank(records[i].Rank);
                 sdc.SetScore(records[i].Score);
 
                 cachedContents[i] = temp;

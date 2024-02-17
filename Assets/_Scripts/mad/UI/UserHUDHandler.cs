@@ -208,6 +208,7 @@ namespace WGRF.UI
             ManagerHub.S.ScoreHandler.ResetRoomScore();
             ManagerHub.S.InternalTime.ResetRoomTimer();
             ManagerHub.S.AbilityManager.ResetAbilities();
+            ManagerHub.S.AIHandler.ResetHandler();
         }
     }
 }

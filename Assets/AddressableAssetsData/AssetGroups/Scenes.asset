@@ -17,23 +17,20 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: b8fc6d3d58db8844cb27dcee6e35bffb
   m_SerializeEntries:
-  - m_GUID: 01a28d58c4216aa4581d892d188e452e
-    m_Address: scenes/entry
+  - m_GUID: b8839119d945bdb4b8ecd09a3a025c08
+    m_Address: scenes/run
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - scenes
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 429439dff5d95c5439105c7daafa1fc8
     m_Address: scenes/mainMenu
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - scenes
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b8839119d945bdb4b8ecd09a3a025c08
-    m_Address: scenes/run
+  - m_GUID: 01a28d58c4216aa4581d892d188e452e
+    m_Address: Assets/Scenes/_Core/_GameEntry.unity
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - scenes
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 10c3b613f525ad241aa22316011304e5, type: 2}

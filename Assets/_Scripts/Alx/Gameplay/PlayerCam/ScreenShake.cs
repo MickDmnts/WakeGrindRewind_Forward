@@ -11,7 +11,7 @@ public class ScreenShake : MonoBehaviour
 
     CinemachineVirtualCamera vcamera;
 
-    protected void Awake()
+    void Awake()
     {
         vcamera = GetComponent<CinemachineVirtualCamera>();
         ManagerHub.S.GameEventHandler.cameraShakeOnEnemyDeath += ShakeCamera;
@@ -48,7 +48,7 @@ public class ScreenShake : MonoBehaviour
         }
     }
 
-    protected void Destroy()
+    void OnDestroy()
     {
         ManagerHub.S.GameEventHandler.cameraShakeOnEnemyDeath -= ShakeCamera;
     }

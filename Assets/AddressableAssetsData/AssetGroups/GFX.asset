@@ -16,17 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 5071c738af8d04342a8c570483e9ce34
-  m_SerializeEntries:
-  - m_GUID: 0fb77a12776fb294091e3c3bfd24dfda
-    m_Address: gfx/bloodfx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 42e2175f3afb7504389936965858e507
-    m_Address: gfx/blooddecal
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 10c3b613f525ad241aa22316011304e5, type: 2}
   m_SchemaSet:

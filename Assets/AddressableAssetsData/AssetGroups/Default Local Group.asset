@@ -16,7 +16,82 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 9edd4cc9a380d5e4e9f09d51aff7a7b8
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 1769e6ec095bd824cb2b2c9db6494748
+    m_Address: Assets/Prefabs/Entities/AI_Encorfer.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 10892dbc2f159614e807a3d3989e76eb
+    m_Address: Assets/Prefabs/Entities/AI_SimpleEnemy.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a2374148760b53045b125ed10ac84227
+    m_Address: Assets/Prefabs/Entities/PlayerSkeleton.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1bfa480732d02ab4299cfe9bfbe5870e
+    m_Address: Assets/Prefabs/Environment/ArmorFX.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 42e2175f3afb7504389936965858e507
+    m_Address: gfx/blooddecal
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0fb77a12776fb294091e3c3bfd24dfda
+    m_Address: gfx/bloodfx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 378a524c7b55b49fab311c4a9a62c326
+    m_Address: ws/bullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8bfa0430a42ca12409de0e8caa2b8331
+    m_Address: Assets/Prefabs/Environment/Door.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75b663c27c00a374ca1e692f9c6de52b
+    m_Address: Assets/Prefabs/Environment/Piece.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c422718e6f6ebbb4d9c23221fc72dd87
+    m_Address: Assets/Prefabs/Environment/RewardsTrigger.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1170bf26027434f4ea68cba04649ee7f
+    m_Address: Assets/Prefabs/Environment/RoomActivator.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2935e01243b43b34abf757a8f3d9234f
+    m_Address: Assets/Prefabs/Environment/RoomEndTrigger.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d624bd26c65d2244b95d0f2e0ff3811d
+    m_Address: Assets/Prefabs/Core/HUB.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1422cbd802a6b6a4da19cc049e3bbb8e
+    m_Address: Assets/Prefabs/Core/PlayerHUD.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b511678f9bfd3f64c9e683b0671896bb
+    m_Address: Assets/Prefabs/Core/ScoreData.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 10c3b613f525ad241aa22316011304e5, type: 2}
   m_SchemaSet:
