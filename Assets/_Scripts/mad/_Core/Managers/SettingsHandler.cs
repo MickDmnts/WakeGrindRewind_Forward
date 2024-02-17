@@ -127,7 +127,9 @@ namespace WGRF.Core
                 catch
                 {
                     File.Delete(SettingsFilePath);
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                     HandleSettingsFileOnConstruction(_settingsFolderPath);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 }
 
             }

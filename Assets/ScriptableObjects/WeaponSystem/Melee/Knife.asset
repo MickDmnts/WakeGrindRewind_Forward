@@ -14,14 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponName: Knife
   WeaponCategory: 1
+  WeaponType: 0
   WeaponSprite: {fileID: 1429823887, guid: 6a643eedeac2acf458c5f2c9c6525c0f, type: 3}
   weaponGrayedSprite: {fileID: -1550048570, guid: 567b575cd86c0b7489c2e5508e3330a9, type: 3}
   weaponAmmoSprite: {fileID: 0}
-  IntervalBetweenShots: 0.5
+  weaponEquipedSprite: {fileID: 0}
+  IntervalBetweenShots: 0.2
   DefaultMagazine: 9999999
-  CurrentMagazine: 9999999
   MaxBulletSpread: 0
-  gunShootSound: 0a0000000b000000
-  gunEmptySound: 0
-  WeaponType: 0
+  Damage: 35
   MinShootDistance: 2

@@ -32,6 +32,8 @@ namespace WGRF.UI
         public void UpdateWeapon()
         {
             Weapon temp = ManagerHub.S.RewardSelector.GetWeaponUpdate();
+            if (!temp) return;
+
             ManagerHub.S.PlayerController.Access<PlayerAttack>("pAttack").SetWeaponInfo(temp);
             gameObject.SetActive(false);
         }
@@ -44,18 +46,12 @@ namespace WGRF.UI
 
         public void UpdatePlayerStat()
         {
-            int rnd = Random.Range(0, 2);
+            int rnd = Random.Range(0, 20);
 
-            switch (rnd)
-            {
-                case 0:
-                    ManagerHub.S.RewardSelector.PlayerHealthUpdateReward();
-                    break;
-
-                case 1:
-                    ManagerHub.S.RewardSelector.AbilityUsesReward();
-                    break;
-            }
+            if (rnd >= 0 && rnd <= 10)
+            { ManagerHub.S.RewardSelector.PlayerHealthUpdateReward(); }
+            else
+            { ManagerHub.S.RewardSelector.AbilityUsesReward(); }
 
             gameObject.SetActive(false);
         }

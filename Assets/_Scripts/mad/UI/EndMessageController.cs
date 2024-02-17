@@ -31,7 +31,9 @@ namespace WGRF.UI
             nameField.image.color = Color.white;
             int score = ManagerHub.S.ScoreHandler.TotalScore;
             PlayerRecord record = new PlayerRecord() { Rank = ManagerHub.S.Database.GetPlayerRecordCount() + 1, Name = nameField.text, Score = score };
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             ManagerHub.S.Database.AddPlayerRecord(record);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
             ManagerHub.S.HUDHandler.CloseMessageUI();
             ManagerHub.S.HUDHandler.OpenScoreboardUI();

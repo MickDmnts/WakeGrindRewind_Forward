@@ -14,14 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponName: Baseball Bat
   WeaponCategory: 1
+  WeaponType: 1
   WeaponSprite: {fileID: -1814080960, guid: 6a643eedeac2acf458c5f2c9c6525c0f, type: 3}
   weaponGrayedSprite: {fileID: -390693600, guid: 567b575cd86c0b7489c2e5508e3330a9, type: 3}
   weaponAmmoSprite: {fileID: 0}
-  IntervalBetweenShots: 1
+  weaponEquipedSprite: {fileID: 0}
+  IntervalBetweenShots: 0.5
   DefaultMagazine: 999999999
-  CurrentMagazine: 999999999
   MaxBulletSpread: 0
-  gunShootSound: 0d0000000e000000
-  gunEmptySound: 0
-  WeaponType: 1
+  Damage: 40
   MinShootDistance: 2

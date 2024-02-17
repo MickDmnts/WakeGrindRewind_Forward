@@ -22,6 +22,5 @@ MonoBehaviour:
   IntervalBetweenShots: 1
   DefaultMagazine: 8
   MaxBulletSpread: 10
-  gunShootSound: 1e000000
-  gunEmptySound: 0
+  Damage: 60
   MinShootDistance: 6
