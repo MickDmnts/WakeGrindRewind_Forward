@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
 using WGRF.AI;
 using WGRF.Internal;
 using WGRF.UI;
@@ -95,6 +97,8 @@ namespace WGRF.Core
         public UserHUDHandler HUDHandler => _hudHandler;
         ///<summary>Returns the reference to the AI Handler</summary>
         public AIHandler AIHandler => _aiHandler;
+        ///<summary>Retuns the active post process volume</summary>
+        public Volume PostProcessVolume => GetComponentInChildren<Volume>();
 
         private void Awake()
         {

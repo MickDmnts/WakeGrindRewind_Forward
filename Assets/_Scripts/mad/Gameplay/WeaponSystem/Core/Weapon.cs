@@ -45,6 +45,7 @@ namespace WGRF.BattleSystem
         public float IntervalBetweenShots;
         public int DefaultMagazine;
         public float MaxBulletSpread;
+        public int Damage = 20;
 
         //AI-specific
         public float MinShootDistance;

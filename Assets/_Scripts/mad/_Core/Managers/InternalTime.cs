@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace WGRF.Core
@@ -21,7 +20,7 @@ namespace WGRF.Core
         TimeSpan elapsedTime;
 
         public string RoomTime => elapsedTime.ToString("hh\\:mm\\:ss");
-        //public int RoomTimeInt => Mathf.FloorToInt((float)roomTime / 1000f);
+        public int RoomTimeInt => (int)elapsedTime.TotalSeconds;
 
         ///<summary>Subscribe to this event to get notified when the time scale changes</summary>
         public event Action onTimeScaleChange;
@@ -107,18 +106,5 @@ namespace WGRF.Core
 
         public void ResetRoomTimer()
         { elapsedTime = TimeSpan.Zero; }
-
-        string ConvertMillisecondsToHMS(long milliseconds)
-        {
-            long totalSeconds = Mathf.FloorToInt(milliseconds / 1000f);
-
-            int hours = (int)(totalSeconds / 3600);
-            int minutes = (int)((totalSeconds % 3600) / 60);
-            int seconds = (int)(totalSeconds % 60);
-
-            string formattedTime = string.Format("{0:D2}:{1:D2}:{2:D2}", hours, minutes, seconds);
-
-            return formattedTime;
-        }
     }
 }

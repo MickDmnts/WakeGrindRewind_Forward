@@ -147,7 +147,7 @@ namespace WGRF.AI
         /// <summary>
         /// Call to set the enemyNodeData canShoot to false.
         /// </summary>
-        public void DisableShootingBehaviour()
+        public override void DisableShootingBehaviour()
         { ((EnemyNodeData)enemyNodeData).CanShoot = false; }
 
         /// <summary>

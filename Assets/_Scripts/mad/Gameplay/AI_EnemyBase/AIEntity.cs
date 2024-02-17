@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.PostProcessing;
 using WGRF.Core;
 
 namespace WGRF.AI
@@ -42,7 +44,7 @@ namespace WGRF.AI
         [Header("Decal on death")]
         [SerializeField] protected string bloodDecalPath;
 
-        protected bool isAgentActive;
+       protected bool isAgentActive;
 
         protected Transform attackTarget;
         protected Rigidbody enemyRB;
@@ -76,8 +78,8 @@ namespace WGRF.AI
                     }
 
                     ManagerHub.S.ScoreHandler.IncreaseRoomScoreBy(scoreIncrease);
+                    ManagerHub.S.HUDHandler.BloomOnKill();
                 }
-
 
                 isDead = value;
             }
@@ -92,5 +94,6 @@ namespace WGRF.AI
         public abstract void InitiateFallback(float range);
         public abstract void OnPlayerAbilityStart(float animatorPlaybackSpeed);
         public abstract void OnPlayerAbilityFinish();
+        public abstract void DisableShootingBehaviour();
     }
 }

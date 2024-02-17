@@ -13,7 +13,6 @@ namespace WGRF.Player
         [Header("Player specific")]
         [SerializeField] Weapon defaultWeapon;
         [SerializeField] Transform objThrowPos;
-        [SerializeField] int damage = 5;
 
         //Private variables
         Weapon currentRoomWeapon;
@@ -217,7 +216,7 @@ namespace WGRF.Player
 
                             if (interaction != null)
                             {
-                                interaction.AttackInteraction(damage);
+                                interaction.AttackInteraction(equipedWeapon.Damage);
 
                                 ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.ForcePunch);
                             }

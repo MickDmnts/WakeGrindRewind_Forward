@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using WGRF.AI;
 using WGRF.Core;
 
@@ -23,13 +24,19 @@ namespace WGRF.Interactions
         [SerializeField] float kickForce = 10;
 
         bool isLocked = false;
+        ChromaticAberration chromaticAberration;
+        float initialIntensity;
 
         void Start()
-        { isLocked = nextRoomDoor; }
-
-        void OnColliderEnter(Collision other)
         {
-            if (other.gameObject.GetComponent<AIEntity>())
+            isLocked = nextRoomDoor;
+            ManagerHub.S.PostProcessVolume.sharedProfile.TryGet<ChromaticAberration>(out chromaticAberration);
+            initialIntensity = chromaticAberration.intensity.value;
+        }
+
+        void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.GetComponentInParent<AIEntity>())
             { SimulateKnockback(other.transform.position); }
         }
 
@@ -37,6 +44,7 @@ namespace WGRF.Interactions
         {
             if (isLocked) { return; }
 
+            StartCoroutine(IncreaseChromatic());
             StartCoroutine(Throwback(incomingDir));
         }
 
@@ -57,7 +65,28 @@ namespace WGRF.Interactions
 
             yield return null;
 
-            Destroy(gameObject);
+            //Destroy(gameObject);
+        }
+
+        IEnumerator IncreaseChromatic()
+        {
+            float elapsedTime = 0f;
+            while (elapsedTime < 0.15f)
+            {
+                elapsedTime += Time.deltaTime;
+                chromaticAberration.intensity.value = Mathf.Lerp(initialIntensity, 1f, elapsedTime / 0.25f);
+                yield return null;
+            }
+
+            elapsedTime = 0f;
+            while (elapsedTime < 0.15f)
+            {
+                elapsedTime += Time.deltaTime;
+                chromaticAberration.intensity.value = Mathf.Lerp(1f, initialIntensity, elapsedTime / 0.25f);
+                yield return null;
+            }
+
+            chromaticAberration.intensity.value = initialIntensity;
         }
 
         void LateUpdate()

@@ -106,7 +106,7 @@ namespace WGRF.Abilities
                 enemy.Agent.speed = 0;
                 enemy.Agent.angularSpeed = 0;
 
-                enemy.Controller.Access<EnemyAnimations>("eAnimations").SetAnimatorPlaybackSpeed(0f);
+                //enemy.Controller.Access<EnemyAnimations>("eAnimations").SetAnimatorPlaybackSpeed(0f);
 
                 //enemy.DisableShootingBehaviour();
             }

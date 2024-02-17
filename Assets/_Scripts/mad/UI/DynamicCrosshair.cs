@@ -73,11 +73,26 @@ namespace WGRF.UI
         /// </summary>
         void FollowMousePos()
         {
-            Vector3 mousePos = uiCamera.ScreenToWorldPoint(Input.mousePosition);
+            /* Vector3 mousePos = uiCamera.ScreenToWorldPoint(Input.mousePosition);
 
             mousePos.Set(mousePos.x, mousePos.y, 0f);
 
-            mousePanel.position = mousePos;
+            mousePanel.position = mousePos; */
+            // Get the position of the mouse cursor in screen coordinates
+            Vector3 mousePosition = Input.mousePosition;
+
+            // Convert the screen coordinates to world coordinates
+            Vector3 worldPosition = uiCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, uiCamera.nearClipPlane));
+
+            // Convert the world coordinates to canvas coordinates
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                mousePanel.parent as RectTransform,
+                worldPosition,
+                uiCamera,
+                out Vector2 localPoint);
+
+            // Set the position of the crosshair panel to the converted canvas coordinates
+            mousePanel.localPosition = localPoint;
         }
 
         private void OnDestroy()

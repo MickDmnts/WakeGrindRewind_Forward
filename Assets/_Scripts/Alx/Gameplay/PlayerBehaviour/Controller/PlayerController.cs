@@ -127,7 +127,7 @@ namespace WGRF.Player
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if(Physics.Raycast(ray.origin, ray.direction, out hit))
+            if(Physics.Raycast(ray.origin, ray.direction, out hit, 1000, 9))
             {
                 Vector3 dir = hit.point - transform.position;
                 float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;

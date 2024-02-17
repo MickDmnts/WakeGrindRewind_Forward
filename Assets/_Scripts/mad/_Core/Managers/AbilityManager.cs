@@ -254,7 +254,20 @@ namespace WGRF.Core
             ManagerHub.S.HUDHandler.SetAbilityUses(totalAbilitiesPerRoom);
             return totalAbilitiesPerRoom;
         }
-
-        public Sprite NextAbilitySprite(int idx) => abilities[idx].AbilitySprite;
+        
+        /// <summary>
+        /// Returns the next ability sprite by index
+        /// </summary>
+        /// <param name="idx">The ability index</param>
+        public Sprite NextAbilitySprite(int idx) => abilities[Math.Clamp(idx, 0, abilities.Count - 1)].AbilitySprite;
+        
+        /// <summary>
+        /// Resets the ability uses
+        /// </summary>
+        public void ResetAbilities()
+        {
+            for (int i = 0; i < abilities.Count; i++)
+            { abilities[i].ResetAbilityUses(); }
+        }
     }
 }

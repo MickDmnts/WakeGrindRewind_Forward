@@ -1,7 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 using WGRF.Abilities;
@@ -41,11 +44,22 @@ namespace WGRF.UI
         [Header("Pause UI")]
         [SerializeField] GameObject pausePanel;
 
+        Volume postProcessVolume;
+        Bloom bloom;
+        float initialIntensity;
+
         void Awake()
         {
             ManagerHub.S.AttackHudHandler(this);
             updatesPanel.SetActive(false);
             CloseScoreUI();
+        }
+
+        void Start()
+        {
+            postProcessVolume = ManagerHub.S.PostProcessVolume;
+            postProcessVolume.sharedProfile.TryGet<Bloom>(out bloom);
+            initialIntensity = bloom.intensity.value;
         }
 
         /// <summary>
@@ -131,6 +145,30 @@ namespace WGRF.UI
         public void CloseMessageUI()
         { messagePanel.SetActive(false); }
 
+        public void BloomOnKill()
+        { StartCoroutine(ChangeBloomIntensity()); }
+
+        IEnumerator ChangeBloomIntensity()
+        {
+            float elapsedTime = 0f;
+            while (elapsedTime < 0.15f)
+            {
+                elapsedTime += Time.deltaTime;
+                bloom.intensity.value = Mathf.Lerp(initialIntensity, initialIntensity * 5f, elapsedTime / 0.25f);
+                yield return null;
+            }
+
+            elapsedTime = 0f;
+            while (elapsedTime < 0.15f)
+            {
+                elapsedTime += Time.deltaTime;
+                bloom.intensity.value = Mathf.Lerp(initialIntensity * 5f, initialIntensity, elapsedTime / 0.25f);
+                yield return null;
+            }
+
+            bloom.intensity.value = initialIntensity;
+        }
+
         void Update()
         {
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
@@ -159,6 +197,17 @@ namespace WGRF.UI
         }
 
         public void LoadMenu()
-        { ManagerHub.S.StageHandler.LoadFromBoot(); }
+        {
+            ManagerHub.S.SetGameState(GameState.Running);
+            ManagerHub.S.InternalTime.ChangeTimeScale(1f);
+
+            ManagerHub.S.GameSoundsHandler.ForceOSTVolume(1f);
+            ManagerHub.S.StageHandler.LoadFromBoot();
+            ManagerHub.S.RewardSelector.ResetRewards();
+            ManagerHub.S.ScoreHandler.ResetTotalScore();
+            ManagerHub.S.ScoreHandler.ResetRoomScore();
+            ManagerHub.S.InternalTime.ResetRoomTimer();
+            ManagerHub.S.AbilityManager.ResetAbilities();
+        }
     }
 }

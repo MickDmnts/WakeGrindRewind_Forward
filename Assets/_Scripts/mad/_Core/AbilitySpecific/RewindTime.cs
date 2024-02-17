@@ -123,14 +123,14 @@ namespace WGRF.Abilities
         void AbilitySpecificActions()
         {
             int ar = ManagerHub.S.ActiveRoom;
-            foreach (EnemyEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
+            foreach (AIEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
             {
                 if (enemy == null) continue;
 
                 enemy.Agent.speed = 0;
                 enemy.Agent.angularSpeed = 0;
 
-                enemy.Controller.Access<EnemyAnimations>("eAnimations").SetAnimatorPlaybackSpeed(0f);
+                //enemy.Controller.Access<AIEntityAnimations>("eAnimations").SetAnimatorPlaybackSpeed(0f);
 
                 enemy.DisableShootingBehaviour();
             }
@@ -149,7 +149,7 @@ namespace WGRF.Abilities
             Rewinder.ResetRewinderBehaviour();
 
             int ar = ManagerHub.S.ActiveRoom;
-            foreach (EnemyEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
+            foreach (AIEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
             {
                 if (enemy == null) continue;
 

@@ -156,6 +156,11 @@ namespace WGRF.AI
         public override void OnPlayerAbilityFinish()
         { Controller.Access<EnforcerAnimations>("eAnimations").SetAnimatorPlaybackSpeed(1f); }
 
+        public override void DisableShootingBehaviour()
+        {
+            //nop...
+        }
+
         /// <summary>
         /// Call to initiate the new position searching and agent moving to it.
         /// </summary>

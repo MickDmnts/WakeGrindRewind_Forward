@@ -30,22 +30,41 @@ namespace WGRF.UI
 
         IEnumerator ShowTexts()
         {
-            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitForSecondsRealtime(0.5f);
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Pistol);
             killsText.gameObject.SetActive(true);
             killsText.SetText($"Kills x {ManagerHub.S.AIHandler.GetRoomAgentCount(ManagerHub.S.ActiveRoom)}");
-            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitForSecondsRealtime(0.5f);
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Pistol);
             timeText.gameObject.SetActive(true);
             timeText.SetText($"Time - {ManagerHub.S.InternalTime.RoomTime}");
-            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitForSecondsRealtime(0.5f);
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Pistol);
             currentScoreTxt.gameObject.SetActive(true);
             currentScoreTxt.SetText("Room Score: " + ManagerHub.S.ScoreHandler.CurrentScore.ToString());
-            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitForSecondsRealtime(0.5f);
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Pistol);
             totalScoreTxt.gameObject.SetActive(true);
             totalScoreTxt.SetText("Total Score: " + ManagerHub.S.ScoreHandler.TotalScore.ToString());
+            yield return new WaitForSecondsRealtime(0.5f);
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Pistol);
+
+            int timeScore = ManagerHub.S.InternalTime.RoomTimeInt;
+            timeText.SetText($"Time - 00:00:00");
+            while (timeScore >= 1)
+            {
+                timeScore -= 1;
+
+                ManagerHub.S.ScoreHandler.DecreaseRoomScoreBy(1);
+
+                currentScoreTxt.SetText("Room Score: " + ManagerHub.S.ScoreHandler.CurrentScore.ToString());
+
+                yield return new WaitForSecondsRealtime(0.001f);
+            }
+
             yield return new WaitForSecondsRealtime(1f);
 
             int roomScore = ManagerHub.S.ScoreHandler.CurrentScore;
-
             while (roomScore >= 1)
             {
                 roomScore -= 1;
