@@ -49,6 +49,7 @@ namespace WGRF.UI
             closeBtn.interactable = false;
             startTxt.SetText("Loading...");
             ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.FlipLoad);
+            ManagerHub.S.GameSoundsHandler.StopMenu();
 
             yield return new WaitForSeconds(3f);
 
