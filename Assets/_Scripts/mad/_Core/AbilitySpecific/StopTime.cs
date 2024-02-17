@@ -141,7 +141,7 @@ namespace WGRF.Abilities
             onAbilityFinishCallback();
 
             int ar = ManagerHub.S.ActiveRoom;
-            foreach (EnemyEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
+            foreach (AIEntity enemy in ManagerHub.S.AIHandler.GetRoomAgents(ar))
             {
                 if (enemy == null) continue;
 
