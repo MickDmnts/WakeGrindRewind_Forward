@@ -25,9 +25,7 @@ namespace WGRF.UI
         }
 
         void OnDisable()
-        {
-            ManagerHub.S.InternalTime.ChangeTimeScale(1f);
-        }
+        { ManagerHub.S.InternalTime.ChangeTimeScale(1f); }
 
         public void UpdateWeapon()
         {

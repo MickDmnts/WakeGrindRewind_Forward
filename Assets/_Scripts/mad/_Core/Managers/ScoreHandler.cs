@@ -39,7 +39,10 @@ namespace WGRF.Core
         /// </summary>
         /// <param name="value">The value to decrease the score by</param>
         public void DecreaseRoomScoreBy(int value)
-        { currentScore -= value; }
+        {
+            currentScore -= value;
+            OnRoomScoreUpdated(currentScore);
+        }
 
         /// <summary>
         /// Increases the total score by the passed value
