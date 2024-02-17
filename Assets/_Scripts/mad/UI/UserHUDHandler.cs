@@ -204,6 +204,8 @@ namespace WGRF.UI
         ///<summary>Toggles the state of the pause menu</summary>
         public void TogglePauseMenu()
         {
+            if (otherPanelOpen) { return; }
+
             pausePanel.SetActive(!pausePanel.activeSelf);
 
             if (!pausePanel.activeInHierarchy)
