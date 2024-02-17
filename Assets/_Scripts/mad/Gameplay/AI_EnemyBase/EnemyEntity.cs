@@ -204,7 +204,8 @@ namespace WGRF.AI
             if (possiblePos == Vector3.zero)
             { possiblePos = transform.position; }
 
-            //Continue to jump sequence when position sampling gets finished
+            //Continue to new location
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Fart);
             Agent.SetDestination(possiblePos);
             StopAllCoroutines();
         }

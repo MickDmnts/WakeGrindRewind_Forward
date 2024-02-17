@@ -172,6 +172,18 @@ MonoBehaviour:
   - gameAudioClip: 26
     clips:
     - {fileID: 8300000, guid: 865b24e0d5b0fc74e9922edf60be6699, type: 3}
+  - gameAudioClip: 27
+    clips:
+    - {fileID: 8300000, guid: d0812e6430c965347812246a0289602c, type: 3}
+  - gameAudioClip: 28
+    clips:
+    - {fileID: 8300000, guid: 228bd22be19f7fc4f92767c27e3c87de, type: 3}
+  - gameAudioClip: 29
+    clips:
+    - {fileID: 8300000, guid: 67b1907b48fced24685d6c4a53e580b7, type: 3}
+  - gameAudioClip: 30
+    clips:
+    - {fileID: 8300000, guid: e6b8dba68d8ee0f40a018c3ee3b47670, type: 3}
 --- !u!114 &2618696383725250960
 MonoBehaviour:
   m_ObjectHideFlags: 0

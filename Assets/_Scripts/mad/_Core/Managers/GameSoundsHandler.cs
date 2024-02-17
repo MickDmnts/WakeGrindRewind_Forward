@@ -33,7 +33,11 @@ namespace WGRF.Core
         Hub,
         ElevatorRing,
         Reloading,
-        ForcePunch
+        ForcePunch,
+        Fart,
+        Click,
+        Bootup,
+        FlipLoad
     }
 
     [Serializable]
@@ -237,6 +241,10 @@ namespace WGRF.Core
             ostSource.loop = true;
             ostSource.Play();
         }
+
+        ///<summary>Plays the gameplay loop</summary>
+        public void StopMenu()
+        { ostSource.Stop(); }
 
         ///<summary>Plays the gameplay loop</summary>
         public void PlayHubSFX()
