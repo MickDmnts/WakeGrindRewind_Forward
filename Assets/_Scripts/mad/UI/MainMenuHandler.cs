@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,20 +13,28 @@ namespace WGRF.UI
     /// </summary>
     public class MainMenuHandler : MonoBehaviour
     {
-        ///<summary>Main menu panel</summary>
-        [SerializeField, Tooltip("Main menu panel")] GameObject mmPanel;
+        ///<summary>WGRF: Main menu panel</summary>
+        [SerializeField, Tooltip("Main menu panel")] GameObject wgrfMmPanel;
+        ///<summary>WGR Main menu panel</summary>
+        [SerializeField, Tooltip("Main menu panel")] GameObject wgrMmPanel;
         ///<summary>Settings menu panel</summary>
         [SerializeField, Tooltip("Settings menu panel")] GameObject settingsPanel;
         ///<summary>Shutdown menu panel</summary>
         [SerializeField, Tooltip("Shutdown menu panel")] GameObject shutdownPanel;
         ///<summary>The start game button</summary>
         [SerializeField, Tooltip("The start game button")] Button startBtn;
+        ///<summary>The WGR start game button</summary>
+        [SerializeField, Tooltip("The WGR start game button")] Button wgrStartBtn;
         ///<summary>The settings button</summary>
         [SerializeField, Tooltip("The settings button")] Button settingsBtn;
         ///<summary>The close button</summary>
         [SerializeField, Tooltip("The close button")] Button closeBtn;
+        ///<summary>The WGR close button</summary>
+        [SerializeField, Tooltip("The WGR close button")] Button wgrCloseBtn;
         ///<summary>The start button text</summary>
         [SerializeField, Tooltip("The start button text")] TextMeshProUGUI startTxt;
+        ///<summary>The WGR start button text</summary>
+        [SerializeField, Tooltip("The WGR start button text")] TextMeshProUGUI wgrStartTxt;
 
         ///<summary>Stores the ui controllers of the main menu</summary>
         IUIController[] uiControllers;
@@ -33,14 +42,15 @@ namespace WGRF.UI
         void Start()
         {
             shutdownPanel.SetActive(false);
-            mmPanel.SetActive(false);
+            wgrfMmPanel.SetActive(false);
+            wgrMmPanel.SetActive(false);
             settingsPanel.SetActive(false);
             ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Bootup);
             ManagerHub.S.GameSoundsHandler.StopMenu();
         }
 
-        ///<summary>Loads the run scene</summary>
-        public void StartGame()
+        ///<summary>Loads the WGRF run scene</summary>
+        public void StartWGRF()
         { StartCoroutine(StartGameRoutine()); }
 
         ///<summary>Starst the game after a small placebo interval</summary>
@@ -56,6 +66,25 @@ namespace WGRF.UI
             yield return new WaitForSeconds(3f);
 
             ManagerHub.S.StageHandler.LoadRun();
+        }
+
+        ///<summary>Loads the WGR game</summary>
+        public void StartWGR()
+        { StartCoroutine(StartWGRApp()); }
+
+        IEnumerator StartWGRApp()
+        {
+            wgrStartBtn.interactable = false;
+            wgrCloseBtn.interactable = false;
+            wgrStartTxt.SetText("Loading...");
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.FlipLoad);
+            ManagerHub.S.GameSoundsHandler.StopMenu();
+
+            yield return new WaitForSeconds(3f);
+
+            Process.Start(ManagerHub.S.Globals.LegacyExecutable);
+
+            ExitGame();
         }
 
         ///<summary>Updates and writes the configurated settings from the settings panel</summary>
@@ -84,11 +113,25 @@ namespace WGRF.UI
         }
 
         ///<summary>Toggles the MM panel ON/OFF</summary>
-        public void ToggleMMPanel()
+        public void ToggleWGRFMMPanel()
         {
-            mmPanel.SetActive(!mmPanel.activeSelf);
+            wgrfMmPanel.SetActive(!wgrfMmPanel.activeSelf);
 
-            if (mmPanel.activeSelf)
+            if (wgrfMmPanel.activeSelf)
+            { ManagerHub.S.GameSoundsHandler.PlayMenu(); }
+            else
+            {
+                ManagerHub.S.GameSoundsHandler.StopMenu();
+                ManagerHub.S.CursorHandler.SetMouseSprite(MouseSprite.Cursor);
+            }
+        }
+
+        ///<summary>Toggles the MM panel ON/OFF</summary>
+        public void ToggleWGRMMPanel()
+        {
+            wgrMmPanel.SetActive(!wgrMmPanel.activeSelf);
+
+            if (wgrMmPanel.activeSelf)
             { ManagerHub.S.GameSoundsHandler.PlayMenu(); }
             else
             {
