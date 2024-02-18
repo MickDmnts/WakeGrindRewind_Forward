@@ -355,9 +355,6 @@ MonoBehaviour:
   - {fileID: 5323082862355549291}
   - {fileID: 6500972846808952587}
   - {fileID: 9147108920602299384}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &8354939839914514700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,8 +537,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 17408
   firePoint: {fileID: 6015199087523189644}
-  bulletSpreadRate: 0
-  accuracyIncreaseRate: 0
+  bulletSpreadRate: 0.494
+  accuracyIncreaseRate: 0.882
   equipedWeapon: {fileID: 0}
   defaultWeapon: {fileID: 11400000, guid: 8652a4471703e164d959c7f510a68ea2, type: 2}
   objThrowPos: {fileID: 0}
