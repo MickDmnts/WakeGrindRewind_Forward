@@ -23,4 +23,4 @@ MonoBehaviour:
   DefaultMagazine: 8
   MaxBulletSpread: 10
   Damage: 60
-  MinShootDistance: 6
+  MinShootDistance: 3

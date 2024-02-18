@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponName: MP5
   WeaponCategory: 2
+  WeaponType: 4
   WeaponSprite: {fileID: 1260317138, guid: 6a643eedeac2acf458c5f2c9c6525c0f, type: 3}
   weaponGrayedSprite: {fileID: -665433161, guid: 567b575cd86c0b7489c2e5508e3330a9, type: 3}
   weaponAmmoSprite: {fileID: 21300000, guid: 5a330e3052fef764aba10188841eb381, type: 3}
@@ -21,7 +22,5 @@ MonoBehaviour:
   IntervalBetweenShots: 0.1
   DefaultMagazine: 32
   MaxBulletSpread: 5
-  gunShootSound: 1d000000
-  gunEmptySound: 0
-  WeaponType: 4
-  MinShootDistance: 10
+  Damage: 20
+  MinShootDistance: 5
