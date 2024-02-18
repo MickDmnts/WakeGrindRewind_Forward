@@ -5,27 +5,37 @@ using WGRF.Core;
 
 namespace WGRF.Player
 {
+    /// <summary>
+    /// The player input controller
+    /// </summary>
     public class PlayerController : CoreBehaviour
     {
+        ///<summary>The player speed</summary>
         [Header("Set in inspector")]
-        [SerializeField] float speed;
-        [SerializeField] float dashSpeed = 30f;
-        [SerializeField] TrailRenderer[] dashLines;
-        [SerializeField] LayerMask layerMask;
+        [SerializeField, Tooltip("The player speed")] float speed;
+        ///<summary>The player dash speed</summary>
+        [SerializeField, Tooltip("The player dash speed")] float dashSpeed = 30f;
+        ///<summary>The player dash lines</summary>
+        [SerializeField, Tooltip("The player dash lines")] TrailRenderer[] dashLines;
 
+        ///<summary>Is the controller active?</summary>
         bool controllerIsActive = false;
-
+        ///<summary>The player rigidbody</summary>
         Rigidbody playerRB;
+        ///<summary>The mouse position</summary>
         Vector3 mousePos;
-
-        private PlayerInput playerInput = null;
+        ///<summary>The player input instance</summary>
+        PlayerInput playerInput = null;
+        ///<summary>The player movement direction</summary>
         Vector3 movementVector = Vector3.zero;
-
-        //Dash specific
+        ///<summary>Is the player dashing?</summary>
         bool isDashing;
+        ///<summary>The dash direction</summary>
         Vector3 dashDir;
+        ///<summary>The cached move direction of the player</summary>
         Vector3 lastMoveDir;
 
+        ///<summary>Returns the player inputs instance</summary>
         public PlayerInput PlayerInput => playerInput;
 
         protected override void PreAwake()
@@ -42,6 +52,7 @@ namespace WGRF.Player
             SetInputEvents();
         }
 
+        ///<summary>Registers the movement input events</summary>
         void SetInputEvents()
         {
             playerInput.Player.Movement.performed += OnMovementPerformed;
@@ -55,6 +66,10 @@ namespace WGRF.Player
         private void OnDisable()
         { playerInput.Disable(); }
 
+        /// <summary>
+        /// Sets the controller active state
+        /// </summary>
+        /// <param name="value">The new state</param>
         void SetControllerIsActive(bool value)
         { controllerIsActive = value; }
 
@@ -127,7 +142,7 @@ namespace WGRF.Player
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if(Physics.Raycast(ray.origin, ray.direction, out hit, 1000, 9))
+            if (Physics.Raycast(ray.origin, ray.direction, out hit, 1000, 9))
             {
                 Vector3 dir = hit.point - transform.position;
                 float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;

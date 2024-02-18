@@ -6,6 +6,9 @@ using WGRF.Core;
 
 namespace WGRF.Player
 {
+    /// <summary>
+    /// The main player entity handler
+    /// </summary>
     [DefaultExecutionOrder(150)]
     public class PlayerEntity : Entity, IRewindable
     {
@@ -79,6 +82,7 @@ namespace WGRF.Player
             }
         }
 
+        ///<summary>Briefly turns the player sprite red</summary>
         IEnumerator TurnRed()
         {
             spriteRenderer.color = Color.red;
@@ -104,13 +108,6 @@ namespace WGRF.Player
 
             yield return null;
         }
-
-        /// <summary>
-        /// Subscribed to the onPlayerSpawn event to move the player on the currently loaded scenes' spawn point
-        /// when it loads.
-        /// </summary>
-        void MoveToSpawnPoint(Vector3 spawnPoint)
-        { transform.position = spawnPoint; }
 
         /// <summary>
         /// Call to get the current position of the player.

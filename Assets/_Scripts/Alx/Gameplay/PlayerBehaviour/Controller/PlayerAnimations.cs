@@ -5,14 +5,15 @@ using WGRF.Core;
 
 namespace WGRF.Player
 {
+    /// <summary>
+    /// The main player animations handler
+    /// </summary>
     public class PlayerAnimations : CoreBehaviour
     {
         ///<summary>Cache for the player animator</summary>
         Animator playerAnimator;
 
-        /// <summary>
-        /// Call to get a player animator reference.
-        /// </summary>
+        ///<summary>Call to get a player animator reference.</summary>
         public Animator Animator => playerAnimator;
 
         protected override void PreAwake()

@@ -6,19 +6,27 @@ using WGRF.Interactions;
 
 namespace WGRF.Player
 {
+    /// <summary>
+    /// The player kick handler
+    /// </summary>
     public class PlayerKick : CoreBehaviour
     {
+        ///<summary>The max distance of the kick ray</summary>
         [Header("Set in inspector")]
-        [SerializeField] float maxDistance;
+        [SerializeField, Tooltip("The max distance of the kick ray")] float maxDistance;
 
-        //External use
-        public bool IsKicking { get; set; }
+        ///<summary>Is the player kicking?</summary>
+        bool isKicking = false;
 
-        #region PRIVATE_VARIABLES
+        ///<summary>Is the player kicking?</summary>
+        public bool IsKicking { get => isKicking; private set => isKicking = value; }
+
+        ///<summary>The object to kick</summary>
         IKickable objToKick;
+        ///<summary>Is the kick enabled?</summary>
         bool isKickEnabled = false;
+        ///<summary>The cached kick cooldown</summary>
         float kickCooldown;
-        #endregion
 
         protected override void PreAwake()
         {
@@ -62,7 +70,6 @@ namespace WGRF.Player
             return true;
         }
 
-        #region KICK_SEQUENCE
         /// <summary>
         /// Call to play the kicking animation and cast a ray forward.
         /// <para>Call IsKickable(...) with the passed hit info.</para>
@@ -100,7 +107,6 @@ namespace WGRF.Player
         /// <returns>Null if none of the above apply.</returns>
         private IKickable IsKickable(RaycastHit hit)
         { return hit.transform.GetComponent<IKickable>(); }
-        #endregion
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()
