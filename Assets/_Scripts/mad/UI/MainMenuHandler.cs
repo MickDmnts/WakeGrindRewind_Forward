@@ -40,6 +40,7 @@ namespace WGRF.UI
         public void StartGame()
         { StartCoroutine(StartGameRoutine()); }
 
+        ///<summary>Starst the game after a small placebo interval</summary>
         IEnumerator StartGameRoutine()
         {
             startBtn.interactable = false;
@@ -73,7 +74,11 @@ namespace WGRF.UI
 
         ///<summary>Toggles the Shutdown panel ON/OFF</summary>
         public void ToggleShutdownPanel()
-        { shutdownPanel.SetActive(!shutdownPanel.activeSelf); }
+        {
+            shutdownPanel.SetActive(!shutdownPanel.activeSelf);
+            if (!shutdownPanel.activeSelf)
+            { ManagerHub.S.CursorHandler.SetMouseSprite(MouseSprite.Cursor); }
+        }
 
         ///<summary>Toggles the MM panel ON/OFF</summary>
         public void ToggleMMPanel()
@@ -83,7 +88,10 @@ namespace WGRF.UI
             if (mmPanel.activeSelf)
             { ManagerHub.S.GameSoundsHandler.PlayMenu(); }
             else
-            { ManagerHub.S.GameSoundsHandler.StopMenu(); }
+            {
+                ManagerHub.S.GameSoundsHandler.StopMenu();
+                ManagerHub.S.CursorHandler.SetMouseSprite(MouseSprite.Cursor);
+            }
         }
 
         ///<summary>Plays the mouse click sound</summary>
@@ -92,7 +100,11 @@ namespace WGRF.UI
 
         ///<summary>Toggles the settings panel ON/OFF</summary>
         public void ToggleSettingsPanel()
-        { settingsPanel.SetActive(!settingsPanel.activeSelf); }
+        {
+            settingsPanel.SetActive(!settingsPanel.activeSelf);
+            if (!settingsPanel.activeSelf)
+            { ManagerHub.S.CursorHandler.SetMouseSprite(MouseSprite.Cursor); }
+        }
 
         ///<summary>Quits the application</summary>
         public void ExitGame()

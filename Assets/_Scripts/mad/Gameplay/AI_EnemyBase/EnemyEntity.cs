@@ -15,6 +15,8 @@ namespace WGRF.AI
         EnemyBTHandler btHandler;
         ///<summary>The player sprite renderer</summary>
         SpriteRenderer spriteRenderer;
+        ///<summary>The default sprite color</summary>
+        Color spriteColorCache;
 
         ///<summary>Returns the target of this agent.</summary>
         public Transform Target => attackTarget;
@@ -43,6 +45,7 @@ namespace WGRF.AI
             agent = GetComponent<NavMeshAgent>();
             enemyRB = GetComponent<Rigidbody>();
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            spriteColorCache = spriteRenderer.color;
         }
 
         private void Start()
@@ -88,11 +91,12 @@ namespace WGRF.AI
             }
         }
 
+        ///<summary>Briefly turns the entity sprite red</summary>
         IEnumerator TurnRed()
         {
             spriteRenderer.color = Color.red;
             yield return new WaitForSecondsRealtime(0.5f);
-            spriteRenderer.color = Color.white;
+            spriteRenderer.color = spriteColorCache;
         }
 
         /// <summary>

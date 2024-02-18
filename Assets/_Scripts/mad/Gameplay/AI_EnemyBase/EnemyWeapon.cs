@@ -228,6 +228,22 @@ namespace WGRF.AI
             projectilesPerShot--;
             if (projectilesPerShot <= 0)
             { onCooldown = true; }
+
+            GameAudioClip sfx = (GameAudioClip)(-1);
+            switch (equipedWeapon.WeaponType)
+            {
+                case WeaponType.Pistol:
+                    sfx = GameAudioClip.Pistol;
+                    break;
+                case WeaponType.SemiAutomatic:
+                    sfx = GameAudioClip.Uzi;
+                    break;
+                case WeaponType.Shotgun:
+                    sfx = GameAudioClip.Shotgun;
+                    break;
+            }
+
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(sfx);
         }
 
         /// <summary>

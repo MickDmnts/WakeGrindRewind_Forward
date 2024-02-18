@@ -19,12 +19,12 @@ namespace WGRF.Core
         [Range(10, 50)] int maxHealthUpdate;
 
         ///<summary>Weapon rewards cache for reseting</summary>
-        Weapon[] weaponRewardsCache;
+        List<Weapon> weaponRewardsCache;
 
         protected override void PreAwake()
         {
-            weaponRewardsCache = new Weapon[weaponRewards.Count];
-            weaponRewards.CopyTo(weaponRewardsCache);
+            weaponRewardsCache = new List<Weapon>();
+            weaponRewardsCache = weaponRewards.ToList<Weapon>();
         }
 
         ///<summary>Call to increase the ability uses per room as a reward</summary>
@@ -66,9 +66,18 @@ namespace WGRF.Core
         }
 
         /// <summary>
+        /// Returns true if there are other weapon rewards left. false otherwise
+        /// </summary>
+        public bool HasWeaponReward()
+        { return weaponRewards.Count > 0; }
+
+        /// <summary>
         /// Resets the rewards handler
         /// </summary>
         public void ResetRewards()
-        { weaponRewards = weaponRewardsCache.ToList<Weapon>(); }
+        {
+            weaponRewards = new List<Weapon>();
+            weaponRewards = weaponRewardsCache;
+        }
     }
 }

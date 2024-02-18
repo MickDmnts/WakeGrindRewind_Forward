@@ -1,13 +1,16 @@
-using UnityEditor;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.PostProcessing;
-using WGRF.AI;
+
 using WGRF.Internal;
+using WGRF.AI;
 using WGRF.UI;
 
 namespace WGRF.Core
-{
+{   
+    /// <summary>
+    /// The available game states
+    /// </summary>
     public enum GameState
     {
         Running,
@@ -26,6 +29,9 @@ namespace WGRF.Core
         ///<summary>Toggle to not load the game stages normally</summary>
         [SerializeField, Tooltip("Toggle to not load the game stages normally")]
         bool loadFromBoot;
+        ///<summary>The mouse sprite pairs</summary>
+        [SerializeField, Tooltip("The mouse sprite pairs")]
+        MouseSpritePair[] mouseSpritePairs;
 
         ///<summary>The room the player is currently in</summary>
         EnemyRoom activeRoom;
@@ -117,7 +123,7 @@ namespace WGRF.Core
             _globals = new AppInternal();
             _database = new Database();
             _settingsHandler = new SettingsHandler();
-            _cursorHandler = new CursorHandler();
+            _cursorHandler = new CursorHandler(mouseSpritePairs);
 #if !UNITY_EDITOR
             _stageHandler = new StageHandler();
 #else
@@ -160,6 +166,6 @@ namespace WGRF.Core
         /// </summary>
         /// <param name="state">The new state</param>
         public void SetGameState(GameState state)
-        {gameState = state;}
+        { gameState = state; }
     }
 }

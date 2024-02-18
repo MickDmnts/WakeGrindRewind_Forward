@@ -131,6 +131,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4469987772911589703, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
+      propertyPath: mouseSpritePairs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469987772911589703, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
+      propertyPath: mouseSpritePairs.Array.data[1].MouseSprite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469987772911589703, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
+      propertyPath: mouseSpritePairs.Array.data[2].MouseSprite
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469987772911589703, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
+      propertyPath: mouseSpritePairs.Array.data[0].MouseTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: f797149e20f33e744ba156f37caf02ab, type: 3}
+    - target: {fileID: 4469987772911589703, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
+      propertyPath: mouseSpritePairs.Array.data[1].MouseTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 4eed3dbeb5c9358439ffd6fa1995555d, type: 3}
+    - target: {fileID: 4469987772911589703, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
+      propertyPath: mouseSpritePairs.Array.data[2].MouseTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 28fad8e6975c0a840a098181e01588a0, type: 3}
     - target: {fileID: 4564756271911385196, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

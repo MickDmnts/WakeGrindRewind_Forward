@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1016518531313734829}
   - component: {fileID: 1278749204830336227}
   - component: {fileID: 4271186908760477156}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoomActivator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

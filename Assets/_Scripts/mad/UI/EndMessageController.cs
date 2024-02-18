@@ -38,8 +38,5 @@ namespace WGRF.UI
             ManagerHub.S.HUDHandler.CloseMessageUI();
             ManagerHub.S.HUDHandler.OpenScoreboardUI();
         }
-
-        public void LoadMenu()
-        { ManagerHub.S.StageHandler.LoadFromBoot(); }
     }
 }

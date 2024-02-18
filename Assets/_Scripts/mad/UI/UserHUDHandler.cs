@@ -13,40 +13,59 @@ using WGRF.Core;
 using WGRF.Player;
 
 namespace WGRF.UI
-{
+{   
+    /// <summary>
+    /// The Head Up Display handler of the game (Player specific)
+    /// </summary>
     public class UserHUDHandler : MonoBehaviour
     {
+        ///<summary>All ability icons</summary>
         [Header("Set in inspector - User Info Panels\n")]
-        [SerializeField] List<Sprite> allAbilityIcons;
-        [SerializeField] Image abilityIconOuter;
-        [SerializeField] Image abilityIconInner;
-        [SerializeField] TextMeshProUGUI abilityUses;
+        [SerializeField, Tooltip("All ability icons")] List<Sprite> allAbilityIcons;
+        ///<summary>Outer layer of the ability icons</summary>
+        [SerializeField, Tooltip("Outer layer of the ability icons")] Image abilityIconOuter;
+        ///<summary>Inner layer of the ability icons</summary>
+        [SerializeField, Tooltip("Inner layer of the ability icons")] Image abilityIconInner;
+        ///<summary>The ability uses text</summary>
+        [SerializeField, Tooltip("The ability uses text")] TextMeshProUGUI abilityUses;
 
+        ///<summary>The remaining health slider</summary>
         [Header("Player info")]
-        [SerializeField] Slider remainingHealth;
+        [SerializeField, Tooltip("The remaining health slider")] Slider remainingHealth;
 
+        ///<summary>The weapon name text</summary>
         [Header("Weapon info")]
-        [SerializeField] TextMeshProUGUI weaponName;
-        [SerializeField] Slider remainingBullets;
+        [SerializeField, Tooltip("The weapon name text")] TextMeshProUGUI weaponName;
+        ///<summary>The remaining bullets slider</summary>
+        [SerializeField, Tooltip("The remaining bullets slider")] Slider remainingBullets;
 
+        ///<summary>The score HUD panel</summary>
         [Header("Score UI")]
-        [SerializeField] GameObject scorePanel;
+        [SerializeField, Tooltip("The score HUD panel")] GameObject scorePanel;
 
+        ///<summary>The updates HUD panel</summary>
         [Header("Updates UI")]
-        [SerializeField] GameObject updatesPanel;
+        [SerializeField, Tooltip("The updates HUD panel")] GameObject updatesPanel;
 
+        ///<summary>The scoreboard HUD panel</summary>
         [Header("Scoreboard UI")]
-        [SerializeField] GameObject scoreboardPanel;
+        [SerializeField, Tooltip("The scoreboard HUD panel")] GameObject scoreboardPanel;
 
+        ///<summary>The message HUD panel</summary>
         [Header("Message UI")]
-        [SerializeField] GameObject messagePanel;
+        [SerializeField, Tooltip("The message HUD panel")] GameObject messagePanel;
 
+        ///<summary>The pause HUD panel</summary>
         [Header("Pause UI")]
-        [SerializeField] GameObject pausePanel;
+        [SerializeField, Tooltip("The pause HUD panel")] GameObject pausePanel;
 
+        ///<summary>The active global volume</summary>
         Volume postProcessVolume;
+        ///<summary>The bloom post process effect</summary>
         Bloom bloom;
+        ///<summary>Initial bloom intensity</summary>
         float initialIntensity;
+        ///<summary>Is an other panel open right now?</summary>
         bool otherPanelOpen = false;
 
         void Awake()
@@ -120,6 +139,7 @@ namespace WGRF.UI
         {
             SetIsOtherPanelOpen(true);
             scorePanel.SetActive(true);
+            ManagerHub.S.CursorHandler.SetMouseSprite(MouseSprite.Cursor);
         }
 
         ///<summary>Opens the update UI</summary>
@@ -127,6 +147,7 @@ namespace WGRF.UI
         {
             SetIsOtherPanelOpen(true);
             updatesPanel.SetActive(true);
+            ManagerHub.S.CursorHandler.SetMouseSprite(MouseSprite.Cursor);
         }
 
         ///<summary>Opens the scoreboard UI</summary>
@@ -134,6 +155,7 @@ namespace WGRF.UI
         {
             SetIsOtherPanelOpen(true);
             scoreboardPanel.SetActive(true);
+            ManagerHub.S.CursorHandler.SetMouseSprite(MouseSprite.Cursor);
         }
 
         ///<summary>Opens the scoreboard UI</summary>
@@ -142,6 +164,7 @@ namespace WGRF.UI
             SetIsOtherPanelOpen(true);
             messagePanel.GetComponent<EndMessageController>().SetMessageText(msg);
             messagePanel.SetActive(true);
+            ManagerHub.S.CursorHandler.SetMouseSprite(MouseSprite.Cursor);
         }
 
         ///<summary>Closes the score UI</summary>
@@ -149,6 +172,7 @@ namespace WGRF.UI
         {
             SetIsOtherPanelOpen(false);
             scorePanel.SetActive(false);
+            StartCoroutine(EnableCrosshair());
         }
 
         ///<summary>Closes the scoreboard UI</summary>
@@ -156,6 +180,7 @@ namespace WGRF.UI
         {
             SetIsOtherPanelOpen(false);
             scoreboardPanel.SetActive(false);
+            StartCoroutine(EnableCrosshair());
         }
 
         ///<summary>Closes the message UI</summary>
@@ -163,11 +188,21 @@ namespace WGRF.UI
         {
             SetIsOtherPanelOpen(false);
             messagePanel.SetActive(false);
+            StartCoroutine(EnableCrosshair());
         }
 
+        ///<summary>Enables the crosshair cursor</summary>
+        IEnumerator EnableCrosshair()
+        {
+            yield return new WaitForSecondsRealtime(1f);
+            ManagerHub.S.CursorHandler.SetMouseSprite(MouseSprite.Crosshair);
+        }
+
+        ///<summary>Increases then rapidlye decreases the bloom post proccess effect</summary>
         public void BloomOnKill()
         { StartCoroutine(ChangeBloomIntensity()); }
 
+        ///<summary>Increases then rapidlye decreases the bloom post proccess effect</summary>
         IEnumerator ChangeBloomIntensity()
         {
             float elapsedTime = 0f;
@@ -214,6 +249,7 @@ namespace WGRF.UI
                 ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Unpause);
                 ManagerHub.S.SetGameState(GameState.Running);
                 ManagerHub.S.InternalTime.ChangeTimeScale(1f);
+                ManagerHub.S.InternalTime.StartRoomTimer();
             }
             else
             {
@@ -221,22 +257,24 @@ namespace WGRF.UI
                 ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Pause);
                 ManagerHub.S.SetGameState(GameState.Paused);
                 ManagerHub.S.InternalTime.ChangeTimeScale(0.1f);
+                ManagerHub.S.InternalTime.StopRoomTimer();
             }
         }
 
+        ///<summary>*Public for Button usage* 
+        ///Loads the main menu scene</summary>
         public void LoadMenu()
         {
             ManagerHub.S.SetGameState(GameState.Running);
             ManagerHub.S.InternalTime.ChangeTimeScale(1f);
-
             ManagerHub.S.GameSoundsHandler.ForceOSTVolume(ManagerHub.S.SettingsHandler.UserSettings.ostVolume);
-            ManagerHub.S.StageHandler.LoadFromBoot();
             ManagerHub.S.RewardSelector.ResetRewards();
             ManagerHub.S.ScoreHandler.ResetTotalScore();
             ManagerHub.S.ScoreHandler.ResetRoomScore();
             ManagerHub.S.InternalTime.ResetRoomTimer();
             ManagerHub.S.AbilityManager.ResetAbilities();
             ManagerHub.S.AIHandler.ResetHandler();
+            ManagerHub.S.StageHandler.LoadFromBoot();
         }
     }
 }

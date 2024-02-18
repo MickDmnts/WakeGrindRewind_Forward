@@ -41,7 +41,7 @@ namespace WGRF.Core
         public string SettingsFilePath => settingsFilePath;
         ///<summary>Returns the currently cached user settings</summary>
         public UserSettings UserSettings => userSettings;
-        
+
         /// <summary>
         /// Sets the cached user settings to the passed package
         /// </summary>
@@ -53,24 +53,21 @@ namespace WGRF.Core
         /// </summary>
         public SettingsHandler()
         {
-            Task.Run(async () =>
+            //App data path handling
+            string path = ManagerHub.S.Globals.AppDataPath;
+
+            settingsFolderPath = CreateSettingsFolder(path);
+
+            //Construct default settings
+            defaultSettings = new UserSettings()
             {
-                //App data path handling
-                string path = ManagerHub.S.Globals.AppDataPath;
+                goreVFX = true,
+                masterVolume = 8,
+                ostVolume = 7,
+                sfxVolume = 8,
+            };
 
-                settingsFolderPath = CreateSettingsFolder(path);
-
-                //Construct default settings
-                defaultSettings = new UserSettings()
-                {
-                    goreVFX = true,
-                    masterVolume = 8,
-                    ostVolume = 7,
-                    sfxVolume = 8,
-                };
-
-                settingsFilePath = await HandleSettingsFileOnConstruction(settingsFolderPath);
-            });
+            settingsFilePath = HandleSettingsFileOnConstruction(settingsFolderPath);
         }
 
         /// <summary>
@@ -92,46 +89,29 @@ namespace WGRF.Core
         /// </summary>
         /// <param name="_settingsFolderPath">Where should the file be saved</param>
         /// <returns>Returns the settings file path</returns>
-        async Task<string> HandleSettingsFileOnConstruction(string _settingsFolderPath)
+        string HandleSettingsFileOnConstruction(string _settingsFolderPath)
         {
             string temp = Path.Combine(_settingsFolderPath, "settings.config");
 
             if (!File.Exists(temp))
             {
-                try
+                using (FileStream fs = File.Create(temp))
                 {
-                    using (FileStream fs = File.Create(temp))
-                    {
-                        await fs.FlushAsync();
-                        await fs.DisposeAsync();
-                    }
-
-                    bool writeSucceded = await WriteSettingsFile(temp, defaultSettings);
-
-                    if (writeSucceded)
-                    { userSettings = await ReadSettingsFile(temp); }
-                    else
-                    { throw new Exception("Could not write default settings"); }
+                    fs.Flush();
+                    fs.Dispose();
                 }
-                catch (Exception e)
-                {
-                    UnityEngine.Debug.Log(e);
-                }
+
+                bool writeSucceded = WriteSettingsFile(temp, defaultSettings);
+
+                if (writeSucceded)
+                { userSettings = ReadSettingsFile(temp); }
+                else
+                { throw new Exception("Could not write default settings"); }
+
             }
             else
             {
-                try
-                {
-                    userSettings = await ReadSettingsFile(temp);
-                }
-                catch
-                {
-                    File.Delete(SettingsFilePath);
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                    HandleSettingsFileOnConstruction(_settingsFolderPath);
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                }
-
+                userSettings = ReadSettingsFile(temp);
             }
 
             return temp;
@@ -144,16 +124,16 @@ namespace WGRF.Core
         /// <param name="_settingsFilePath">The location of the settings config file</param>
         /// <param name="package">The new settings package</param>
         /// <returns>Whether the write was successfull or not.</returns>
-        async Task<bool> WriteSettingsFile(string _settingsFilePath, UserSettings package)
+        bool WriteSettingsFile(string _settingsFilePath, UserSettings package)
         {
             using (FileStream fs = File.OpenWrite(_settingsFilePath))
             {
                 string jsonStr = JsonConvert.SerializeObject(package, Formatting.Indented);
 
-                await fs.WriteAsync(Encoding.Unicode.GetBytes(jsonStr));
+                fs.Write(Encoding.Unicode.GetBytes(jsonStr));
 
-                await fs.FlushAsync();
-                await fs.DisposeAsync();
+                fs.Flush();
+                fs.Dispose();
             }
             return true;
         }
@@ -163,9 +143,9 @@ namespace WGRF.Core
         /// </summary>
         /// <param name="_settingsFilePath">Where to read the already saved settings file json</param>
         /// <returns>A UserPackage with the read settings</returns>
-        async Task<UserSettings> ReadSettingsFile(string _settingsFilePath)
+        UserSettings ReadSettingsFile(string _settingsFilePath)
         {
-            string jsonStr = await File.ReadAllTextAsync(_settingsFilePath, Encoding.Unicode);
+            string jsonStr = File.ReadAllText(_settingsFilePath, Encoding.Unicode);
             return JsonConvert.DeserializeObject<UserSettings>(jsonStr); ;
         }
 
@@ -177,9 +157,9 @@ namespace WGRF.Core
         {
             try
             {
-                Task.Run(async () =>
+                Task.Run(() =>
                 {
-                    await WriteSettingsFile(settingsFilePath, newUserSettings);
+                    WriteSettingsFile(settingsFilePath, newUserSettings);
                     userSettings = newUserSettings;
                 });
             }

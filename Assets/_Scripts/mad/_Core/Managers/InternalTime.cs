@@ -96,14 +96,23 @@ namespace WGRF.Core
             cb();
         }
 
+        /// <summary>
+        /// Starts the room timer
+        /// </summary>
         public void StartRoomTimer()
         {
             timer.Change(0, 1000);
         }
 
+        /// <summary>
+        /// Stops the room timer
+        /// </summary>
         public void StopRoomTimer()
         { timer.Change(Timeout.Infinite, Timeout.Infinite); }
 
+        /// <summary>
+        /// Resets the room timer
+        /// </summary>
         public void ResetRoomTimer()
         { elapsedTime = TimeSpan.Zero; }
     }

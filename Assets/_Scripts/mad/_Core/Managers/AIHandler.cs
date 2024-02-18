@@ -45,6 +45,9 @@ namespace WGRF.Core
             }
         }
 
+        /// <summary>
+        /// Returns the passed room agents
+        /// </summary>
         public List<AIEntity> GetRoomAgents(int room)
         { return registeredAgents[room]; }
 
