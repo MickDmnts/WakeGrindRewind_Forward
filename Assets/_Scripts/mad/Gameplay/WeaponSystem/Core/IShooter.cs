@@ -1,8 +1,8 @@
 namespace WGRF.BattleSystem
 {
-    /* 
-     * Interface containing the necessary shooting mechanism methods. 
-     */
+    /// <summary>
+    /// Interface containing the necessary shooting mechanism methods.
+    /// </summary>
     public interface IShooter
     {
         /// <summary>

@@ -110,7 +110,7 @@ namespace WGRF.Abilities
             ManagerHub.S.GameEventHandler.OnPlayerRewind(false);
 
             //Set notify other entities of the use of the rewind ability
-            ManagerHub.S.GameEventHandler.OnAbilityUse(ThrowableSpeeds.RewindTimeSpeed, ThrowableSpeeds.RewindTimeRotation, true);
+            ManagerHub.S.GameEventHandler.OnAbilityUse(0f, 0f, true);
 
             //Move the player back in previous positions.
             Rewinder.RewindEntity(ManagerHub.S.PlayerController.Access<PlayerEntity>("pEntity"), OnAbilityFinished);

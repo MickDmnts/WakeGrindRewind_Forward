@@ -29,9 +29,9 @@ namespace WGRF.BattleSystem
         Throwable = -2,
     }
 
-    /*
-     * A template for weapon creation scriptable objects.
-     */
+    /// <summary>
+    /// A template for weapon creation scriptable objects.
+    /// </summary>
     [CreateAssetMenu(fileName = "WeaponAsset", menuName = "WeaponSystem/Weapon", order = 1)]
     public class Weapon : ScriptableObject
     {

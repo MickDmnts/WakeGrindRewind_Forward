@@ -3,13 +3,15 @@ using UnityEngine;
 
 namespace WGRF.Interactions
 {
+    /// <summary>
+    /// Responsible for scaling down a gameobject
+    /// </summary>
     public class Scaler : MonoBehaviour
     {
         void Start()
-        {
-            StartCoroutine(ScaleDown());
-        }
+        { StartCoroutine(ScaleDown()); }
 
+        ///<summary>Scales down a gameobject to 0 scale</summary>
         IEnumerator ScaleDown()
         {
             Vector3 initialScale = transform.localScale;

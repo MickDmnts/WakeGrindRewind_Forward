@@ -6,6 +6,9 @@ using WGRF.Core;
 
 namespace WGRF.Interactions
 {
+    /// <summary>
+    /// The available door rooms
+    /// </summary>
     public enum DoorRoom
     {
         Room1,
@@ -17,14 +20,23 @@ namespace WGRF.Interactions
         Room7,
     }
 
+    /// <summary>
+    /// A breakable door handler
+    /// </summary>
     public class Breakable : MonoBehaviour, IKickable
     {
-        [SerializeField] bool nextRoomDoor;
-        [SerializeField] DoorRoom doorRoom;
-        [SerializeField] float kickForce = 10;
+        ///<summary>Is this door a room blocker?</summary>
+        [SerializeField, Tooltip("Is this door a room blocker?")] bool nextRoomDoor;
+        ///<summary>The room this door belongs to</summary>
+        [SerializeField, Tooltip("The room this door belongs to")] DoorRoom doorRoom;
+        ///<summary>The kicking force</summary>
+        [SerializeField, Tooltip("The kicking force")] float kickForce = 10;
 
+        ///<summary>Is the door still locked?</summary>
         bool isLocked = false;
+        ///<summary>The chromatic aberration post effect</summary>
         ChromaticAberration chromaticAberration;
+        ///<summary>The chromatic aberration initial value </summary>
         float initialIntensity;
 
         void Start()
@@ -50,6 +62,7 @@ namespace WGRF.Interactions
             StartCoroutine(Throwback(incomingDir));
         }
 
+        ///<summary>Pushes every door piece to the opposite direction of the kick</summary>
         IEnumerator Throwback(Vector3 incomingDir)
         {
             GetComponent<Collider>().isTrigger = true;
@@ -66,10 +79,9 @@ namespace WGRF.Interactions
             }
 
             yield return null;
-
-            //Destroy(gameObject);
         }
 
+        ///<summary>Briefly increases the chromatic aberration intensity</summary>
         IEnumerator IncreaseChromatic()
         {
             float elapsedTime = 0f;
@@ -89,6 +101,8 @@ namespace WGRF.Interactions
             }
 
             chromaticAberration.intensity.value = initialIntensity;
+
+            Destroy(gameObject);
         }
 
         void LateUpdate()

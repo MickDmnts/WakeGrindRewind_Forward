@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace WGRF.Core
 {
+    /// <summary>
+    /// Responsible for showing the score of the completed room.
+    /// </summary>
     public class RoomEndController : MonoBehaviour
     {
         ///<summary>Was this collider activated?</summary>

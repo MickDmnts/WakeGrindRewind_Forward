@@ -5,10 +5,13 @@ using WGRF.Core;
 
 namespace WGRF.Interactions
 {
+    /// <summary>
+    /// Class responsible for activating the room agents
+    /// </summary>
     public class AgentActivator : MonoBehaviour
     {
         ///<summary>The room this activator belongs to.</summary>
-        [SerializeField] EnemyRoom currentRoom;
+        [SerializeField, Tooltip("The room this activator belongs to.")] EnemyRoom currentRoom;
 
         void OnTriggerEnter(Collider other)
         {

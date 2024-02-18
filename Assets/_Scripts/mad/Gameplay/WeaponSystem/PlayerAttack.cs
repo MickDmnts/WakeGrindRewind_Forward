@@ -31,8 +31,6 @@ namespace WGRF.Player
 
         private void Start()
         {
-            //ManagerHub.S.PlayerEntity.onPlayerStateChange += SetIsAttacking;
-
             ManagerHub.S.GameEventHandler.onPlayerRewind += SetIsAttacking;
 
             canShoot = true;
@@ -46,9 +44,7 @@ namespace WGRF.Player
         /// <para>Call to set the state of the player shooting mechanics to the passed value.</para>
         /// </summary>
         void SetIsAttacking(bool isActive)
-        {
-            isAttackActive = isActive;
-        }
+        { isAttackActive = isActive; }
 
         /// <summary>
         /// Sets the current room's weapon type to the passed weapon
@@ -98,11 +94,7 @@ namespace WGRF.Player
         private void FixedUpdate()
         {
             if (!isShooting)
-            {
-                DecreaseSpread();
-
-                //ManagerHub.S.GameEventHandler.OnPlayerShootEnd();
-            }
+            { DecreaseSpread(); }
         }
 
         /// <summary>
@@ -124,14 +116,10 @@ namespace WGRF.Player
 
             //Check if the player can shoot when the user presses the Fire button.
             if (Mouse.current.leftButton.isPressed && CanShoot())
-            {
-                TypeBasedAttack();
-            }
+            { TypeBasedAttack(); }
 
             if (!Mouse.current.leftButton.isPressed)
-            {
-                SetIsShooting(false);
-            }
+            { SetIsShooting(false); }
 
             if (Mouse.current.rightButton.isPressed && equipedWeapon.WeaponType == WeaponType.Throwable)
             {
@@ -221,7 +209,7 @@ namespace WGRF.Player
                                 ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.ForcePunch);
                             }
                             else
-                            {ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Punch);}
+                            { ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.Punch); }
                         }
                     }
                 }
@@ -383,6 +371,7 @@ namespace WGRF.Player
             }
         }
 
+        ///<summary>Reloads the weapon after the passed amount of seconds</summary>
         IEnumerator ReloadAfter(float seconds)
         {
             yield return new WaitForSeconds(seconds / 2);
