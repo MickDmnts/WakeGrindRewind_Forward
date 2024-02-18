@@ -200,8 +200,6 @@ namespace WGRF.Abilities
         /// <para>Called on PlayerHub return.</para>
         /// </summary>
         public override void ResetAbilityUses()
-        {
-            ManagerHub.S.HUDHandler.SetAbilityUses(ManagerHub.S.AbilityManager.TotalAbilitiesPerRoom);
-        }
+        {            ManagerHub.S.HUDHandler.SetAbilityUses(ManagerHub.S.AbilityManager.TotalAbilitiesPerRoom);        }
     }
 }

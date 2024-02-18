@@ -6,30 +6,30 @@ using WGRF.Player;
 
 namespace WGRF.Abilities
 {
+    /// <summary>
+    /// Automatically attached to the HUB to execute rewind MonoBehaviour Actions
+    /// </summary>
     public class Rewinder : MonoBehaviour
     {
-        #region Dynamically_Changed
+        ///<summary>Can the rewinder record right now?</summary>
         public bool CanRecord { get; set; }
 
-        //for External handling
+        ///<summary>Should the rewind begin?</summary>
         bool startRewind;
+        ///<summary>The entity to rewind</summary>
         IRewindable entity;
+        ///<summary>Method to call when the rewind finishes</summary>
         Action methodCallbackOnFinish;
 
         //Bezier curve calculations
         float startTime, u, interpolationDuration;
         Vector3 entityLastPos, middlePos, startPos;
-        #endregion
 
         private void Awake()
-        {
-            interpolationDuration = 3f;
-        }
+        { interpolationDuration = 3f; }
 
         private void Start()
-        {
-            CanRecord = true;
-        }
+        { CanRecord = true; }
 
         /// <summary>
         /// Call to start the entity position storing.

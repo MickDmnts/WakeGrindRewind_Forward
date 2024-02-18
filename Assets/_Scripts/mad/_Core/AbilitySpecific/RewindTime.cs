@@ -7,6 +7,9 @@ using WGRF.Player;
 
 namespace WGRF.Abilities
 {
+    /// <summary>
+    /// The rewind ability handler
+    /// </summary>
     public class RewindTime : Ability
     {
         //The Rewinder is created so we have access to runtime MonoBehaviour.
@@ -79,9 +82,7 @@ namespace WGRF.Abilities
         }
 
         protected override void PlayAbilitySound()
-        {
-            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.PressRewind);
-        }
+        { ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.PressRewind); }
 
         public override void UpdateAbilityTick()
         {
@@ -105,8 +106,6 @@ namespace WGRF.Abilities
 
             Rewinder.CanRecord = false;
 
-            //Initiate the actual rewind here!!!!
-
             //Set up the player behaviour for rewind
             ManagerHub.S.GameEventHandler.OnPlayerRewind(false);
 
@@ -129,8 +128,6 @@ namespace WGRF.Abilities
 
                 enemy.Agent.speed = 0;
                 enemy.Agent.angularSpeed = 0;
-
-                //enemy.Controller.Access<AIEntityAnimations>("eAnimations").SetAnimatorPlaybackSpeed(0f);
 
                 enemy.DisableShootingBehaviour();
             }
