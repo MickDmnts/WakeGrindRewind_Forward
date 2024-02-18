@@ -131,34 +131,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1797006946041369248, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: id
-      value: rewardSelector
-      objectReference: {fileID: 0}
-    - target: {fileID: 4469987772911589703, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: mouseSpritePairs.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4469987772911589703, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: mouseSpritePairs.Array.data[1].MouseSprite
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4469987772911589703, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: mouseSpritePairs.Array.data[2].MouseSprite
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4469987772911589703, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: mouseSpritePairs.Array.data[0].MouseTexture
-      value: 
-      objectReference: {fileID: 2800000, guid: f797149e20f33e744ba156f37caf02ab, type: 3}
-    - target: {fileID: 4469987772911589703, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: mouseSpritePairs.Array.data[1].MouseTexture
-      value: 
-      objectReference: {fileID: 2800000, guid: 4eed3dbeb5c9358439ffd6fa1995555d, type: 3}
-    - target: {fileID: 4469987772911589703, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: mouseSpritePairs.Array.data[2].MouseTexture
-      value: 
-      objectReference: {fileID: 2800000, guid: 28fad8e6975c0a840a098181e01588a0, type: 3}
     - target: {fileID: 4564756271911385196, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -199,28 +171,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4719744327217021027, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: id
-      value: abilityManager
-      objectReference: {fileID: 0}
     - target: {fileID: 4870692252466404067, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
       propertyPath: m_Name
       value: HUB
       objectReference: {fileID: 0}
-    - target: {fileID: 4933176393337630630, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: id
-      value: aiHandler
-      objectReference: {fileID: 0}
-    - target: {fileID: 6444130155384594058, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: id
-      value: gsh
-      objectReference: {fileID: 0}
-    - target: {fileID: 7745936121167191698, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
-      propertyPath: id
-      value: hub
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2809289063518233439, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

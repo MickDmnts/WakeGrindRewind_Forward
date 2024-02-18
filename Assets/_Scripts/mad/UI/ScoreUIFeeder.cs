@@ -4,6 +4,9 @@ using WGRF.Core;
 
 namespace WGRF.UI
 {
+    /// <summary>
+    /// Responsible for dynamically updating the UI scores
+    /// </summary>
     public class ScoreUIFeeder : MonoBehaviour
     {
         ///<summary>The room score TMP ui element</summary>

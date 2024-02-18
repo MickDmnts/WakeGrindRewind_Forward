@@ -7,18 +7,23 @@ using WGRF.Internal;
 
 namespace WGRF.UI
 {
+    /// <summary>
+    /// Responsible for loading the scoreboard data
+    /// </summary>
     public class ScoreboardLoader : MonoBehaviour
     {
-        [SerializeField] GameObject dataPrefab;
-        [SerializeField] ScrollRect scrollRect;
+        ///<summary>The score data prefab</summary>
+        [SerializeField, Tooltip("The score data prefab")] GameObject dataPrefab;
+        ///<summary>The scroll rect to populate</summary>
+        [SerializeField, Tooltip("The scroll rect to populate")] ScrollRect scrollRect;
 
+        ///<summary>The created scoreboard elements</summary>
         GameObject[] cachedContents;
 
         void OnEnable()
-        {
-            StartCoroutine(PopulateContent());
-        }
+        { StartCoroutine(PopulateContent()); }
 
+        ///<summary>Populates the scoreboard and fills the scoreboard data from the database</summary>
         IEnumerator PopulateContent()
         {
             PlayerRecord[] records = ManagerHub.S.Database.GetAllPlayerRecords();

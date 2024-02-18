@@ -1,15 +1,21 @@
 using UnityEngine;
 using WGRF.Core;
 
-public class OpenUpdatesPanelTrigger : MonoBehaviour
+namespace WGRF.UI
 {
-    void OnTriggerEnter(Collider other)
+    /// <summary>
+    /// Responsible for opening the updates panel upon trigger interaction
+    /// </summary>
+    public class OpenUpdatesPanelTrigger : MonoBehaviour
     {
-        if (other.CompareTag("Player"))
+        void OnTriggerEnter(Collider other)
         {
-            ManagerHub.S.HUDHandler.OpenUpdatesUI();
+            if (other.CompareTag("Player"))
+            {
+                ManagerHub.S.HUDHandler.OpenUpdatesUI();
 
-            Destroy(gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4469987772911589703}
   - component: {fileID: 6444130155384594058}
   - component: {fileID: 2618696383725250960}
-  - component: {fileID: 2809289063518233439}
   - component: {fileID: 4719744327217021027}
   - component: {fileID: 1797006946041369248}
   - component: {fileID: 4933176393337630630}
@@ -55,7 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f505cfb598296d14b8c215c0c6609e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: hub
+  id: hub
 --- !u!114 &4469987772911589703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,6 +68,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadFromBoot: 1
+  mouseSpritePairs:
+  - MouseSprite: 0
+    MouseTexture: {fileID: 2800000, guid: f797149e20f33e744ba156f37caf02ab, type: 3}
+  - MouseSprite: 1
+    MouseTexture: {fileID: 2800000, guid: 4eed3dbeb5c9358439ffd6fa1995555d, type: 3}
+  - MouseSprite: 2
+    MouseTexture: {fileID: 2800000, guid: 28fad8e6975c0a840a098181e01588a0, type: 3}
 --- !u!114 &6444130155384594058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0254ab33f91cabb4987b00edcd7d9327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: gsh
+  id: gsh
   masterAudioValue: 1
   ostSource: {fileID: 4977542361024674901}
   sfxSource: {fileID: 6548534552858164973}
@@ -196,20 +202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f539a73057cd496f8e8fb6cc3c31f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: bulletHandler
   bulletPath: ws/bullet
-  startingSpeed: 15
---- !u!114 &2809289063518233439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4870692252466404067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75d0369be9b89e14e8bd150f2afd17aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4719744327217021027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0008b740f23ae1b49b2887ca72af4b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: abilityManager
+  id: abilityManager
   abilityIcons:
   - {fileID: 21300000, guid: 15e962ba936b5c84594cda8c3a7f7850, type: 3}
   - {fileID: 21300000, guid: 73c985ef031d1e34ba809e110025eedf, type: 3}
@@ -239,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1803478d8c2820041a69b81918c8d689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: rewardSelector
+  id: rewardSelector
   weaponRewards:
   - {fileID: 11400000, guid: bb023f16f8dd0db4aaadec179630d023, type: 2}
   - {fileID: 11400000, guid: 1938fa1f4b8ce0c449a8de9893d120a3, type: 2}
@@ -259,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577d9d7c1aa24884a826b0c2d318dada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: aiHandler
+  id: aiHandler
 --- !u!114 &1483377912587729755
 MonoBehaviour:
   m_ObjectHideFlags: 0

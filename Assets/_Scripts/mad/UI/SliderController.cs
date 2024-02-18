@@ -15,6 +15,9 @@ namespace WGRF.UI
         SFX = 2,
     }
 
+    /// <summary>
+    /// A simple slider controller modified for the game purposes
+    /// </summary>
     public class SliderController : MonoBehaviour, IUIController
     {
         ///<summary>The associated text field that this slider updates</summary>
@@ -31,9 +34,7 @@ namespace WGRF.UI
         public int Value => (int)slider.value;
 
         void Awake()
-        {
-            slider = GetComponent<Slider>();
-        }
+        {            slider = GetComponent<Slider>();        }
 
         void Start()
         {
@@ -42,6 +43,9 @@ namespace WGRF.UI
             slider.value = val;
         }
 
+        /// <summary>
+        /// Updates the score text upon calling
+        /// </summary>
         public void OnValueChanged()
         {
             string temp = text.Replace("{vl}", Value.ToString());

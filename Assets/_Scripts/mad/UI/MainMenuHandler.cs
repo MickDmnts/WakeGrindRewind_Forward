@@ -7,6 +7,9 @@ using WGRF.Core;
 
 namespace WGRF.UI
 {
+    /// <summary>
+    /// Teh base class handling the main menu
+    /// </summary>
     public class MainMenuHandler : MonoBehaviour
     {
         ///<summary>Main menu panel</summary>

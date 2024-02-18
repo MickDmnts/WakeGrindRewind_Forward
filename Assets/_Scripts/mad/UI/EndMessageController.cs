@@ -6,20 +6,31 @@ using WGRF.Internal;
 
 namespace WGRF.UI
 {
+    /// <summary>
+    /// A UI controller responsible for controlling the UI message panel
+    /// </summary>
     public class EndMessageController : MonoBehaviour
     {
-        [SerializeField] TextMeshProUGUI messageText;
-        [SerializeField] TextMeshProUGUI totalScoreText;
-        [SerializeField] TMP_InputField nameField;
+        ///<summary>The message text</summary>
+        [SerializeField, Tooltip("The message text")] TextMeshProUGUI messageText;
+        ///<summary>The total score text</summary>
+        [SerializeField, Tooltip("The total score text")] TextMeshProUGUI totalScoreText;
+        ///<summary>The player name input field</summary>
+        [SerializeField, Tooltip("The player name input field")] TMP_InputField nameField;
 
         void OnEnable()
-        {
-            totalScoreText.SetText("Total Score: " + ManagerHub.S.ScoreHandler.TotalScore.ToString());
-        }
+        { totalScoreText.SetText("Total Score: " + ManagerHub.S.ScoreHandler.TotalScore.ToString()); }
 
+        /// <summary>
+        /// Sets the message text to the passed string
+        /// </summary>
+        /// <param name="txt">The message</param>
         public void SetMessageText(string txt)
         { messageText.SetText(txt); }
 
+        /// <summary>
+        /// Writes the score to the database and displays the ScoreboardUI.
+        /// </summary>
         public void FinalizeScore()
         {
             if (nameField.text.Length <= 0)
