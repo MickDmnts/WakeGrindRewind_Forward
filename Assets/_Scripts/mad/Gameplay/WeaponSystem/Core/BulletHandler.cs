@@ -1,5 +1,4 @@
 using UnityEngine;
-using WGRF.BattleSystem;
 
 namespace WGRF.Core
 {
@@ -12,14 +11,18 @@ namespace WGRF.Core
         Player = 13,
     }
 
+    /// <summary>
+    /// The bullet handler of the game
+    /// </summary>
     [DefaultExecutionOrder(50)]
-    public class BulletHandler : MonoBehaviour
+    public class BulletHandler : CoreBehaviour
     {
+        ///<summary>The addressable bullet path</summary>
         [Header("Set in inspector - Bullet prefab")]
-        [SerializeField] string bulletPath;
+        [SerializeField, Tooltip("The addressable bullet path")] string bulletPath;
 
-        [Header("Set in inspector - Bullet default speed")]
-        [SerializeField] float startingSpeed;
+        protected override void PreAwake()
+        { SetID("bulletHandler"); }
 
         /// <summary>
         /// Call to get a Bullet Gameobject reference based on the passed type.

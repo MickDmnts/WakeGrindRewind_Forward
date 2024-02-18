@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6ef3463b5fc14468b3c8d8e9a8fd33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: pKick
+  id: pKick
   maxDistance: 1
 --- !u!1 &6015199087048063045
 GameObject:
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012766b6a557f3b4d84794f9e6fa33aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: pController
+  id: pController
 --- !u!114 &2101251271416466325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9261024b3142841995ff81f616b645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: pEntity
+  id: pEntity
   entityName: Player
   maxLife: 100
   entityLife: 100
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90da30693d51bb24fa066745559d367b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: pInputController
+  id: pInputController
   speed: 5
   dashSpeed: 30
   dashLines:
@@ -367,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f5d56c909cef75449bd5e1b6d720969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: pAnimations
+  id: pAnimations
 --- !u!1 &6015199087393421351
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a43421c1c5f064d957bc4152ff3d1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: pAttack
+  id: pAttack
   meleeDetectionLayers:
     serializedVersion: 2
     m_Bits: 17536

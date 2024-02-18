@@ -8,18 +8,28 @@ using WGRF.Interactions;
 
 namespace WGRF.Player
 {
+    /// <summary>
+    /// The base attack handler of the player
+    /// </summary>
     public class PlayerAttack : Shooter
     {
+        ///<summary>The default player weapon</summary>
         [Header("Player specific")]
-        [SerializeField] Weapon defaultWeapon;
-        [SerializeField] Transform objThrowPos;
+        [SerializeField, Tooltip("The default player weapon")] Weapon defaultWeapon;
+        ///<summary>The position in which to display help objects</summary>
+        [SerializeField, Tooltip("The position in which to display help objects")] Transform objThrowPos;
 
-        //Private variables
+        ///<summary>The current weapon of this room</summary>
         Weapon currentRoomWeapon;
+        ///<summary>Can the player attack?</summary>
         bool isAttackActive = false;
+        ///<summary>Is the player reloading?</summary>
         bool isReloading = false;
+        ///<summary>The weapon sprite renderer</summary>
         SpriteRenderer playerWeaponRenderer;
+        ///<summary>The current total bullet spread</summary>
         float totalBulletSpread;
+        ///<summary>The currently held object</summary>
         GameObject objOnHand;
 
         protected override void PreAwake()
@@ -87,9 +97,7 @@ namespace WGRF.Player
         /// <param name="weapon">The currently equiped weapon.</param>
         /// <param name="weaponAmmoSprite">The ammo sprite of the weapon.</param>
         void UpdateWeaponsUI(Weapon weapon)
-        {
-            ManagerHub.S.HUDHandler.SetWeaponSliderInfo(weapon);
-        }
+        { ManagerHub.S.HUDHandler.SetWeaponSliderInfo(weapon); }
 
         private void FixedUpdate()
         {
@@ -103,9 +111,7 @@ namespace WGRF.Player
         void DecreaseSpread()
         {
             if (totalBulletSpread > 0)
-            {
-                totalBulletSpread -= accuracyIncreaseRate;
-            }
+            { totalBulletSpread -= accuracyIncreaseRate; }
         }
 
         void Update()
@@ -215,6 +221,7 @@ namespace WGRF.Player
                 }
             }
 
+            //SFX
             GameAudioClip sfx = (GameAudioClip)(-1);
             switch (equipedWeapon.WeaponType)
             {
@@ -286,7 +293,7 @@ namespace WGRF.Player
                 return;
             }
 
-            //Play the equiped weapon shoot sound.
+            //Play the equiped weapon shoot sound. - SFX
             GameAudioClip sfx = (GameAudioClip)(-1);
             switch (equipedWeapon.WeaponType)
             {
@@ -366,9 +373,7 @@ namespace WGRF.Player
         {
             totalBulletSpread += bulletSpreadRate;
             if (totalBulletSpread >= maxBulletSpread)
-            {
-                totalBulletSpread = maxBulletSpread;
-            }
+            { totalBulletSpread = maxBulletSpread; }
         }
 
         ///<summary>Reloads the weapon after the passed amount of seconds</summary>
@@ -419,9 +424,7 @@ namespace WGRF.Player
         /// Call to set isShooting to the passed value
         /// </summary>
         void SetIsShooting(bool value)
-        {
-            isShooting = value;
-        }
+        { isShooting = value; }
 
         /// <summary>
         /// Call to reset the shooting specific variables.
@@ -446,8 +449,6 @@ namespace WGRF.Player
         #endregion
 
         protected override void PreDestroy()
-        {
-            ManagerHub.S.GameEventHandler.onPlayerRewind -= SetIsAttacking;
-        }
+        { ManagerHub.S.GameEventHandler.onPlayerRewind -= SetIsAttacking; }
     }
 }

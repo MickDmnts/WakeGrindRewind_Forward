@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28854ddf256247647848e02c0e359b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: eWeapon
+  id: eWeapon
   meleeDetectionLayers:
     serializedVersion: 2
     m_Bits: 17472
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012766b6a557f3b4d84794f9e6fa33aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: eController
+  id: eController
 --- !u!114 &621951264236656697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc047313cc378c64499bcce81a719e8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: eEntity
+  id: eEntity
   entityName: enemy
   maxLife: 50
   entityLife: 50
@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21a13117e46d794ea8eabd5c0a41c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: eAnimations
+  id: eAnimations
 --- !u!114 &1384337636838218010
 MonoBehaviour:
   m_ObjectHideFlags: 0

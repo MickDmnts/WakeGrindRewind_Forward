@@ -6,29 +6,39 @@ using WGRF.Interactions;
 
 namespace WGRF.BattleSystem
 {
+    /// <summary>
+    /// This component represents makes the attache gameobject a throwable
+    /// </summary>
     public class ThrowableEntity : CoreBehaviour, IThrowable
     {
+        ///<summary>The time this entity remains thrown for</summary>
         [Header("Set in inspector")]
-        [SerializeField] float throwForSeconds;
-        [SerializeField] float throwSpeed;
-        [SerializeField] int damage;
-        [SerializeField] LayerMask detectionLayers;
+        [SerializeField, Tooltip("The time this entity remains thrown for")] float throwForSeconds;
+        ///<summary>The initial throw speed</summary>
+        [SerializeField, Tooltip("The initial throw speed")] float throwSpeed;
+        ///<summary>The damage this entity will do upon collision with another entity</summary>
+        [SerializeField, Tooltip("The damage this entity will do upon collision with another entity")] int damage;
+        ///<summary>The layers this object interacts with</summary>
+        [SerializeField, Tooltip("The layers this object interacts with")] LayerMask detectionLayers;
 
+        ///<summary>Is this object being thrown?</summary>
         bool wasThrown;
+        ///<summary>Is an ability in use?</summary>
         bool abilityInUse;
+        ///<summary>Is this object frozen?</summary>
         bool isFrozen;
 
+        ///<summary>The rotation speed of this entity</summary>
         float rotationSpeed = 5f;
+        ///<summary>The initial throw speed</summary>
         float throwSpeedCache;
-
+        ///<summary>The throw timer</summary>
         float throwTimer;
-
+        ///<summary>Sprite renderer of this entity</summary>
         SpriteRenderer childSpriteTransform;
 
         protected override void PreAwake()
-        {
-            throwSpeedCache = throwSpeed;
-        }
+        { throwSpeedCache = throwSpeed; }
 
         private void Start()
         {
@@ -40,12 +50,10 @@ namespace WGRF.BattleSystem
         /// Call to get THIS throwables throw speed.
         /// </summary>
         public float GetThrowSpeed()
-        {
-            return throwSpeedCache;
-        }
+        { return throwSpeedCache; }
 
         /// <summary>
-        /// Call to start the throwing weapon sequence by setting the wasThrown to true.
+        /// Call to start the throwing sequence by setting the wasThrown to true.
         /// <para>Sets throwTimer to throwForSeconds</para>
         /// </summary>
         public void InitiateThrow()

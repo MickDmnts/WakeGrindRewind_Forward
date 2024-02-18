@@ -1,9 +1,6 @@
-using System.Collections;
 using UnityEngine;
-using WGRF.AI;
 using WGRF.Core;
 using WGRF.Interactions;
-using WGRF.Player;
 
 namespace WGRF.BattleSystem
 {
@@ -16,18 +13,21 @@ namespace WGRF.BattleSystem
         EnemyProjectile = 13,
     }
 
+    /// <summary>
+    /// The individual bullet handler for projectiles
+    /// </summary>
     public class Bullet : MonoBehaviour
     {
+        ///<summary>The addressable blood impact gfx path</summary>
         [Header("Set in inspector")]
-        [SerializeField] string bloodImpactFX_Path;
-        [SerializeField] float bulletSpeed;
-        [SerializeField] int damage = 5;
+        [SerializeField, Tooltip("The addressable blood impact gfx path")] string bloodImpactFX_Path;
+        ///<summary>The initial bullet speed</summary>
+        [SerializeField, Tooltip("The initial bullet speed")] float bulletSpeed;
+        ///<summary>The bullet damage</summary>
+        [SerializeField, Tooltip("The bullet damage")] int damage = 5;
 
         private void Update()
-        {
-            //Move the bullet to its local forward. 
-            transform.position += transform.forward * bulletSpeed * Time.deltaTime;
-        }
+        { transform.position += transform.forward * bulletSpeed * Time.deltaTime; }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -61,8 +61,6 @@ namespace WGRF.BattleSystem
         /// Resets bullet variables when the bullet gets enabled.
         /// </summary>
         private void OnEnable()
-        {
-            Destroy(gameObject, 2f);
-        }
+        { Destroy(gameObject, 3f); }
     }
 }

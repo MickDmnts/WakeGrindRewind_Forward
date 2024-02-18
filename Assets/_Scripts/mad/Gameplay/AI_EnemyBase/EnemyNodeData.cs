@@ -39,6 +39,6 @@ namespace WGRF.AI
         ///<summary>This agent's target</summary>
         public Transform Target { get => ((EnemyEntity)enemyEntity).Target; }
         ///<summary>The equiped weapon range</summary>
-        public float WeaponRange { get => enemyEntity.Controller.Access<EnemyWeapon>("eWeapon").equipedWeapon.MinShootDistance; }
+        public float WeaponRange { get => enemyEntity.Controller.Access<EnemyWeapon>("eWeapon").EquipedWeapon.MinShootDistance; }
     }
 }
