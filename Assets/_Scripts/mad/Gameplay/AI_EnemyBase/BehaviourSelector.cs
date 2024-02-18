@@ -1,13 +1,17 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace WGRF.AI
 {
     public class BehaviourSelector : INode
     {
+        ///<summary>The blackboard of this action</summary>
         INodeData nodeData;
+        ///<summary>The selector children</summary>
         List<INode> children;
 
+        /// <summary>
+        /// Creates a BehaviourSelector instance
+        /// </summary>
         public BehaviourSelector(INodeData nodeData, List<INode> children)
         {
             this.nodeData = nodeData;

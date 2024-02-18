@@ -2,10 +2,15 @@ using UnityEngine;
 
 namespace WGRF.AI
 {
+    /// <summary>
+    /// The fallback action node of the agents
+    /// </summary>
     public class FallbackAction : INode
     {
+        ///<summary>The blackboard reference</summary>
         INodeData nodeData;
 
+        ///<summary>Creates a FallbackAction instance</summary>
         public FallbackAction(INodeData nodeData)
         { this.nodeData = nodeData; }
 
@@ -15,11 +20,6 @@ namespace WGRF.AI
         public INodeData GetNodeData()
         { return nodeData; }
 
-        /// <summary>
-        /// Checks if the AI is a patroller through the NodeData passed.
-        /// <para>If false, sets their walk animation state to false and returns true,
-        /// else returns false.</para>
-        /// </summary>
         public bool Run()
         {
             if (!(nodeData.EnemyEntity.EntityLife <= 10f / 100f * nodeData.EnemyEntity.EntityLife))

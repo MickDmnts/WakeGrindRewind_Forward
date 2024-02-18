@@ -1,12 +1,16 @@
-using UnityEngine;
-
 namespace WGRF.AI
 {
+    /// <summary>
+    /// Stops the rest of the execution if the agent is marked as dead
+    /// </summary>
     public class CheckIfDead : INode
     {
+        ///<summary>The blackboard of this action</summary>
         INodeData nodeData;
+        ///<summary>The next node</summary>
         INode child;
 
+        ///<summary>Creates a CheckIfDead instance</summary>
         public CheckIfDead(INodeData nodeData, INode child)
         {
             this.nodeData = nodeData;
@@ -14,9 +18,7 @@ namespace WGRF.AI
         }
 
         public INodeData GetNodeData()
-        {
-            return nodeData;
-        }
+        { return nodeData; }
 
         /// <summary>
         /// Call to update the INode passed in the node constructor ONLY if the agent is not dead.

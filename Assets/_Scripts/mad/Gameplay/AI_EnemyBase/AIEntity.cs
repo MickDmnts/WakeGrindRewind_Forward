@@ -1,7 +1,5 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Rendering.PostProcessing;
 using WGRF.Core;
 
 namespace WGRF.AI
@@ -29,31 +27,43 @@ namespace WGRF.AI
         Room7,
     }
 
+    /// <summary>
+    /// A base class for every ai entity in the game
+    /// </summary>
     public abstract class AIEntity : Entity
     {
+        ///<summary>The room this agent corresponds to</summary>
         [SerializeField, Header("Enemy Room")]
-        protected EnemyRoom enemyRoom;
-        protected int scoreIncrease = 10;
+        [Tooltip("The room this agent corresponds to")] protected EnemyRoom enemyRoom;
 
+        ///<summary>The occlusion check layers for agent traversing</summary>
         [Header("Occlusion check layers")]
-        [SerializeField] protected LayerMask occlusionLayers;
+        [SerializeField, Tooltip("The occlusion check layers for agent traversing")] protected LayerMask occlusionLayers;
 
+        ///<summary>The layer when the agent dies</summary>
         [Header("After death transition")]
-        [SerializeField] protected EnemyLayer layerOnDeath;
+        [SerializeField, Tooltip("The layer when the agent dies")] protected EnemyLayer layerOnDeath;
 
+        ///<summary>The blood decal path</summary>
         [Header("Decal on death")]
-        [SerializeField] protected string bloodDecalPath;
+        [SerializeField, Tooltip("The blood decal path")] protected string bloodDecalPath;
 
-       protected bool isAgentActive;
-
+        ///<summary>Is the agent active?</summary>
+        protected bool isAgentActive;
+        ///<summary>The target of this agent</summary>
         protected Transform attackTarget;
+        ///<summary>The rigidbody of the agent</summary>
         protected Rigidbody enemyRB;
+        ///<summary>The agent node data cache</summary>
         protected INodeData enemyNodeData;
-
+        ///<summary>The agent cache</summary>
         protected NavMeshAgent agent;
         ///<summary>The dead state of the agent</summary>
         protected bool isDead;
+        ///<summary>Score increase value of this enemy</summary>
+        protected int scoreIncrease = 10;
 
+        ///<summary>Returns the room this agent corresponds to </summary>
         public EnemyRoom EnemyRoom => enemyRoom;
 
         ///<summary>The dead state of the agent</summary>

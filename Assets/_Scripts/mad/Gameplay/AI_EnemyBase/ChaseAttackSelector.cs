@@ -1,22 +1,18 @@
-﻿using UnityEngine;
-
-namespace WGRF.AI
+﻿namespace WGRF.AI
 {
-    /* [Node documentation]
-     * 
-     * [Custom Selector]
-     * Updates the NavToTarget continuously until it returns false, and then returns the return value of the AttackTargetAction Run method.
-     * 
-     * [Must know]
-     *  INodeData compatible.
-     */
+    /// <summary>
+    /// Updates the NavToTarget continuously until it returns false, and then returns the return value of the AttackTargetAction Run method.
+    /// </summary>
     public class ChaseAttackSelector : INode
     {
+        ///<summary>The blackboard of this action</summary>
         INodeData nodeData;
-
+        ///<summary>The nav to target action</summary>
         NavToTarget navToTarget;
+        ///<summary>The attack target action</summary>
         AttackTargetAction attackTarget;
 
+        ///<summary>Creates a ChaseAttackSelector instance</summary>
         public ChaseAttackSelector(INodeData nodeData, NavToTarget navToTarget, AttackTargetAction attackTarget)
         {
             this.nodeData = nodeData;
@@ -25,9 +21,7 @@ namespace WGRF.AI
         }
 
         public INodeData GetNodeData()
-        {
-            return nodeData;
-        }
+        { return nodeData; }
 
         /// <summary>
         /// If the NavToTarget Run method returns false, calls and returns the AttackTargetAction Run method value.

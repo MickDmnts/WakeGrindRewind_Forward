@@ -1,14 +1,18 @@
 namespace WGRF.AI
 {
-    /*
-     * [Root Node]
-     *  This is the entry point for every Behaviour Tree created in the game.
-     */
+    /// <summary>
+    /// The behaviour tree base class
+    /// </summary>
     public class BehaviourTree : INode
     {
+        ///<summary>The blackboard of this action</summary>
         INodeData nodeData;
+        ///<summary>The root node of the tree</summary>
         INode root;
 
+        /// <summary>
+        /// Creates a BehaviourTree instance
+        /// </summary>
         public BehaviourTree(INode root, INodeData nodeData)
         {
             this.root = root;

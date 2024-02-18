@@ -4,6 +4,9 @@ using WGRF.Core;
 
 namespace WGRF.AI
 {
+    /// <summary>
+    /// Enemy entity animation handler
+    /// </summary>
     public class EnemyAnimations : AIEntityAnimations
     {
         protected override void PreAwake()
@@ -12,6 +15,10 @@ namespace WGRF.AI
             enemyAnimator = GetComponent<Animator>();
         }
 
+        /// <summary>
+        /// Sets the animator playback speed to the passed value
+        /// </summary>
+        /// <param name="value">The new value</param>
         public override void SetAnimatorPlaybackSpeed(float value)
         { enemyAnimator.speed = value; }
 
@@ -19,9 +26,7 @@ namespace WGRF.AI
         /// Call to set the walking animation acitve state.
         /// </summary>
         public void SetWalkStateAnimation(bool state)
-        {
-            enemyAnimator.SetBool("isWalking", state);
-        }
+        { enemyAnimator.SetBool("isWalking", state); }
 
         /// <summary>
         /// Call to play the death animation.
@@ -35,7 +40,6 @@ namespace WGRF.AI
         /// <summary>
         /// Call to activate the universal weapon holding stance of the enemy.
         /// </summary>
-        /// <param name="state"></param>
         public void SetHoldingRangedWeaponState(bool state)
         {
             enemyAnimator.SetBool("isHoldingGun", state);
@@ -46,9 +50,7 @@ namespace WGRF.AI
             }
         }
 
-        /// <summary>
-        /// Plays the corresponding melee animation based on weapon type passed.
-        /// </summary>
+        /// <summary>        /// Plays the corresponding melee animation based on weapon type passed.        /// </summary>
         public void PlayMeleeAnimation(WeaponType weaponType)
         {
             switch (weaponType)
@@ -67,13 +69,9 @@ namespace WGRF.AI
             }
         }
 
-        /// <summary>
-        /// Call to play the stunned agent animation.
-        /// </summary>
+        /// <summary>        /// Call to play the stunned agent animation.        /// </summary>
         /// <param name="state"></param>
         public void SetStunnedAnimationState(bool state)
-        {
-            enemyAnimator.SetBool("isStunned", state);
-        }
+        { enemyAnimator.SetBool("isStunned", state); }
     }
 }

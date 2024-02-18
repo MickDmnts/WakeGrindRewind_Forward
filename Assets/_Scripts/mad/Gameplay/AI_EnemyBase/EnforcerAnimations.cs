@@ -3,6 +3,9 @@ using WGRF.Core;
 
 namespace WGRF.AI
 {
+    /// <summary>
+    /// The enforcer enemy type animation handler 
+    /// </summary>
     public class EnforcerAnimations : AIEntityAnimations
     {
         protected override void PreAwake()
@@ -11,6 +14,10 @@ namespace WGRF.AI
             enemyAnimator = GetComponent<Animator>();
         }
 
+        /// <summary>
+        /// Sets the animtor playback speed to the passed value
+        /// </summary>
+        /// <param name="value">The new value</param>
         public override void SetAnimatorPlaybackSpeed(float value)
         { enemyAnimator.speed = value; }
 
@@ -18,9 +25,7 @@ namespace WGRF.AI
         /// Call to set the walking animation acitve state.
         /// </summary>
         public void SetWalkStateAnimation(bool state)
-        {
-            enemyAnimator.SetBool("isWalking", state);
-        }
+        { enemyAnimator.SetBool("isWalking", state); }
 
         /// <summary>
         /// Call to play the death animation.

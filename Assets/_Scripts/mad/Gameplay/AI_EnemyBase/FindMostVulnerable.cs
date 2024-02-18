@@ -4,10 +4,15 @@ using WGRF.Core;
 
 namespace WGRF.AI
 {
+    /// <summary>
+    /// Action node responsible for finding the lowest hp enemy in the room
+    /// </summary>
     public class FindMostVulnerable : INode
-    {
+    {   
+        ///<summary>The blackboard cache of the agent</summary>
         EnforcerNodeData nodeData;
 
+        ///<summary>Creates a FindMostVulnerable instance</summary>
         public FindMostVulnerable(EnforcerNodeData nodeData)
         { this.nodeData = nodeData; }
 

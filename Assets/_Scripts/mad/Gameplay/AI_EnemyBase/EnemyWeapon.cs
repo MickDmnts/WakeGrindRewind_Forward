@@ -6,10 +6,15 @@ using WGRF.Interactions;
 
 namespace WGRF.AI
 {
+    /// <summary>
+    /// The enemy weapon handler
+    /// </summary>
     public class EnemyWeapon : AIEntityWeapon
-    {
-        [SerializeField] int damage = 5;
+    {   
+        ///<summary>The damage of the agent weapon</summary>
+        [SerializeField,Tooltip("The damage of the agent weapon")] int damage = 5;
 
+        ///<summary>Is the agent currently attacking?</summary>
         bool currentlyAttacking;
 
         protected override void PreAwake()
@@ -153,10 +158,9 @@ namespace WGRF.AI
                 }
             }
 
-            PlayWeaponSFX();
-
             currentlyAttacking = false;
             OnShootReset();
+            ManagerHub.S.GameSoundsHandler.PlayOneShotSFX(GameAudioClip.ForcePunch);
         }
 
         public override void Shoot()
@@ -185,9 +189,6 @@ namespace WGRF.AI
             { EnableBullet(false); }
             else
             { EnableBullet(true); }
-
-            //Weapon SFX.
-            PlayWeaponSFX();
         }
 
         //Base type summary
@@ -311,23 +312,6 @@ namespace WGRF.AI
         {
             shootDoneTime = shootInterval + Time.time;
             canShoot = false;
-        }
-
-        /// <summary>
-        /// Call to play the equiped weapon SFX.
-        /// <para>If the weapon has more than one SFX, plays a random one.</para>
-        /// </summary>
-        void PlayWeaponSFX()
-        {
-            /*if (equipedWeapon.gunShootSound.Length > 1)
-            {
-                int rndSfx = -1;//Random.Range(0, equipedWeapon.gunShootSound.Length);
-                //ManagerHub.S.GameSoundsHandler.PlayOneShot(equipedWeapon.gunShootSound[rndSfx]);
-            }
-            else
-            {
-                //ManagerHub.S.GameSoundsHandler.PlayOneShot(equipedWeapon.gunShootSound[0]);
-            }*/
         }
     }
 }

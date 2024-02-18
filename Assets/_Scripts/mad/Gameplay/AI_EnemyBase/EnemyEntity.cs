@@ -6,10 +6,14 @@ using WGRF.Core;
 
 namespace WGRF.AI
 {
+    /// <summary>
+    /// The simple enemy entity agent handler
+    /// </summary>
     public class EnemyEntity : AIEntity
     {
+        ///<summary>The armor value of this agent</summary>
         [Header("Set Armor value IF any")]
-        [SerializeField] float armorValue;
+        [SerializeField, Tooltip("The armor value of this agent")] float armorValue;
 
         ///<summary>The behaviour tree handler of the agent</summary>
         EnemyBTHandler btHandler;
@@ -181,6 +185,7 @@ namespace WGRF.AI
             StartCoroutine(SearchPosition(transform.position, range));
         }
 
+        /// <summary> Searches for a new agent destination around the passed center with a max range </summary>
         IEnumerator SearchPosition(Vector3 center, float range)
         {
             int reps = 30;

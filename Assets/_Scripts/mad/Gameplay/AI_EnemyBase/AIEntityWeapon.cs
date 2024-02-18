@@ -3,22 +3,33 @@ using WGRF.BattleSystem;
 
 namespace WGRF.AI
 {
+    /// <summary>
+    /// A base class for ai entity attacking mechanisms
+    /// </summary>
     public abstract class AIEntityWeapon : Shooter
     {
+        ///<summary>The projectiles this agent will shoot per shoot sequence</summary>
         [Header("Set in inspector\nEnemy Specific")]
-        [SerializeField] protected int projectilesPerShot;
-        [SerializeField] protected float shotCooldownInterval;
+        [SerializeField, Tooltip("The projectiles this agent will shoot per shoot sequence")] protected int projectilesPerShot;
+        ///<summary>Shooting cooldown</summary>
+        [SerializeField, Tooltip("Shooting cooldownk")] protected float shotCooldownInterval;
 
+        ///<summary>The ai entity of this weapon handler</summary>
         protected AIEntity aIEntity;
+        ///<summary>The sprite renderer for the weapon</summary>
         protected SpriteRenderer enemyWeaponRenderer;
-
+        ///<summary>Is the shooting on cooldown</summary>
         protected bool onCooldown = false;
+        ///<summary>Bursting default timer</summary>
         protected float shotBurstTimer;
+        ///<summary>Bursting timer cache</summary>
         protected float burstTimerCache;
-
+        ///<summary>Projectile per shot cache</summary>
         protected int projectilePerShotCache;
+        ///<summary>The total bullet spread</summary>
         protected float totalBulletSpread;
 
+        ///<summary>Returns the ai entity of this weapon handler</summary>
         public AIEntity AIEntity => aIEntity;
 
         /// <summary>

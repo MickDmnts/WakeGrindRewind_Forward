@@ -3,21 +3,18 @@ using UnityEngine.AI;
 
 namespace WGRF.AI
 {
-    /* [Node documentation]
-     * 
-     * [Custom Selector]
-     * Navigates the agent to the set target while checking if the target is behind an -OcclusionLayer- set gameObject. 
-     * Returns false if the target can be shot directly, true otherwise.
-     * 
-     * [Must know]
-     *  INodeData compatible.
-     */
+    /// <summary>
+    /// Navigates the agent to the set target while checking if the target is behind an -OcclusionLayer- set gameObject. 
+    /// Returns false if the target can be shot directly, true otherwise.
+    /// </summary>
     public class NavToTarget : INode
     {
+        ///<summary>The agent blackboard</summary>
         INodeData nodeData;
-
+        ///<summary>The agent of this node</summary>
         NavMeshAgent agent;
 
+        ///<summary>Creates a NavToTarget instance</summary>
         public NavToTarget(INodeData nodeData)
         {
             this.nodeData = nodeData;
@@ -26,9 +23,7 @@ namespace WGRF.AI
         }
 
         public INodeData GetNodeData()
-        {
-            return nodeData;
-        }
+        { return nodeData; }
 
         /// <summary>
         /// Call to set the agent destination to the currenty set Target transfrom (through the node data).

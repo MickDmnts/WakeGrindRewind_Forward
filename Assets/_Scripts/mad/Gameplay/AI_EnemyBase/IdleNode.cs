@@ -1,18 +1,14 @@
 namespace WGRF.AI
 {
-    /* [Node documentation]
-     * 
-     * [Custom Action]
-     *  If the AI is not a patroller automatically disables their walk animation.
-     * 
-     * [Must know]
-     *  EnemyNodeData compatible.
-     *  Passed to the IdlePatrolChaseSelector as a INode child.
-     */
+    /// <summary>
+    /// Idling action node
+    /// </summary>
     public class IdleNode : INode
     {
+        ///<summary>The agent blackboard</summary>
         EnemyNodeData nodeData;
 
+        ///<summary>Creates an IdleNode instance</summary>
         public IdleNode(INodeData nodeData)
         { this.nodeData = (EnemyNodeData)nodeData; }
 

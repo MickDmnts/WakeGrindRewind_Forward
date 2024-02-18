@@ -1,11 +1,16 @@
 namespace WGRF.AI
 {
+    /// <summary>
+    /// Moves the agent to shoot range
+    /// </summary>
     public class ChaseTargetActivator : INode
     {
+        ///<summary>The blackboard of this action</summary>
         EnemyNodeData nodeData;
-
+        ///<summary>The ChaseAttackSelector instance</summary>
         ChaseAttackSelector chaseTarget;
 
+        ///<summary>Creates a ChaseTargetActivator instance</summary>
         public ChaseTargetActivator(EnemyNodeData nodeData, ChaseAttackSelector chaseTarget)
         {
             this.nodeData = nodeData;
@@ -13,9 +18,7 @@ namespace WGRF.AI
         }
 
         public INodeData GetNodeData()
-        {
-            return nodeData;
-        }
+        { return nodeData; }
 
         /// <summary>
         /// Call to check if the nodeData target has been marked as found.

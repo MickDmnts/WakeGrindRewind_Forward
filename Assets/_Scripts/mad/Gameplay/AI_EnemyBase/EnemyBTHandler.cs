@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace WGRF.AI
 {
+    /// <summary>
+    /// The simple enemy behaviour tree handler
+    /// </summary>
     public class EnemyBTHandler : AIEntityBTHandler
     {
         ///<summary>The entity of this behaviour tree</summary>
@@ -21,6 +24,7 @@ namespace WGRF.AI
         ///<summary>The assigned AIs node data</summary>
         public EnemyNodeData NodeData => enemyNodeData;
 
+        ///<summary>Creates a EnemyBTHandler instance</summary>
         public EnemyBTHandler(EnemyNodeData nodeData, EnemyEntity enemyEntity)
         {
             this.enemyNodeData = nodeData;

@@ -1,15 +1,18 @@
-using UnityEngine;
 using WGRF.Core;
 
 namespace WGRF.AI
 {
+    ///<summary>Enforcer protection action node</summary>
     public class ProtectionSelector : INode
     {
+        ///<summary>The enforcer blackboard</summary>
         EnforcerNodeData nodeData;
-
+        ///<summary>The FindMostVulnerable node</summary>
         FindMostVulnerable lowestHp;
+        ///<summary>The ProtectVulnerable node</summary>
         ProtectVulnerable protectNode;
 
+        ///<summary>Creates a ProtectionSelector instance</summary>
         public ProtectionSelector(FindMostVulnerable lowestHp, ProtectVulnerable protectNode, EnforcerNodeData nodeData)
         {
             this.nodeData = nodeData;
@@ -18,14 +21,8 @@ namespace WGRF.AI
         }
 
         public INodeData GetNodeData()
-        {
-            return nodeData;
-        }
+        { return nodeData; }
 
-        /// <summary>
-        /// If the NavToTarget Run method returns false, calls and returns the AttackTargetAction Run method value.
-        /// <para>Returns false if none of the above apply.</para>
-        /// </summary>
         public bool Run()
         {
             if (nodeData.CanProtect)

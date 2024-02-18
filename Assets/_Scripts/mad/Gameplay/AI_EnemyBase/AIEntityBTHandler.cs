@@ -1,5 +1,8 @@
 namespace WGRF.AI
 {
+    /// <summary>
+    /// A base class for ai entity behaviour tree handling
+    /// </summary>
     public abstract class AIEntityBTHandler
     {
         /// <summary>
