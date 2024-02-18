@@ -15,11 +15,14 @@ namespace WGRF.Core
         MonoBehaviour handler;
         ///<summary>The cached fixed delta time</summary>
         float fixedDeltaTime;
-
+        ///<summary>The internal timer instance</summary>
         Timer timer;
+        ///<summary>The elapsed time value</summary>
         TimeSpan elapsedTime;
 
+        ///<summary>Returns the room time formatted as a string - hh\\:mm\\:ss</summary>
         public string RoomTime => elapsedTime.ToString("hh\\:mm\\:ss");
+        ///<summary>Returns the room time as seconds</summary>
         public int RoomTimeInt => (int)elapsedTime.TotalSeconds;
 
         ///<summary>Subscribe to this event to get notified when the time scale changes</summary>

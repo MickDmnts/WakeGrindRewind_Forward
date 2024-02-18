@@ -117,6 +117,9 @@ namespace WGRF.Core
             CreateManagers();
         }
 
+        /// <summary>
+        /// Creates and caches every game manager
+        /// </summary>
         void CreateManagers()
         {
             _gameEventsHandler = new GameEventsHandler();

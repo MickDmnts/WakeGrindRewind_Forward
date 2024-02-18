@@ -199,7 +199,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUB
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2809289063518233439, guid: d624bd26c65d2244b95d0f2e0ff3811d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

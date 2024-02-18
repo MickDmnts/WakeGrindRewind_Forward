@@ -11,24 +11,24 @@ namespace WGRF.Core
         [Header("Set controller component unique ID")]
         /// <summary>The ID of the specific Component registered into the assigned Controller.</summary>
         [SerializeField, Tooltip("The ID of the specific Component registered into the assigned Controller.")]
-        string _id = "";
+        string id = "";
 
         /// <summary>The Controller that this component will register into.</summary>
-        Controller _controller;
+        Controller controller;
 
         /// <summary>Gives access to the Hub.</summary>
         public Hub Hub => Hub.Instance;
         /// <summary>Gives access to the assigned controller.</summary>
-        public Controller Controller => _controller;
+        public Controller Controller => controller;
         /// <summary>Returns the assigned component ID to the Controller.</summary>
-        public string ID => _id;
+        public string ID => id;
 
         /// <summary>
         /// Assigns a component ID to be registered into the assigned Controller.
         /// </summary>
         public void SetID(string setID)
         {
-            _id = setID.Trim();
+            id = setID.Trim();
         }
 
         /// <summary>
@@ -42,14 +42,14 @@ namespace WGRF.Core
                 return;
             }
 
-            _controller = setCtr;
+            controller = setCtr;
         }
 
         protected virtual void Awake()
         {
             PreAwake();
 
-            RegisterController(_controller);
+            RegisterController(controller);
             PostAwake();
         }
 
@@ -74,7 +74,7 @@ namespace WGRF.Core
 
             if (cntr == this)
             {
-                Debug.LogError("Loop controller assignment detected on " + theType.FullName + " with ID \"" + _id + "\".");
+                Debug.LogError("Loop controller assignment detected on " + theType.FullName + " with ID \"" + id + "\".");
                 return;
             }
 
@@ -85,7 +85,7 @@ namespace WGRF.Core
         protected virtual void OnDestroy()
         {
             PreDestroy();
-            if (_controller) { _controller.Clear(this); }
+            if (controller) { controller.Clear(this); }
             PostDestroy();
         }
 

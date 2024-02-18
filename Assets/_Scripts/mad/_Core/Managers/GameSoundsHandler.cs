@@ -40,12 +40,17 @@ namespace WGRF.Core
         FlipLoad
     }
 
+    /// <summary>
+    /// Struct used for GameAudioClip enum and associated AudioClips pairs.
+    /// </summary>
     [Serializable]
     public struct AudioData
     {
         ///<summary>The audio type</summary>
+        [Tooltip("The audio type")]
         public GameAudioClip gameAudioClip;
         ///<summary>The associated audio clips of the type</summary>
+        [Tooltip("The associated audio clips of the type")]
         public AudioClip[] clips;
     }
 
@@ -91,9 +96,7 @@ namespace WGRF.Core
         }
 
         private void Start()
-        {
-            SetLoadedSettings(ManagerHub.S.SettingsHandler.UserSettings);
-        }
+        { SetLoadedSettings(ManagerHub.S.SettingsHandler.UserSettings); }
 
         /// <summary>
         /// Properly configures the OST and SFX audio sources of the game.

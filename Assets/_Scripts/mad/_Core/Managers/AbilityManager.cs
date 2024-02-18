@@ -16,7 +16,10 @@ namespace WGRF.Core
         RewindTime,
         StopTime,
     }
-
+    
+    /// <summary>
+    /// Ability handler of the game
+    /// </summary>
     [DefaultExecutionOrder(100)]
     public class AbilityManager : CoreBehaviour
     {
@@ -80,9 +83,7 @@ namespace WGRF.Core
         public void EnableAbilities()
         {
             foreach (Ability ability in abilities)
-            {
-                ability.ResetAbilityUses();
-            }
+            {                ability.ResetAbilityUses();            }
         }
 
         private void Start()
@@ -98,9 +99,7 @@ namespace WGRF.Core
         void StartAbilities()
         {
             foreach (Ability ability in abilities)
-            {
-                ability.Start(EnableAbilitySelection);
-            }
+            {                ability.Start(EnableAbilitySelection);            }
         }
 
         /// <summary>
@@ -212,6 +211,9 @@ namespace WGRF.Core
             return tempTier;
         }
 
+        /// <summary>
+        /// Returns the passed ability description
+        /// </summary>
         public string GetAbilityDescription(AbilityType type)
         {
             string tempStr = "";

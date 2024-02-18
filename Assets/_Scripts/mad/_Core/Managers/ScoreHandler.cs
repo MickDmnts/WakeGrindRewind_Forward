@@ -2,6 +2,9 @@ using System;
 
 namespace WGRF.Core
 {
+    /// <summary>
+    /// The games score handler
+    /// </summary>
     public class ScoreHandler
     {
         ///<summary>The current score</summary>

@@ -16,10 +16,11 @@ namespace WGRF.Core
         ///<summary>A static string which stores the App Data folder absolute path of the app.</summary>
         public string AppDataPath => appDataPath;
 
+        /// <summary>
+        /// Creates an app internal instance
+        /// </summary>
         public AppInternal()
-        {
-            HandleAppDataDirectory(appDataPath);
-        }
+        {            HandleAppDataDirectory(appDataPath);        }
 
         ///<summary>Call to create the application folder inside the sourcePath path.</summary>
         void HandleAppDataDirectory(string sourcePath)

@@ -117,17 +117,5 @@ namespace WGRF.Core
                 onPlayerKickEnd();
             }
         }
-
-        /// <summary>
-        /// Called when the player picks up the bat prefab in the intro scene.
-        /// </summary>
-        public event Action onWeaponPickup;
-        public void OnWeaponPickup()
-        {
-            if (onWeaponPickup != null)
-            {
-                onWeaponPickup();
-            }
-        }
     }
 }

@@ -7,8 +7,5 @@ namespace WGRF.Interactions
     {
         ///<summary>Calls the attack interaction of the entity</summary>
         void AttackInteraction(int damage);
-
-        /* ///<summary>The stun interaction of the entity</summary>
-        void StunInteraction(); */
     }
 }
